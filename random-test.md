@@ -10,7 +10,7 @@ After deploying the model, the team observes that while the training Area Under 
 
 Which hyperparameter modification would best help reduce overfitting and improve validation performance for this XGBoost model?
 
-[x] Decrease the value of the max_depth hyperparameter to limit tree complexity and prevent overfitting on dominant patterns in the training data.
+[x] **Decrease the value of the max_depth hyperparameter to limit tree complexity and prevent overfitting on dominant patterns in the training data.**
 
 [ ] Decrease the min_child_weight parameter to allow each leaf node to split more easily, capturing additional complexity in the dataset.
 
@@ -58,7 +58,7 @@ Which of the solutions provides a managed solution for detecting toxicity in tex
 
 [ ] Use Amazon Bedrock to fine-tune a foundation model for general language understanding.
 
-[x] Utilize Amazon Comprehend toxicity detection to identify abusive or harmful language in text.
+[x] **Utilize Amazon Comprehend toxicity detection to identify abusive or harmful language in text.**
 
 > Giải thích: 
 
@@ -91,7 +91,7 @@ Which of the following should be implemented?
 
 [ ] Enroll the ML lab AWS account into the enterprise AWS Organizations hierarchy, create an organization-level Service Control Policy (SCP) granting S3 read access to the required S3 buckets, and propagate Service Control Policy inheritance so the ML lab can consume data as a member Organizational Unit (OU) with standard enterprise guardrails.
 
-[x] Create a delegated IAM role within the enterprise account that specifies trust exclusively toward the ML lab AWS account, and grant that role only the precise S3 level permissions required to read the feature corpus datasets and evaluate access both programmatically and via AWS console role assumption.
+[x] **Create a delegated IAM role within the enterprise account that specifies trust exclusively toward the ML lab AWS account, and grant that role only the precise S3 level permissions required to read the feature corpus datasets and evaluate access both programmatically and via AWS console role assumption.**
 
 [ ] Configure a VPC endpoint policy in the ML lab account that permits access to a specific S3 prefix pattern, then require the ML lab to always route all training workloads through this endpoint to enforce granular network access boundaries between both accounts.
 
@@ -138,7 +138,7 @@ Which of the following should be implemented?
 
 [ ] Reassign a portion of the training samples to the validation dataset. Adjust the split to 75% for training and 25% for validation to achieve a better balance.
 
-[x] Adjust model hyperparameters to introduce stronger regularization and retrain the model to minimize overfitting.
+[x] **Adjust model hyperparameters to introduce stronger regularization and retrain the model to minimize overfitting.**
 
 > Giải thích: 
 
@@ -177,7 +177,7 @@ Which prompt engineering technique should the team apply to improve multi-step r
 
 [ ] Utilize context window expansion by including more background information or documents in the prompt to improve answer accuracy.
 
-[x] Use a chain-of-thought prompting to guide the model through each step of the problem before providing a final answer.
+[x] **Use a chain-of-thought prompting to guide the model through each step of the problem before providing a final answer.**
 
 > Giải thích 
 
@@ -215,7 +215,7 @@ Which solution ensures secure and scalable inference while minimizing operationa
 
 [ ] Host the LLM on an Amazon EC2 instance, connect it to Bedrock AgentCore via a REST API, and use CloudWatch Logs to monitor the API calls.
 
-[x] Import the fine-tuned model directly into Bedrock using the Custom Model Import, assign an AgentCore-managed execution role, and set up CloudWatch for real-time monitoring of model metrics.
+[x] **Import the fine-tuned model directly into Bedrock using the Custom Model Import, assign an AgentCore-managed execution role, and set up CloudWatch for real-time monitoring of model metrics.**
 
 [ ] Deploy the fine-tuned LLM to SageMaker AI, configure an AWS Lambda function to invoke SageMaker endpoints, and monitor performance using CloudWatch metrics.
 
@@ -251,7 +251,7 @@ Which approach will address these objectives with the LEAST operational complexi
 
 [ ] Store document embeddings in Amazon SageMaker Data Wrangler, and connect it with Bedrock to perform RAG queries on the stored embeddings.
 
-[x] Develop a knowledge base in Bedrock, associate the S3 bucket as a data source, and use the Bedrock API to execute RAG queries.
+[x] **Develop a knowledge base in Bedrock, associate the S3 bucket as a data source, and use the Bedrock API to execute RAG queries.**
 
 [ ] Set up a new model within Amazon SageMaker Pipelines and call it from Bedrock to perform RAG queries.
 
@@ -296,7 +296,7 @@ Which solution will meet the given requirements?
 
 [ ] Route telemetry data over Message Queuing Telemetry Transport (MQTT) to AWS IoT Core, configure a rule in IoT Core to direct the data to an Amazon Data Firehose stream that delivers data to an S3.
 
-[x] Use AWS IoT Greengrass on each device to preprocess telemetry data locally, then batch upload the data to S3 using AWS SDK calls from the edge.
+[x] **Use AWS IoT Greengrass on each device to preprocess telemetry data locally, then batch upload the data to S3 using AWS SDK calls from the edge.**
 
 > Giải thích: 
 
@@ -338,7 +338,7 @@ Which solution will resolve this issue and improve the model’s stability?
 
 [ ] Expand the memory capacity of the Bedrock AgentCore agent.
 
-[x] Increase the number of Bedrock AgentCore agent instances.
+[x] **Increase the number of Bedrock AgentCore agent instances.**
 
 [ ] Add more processing power to the Bedrock AgentCore agent.
 
@@ -379,7 +379,7 @@ Which corrective action should the developer take to resolve the persistent viol
 
 [ ] Trigger a new SageMaker model training job with the existing baseline dataset to refresh the model's performance.
 
-[x] Perform a baseline job on the new training data and configure Model Monitor to reference the new baseline statistics.
+[x] **Perform a baseline job on the new training data and configure Model Monitor to reference the new baseline statistics.**
 
 [ ] Adjust the SageMaker Model Monitor threshold settings to reduce the frequency of violations.
 
@@ -424,7 +424,7 @@ For compliance reasons, all model artifacts must be encrypted using AWS KMS, and
 
 Which solution provides a secure, compliant, and observable architecture for deploying and monitoring the Titan-based generative AI model?
 
-[x] Fine-tune the Titan model in SageMaker AI using training data stored in Amazon S3 with KMS encryption, deploy the model through Bedrock with a customer-managed KMS key, enable AWS CloudTrail for API auditing, and use Amazon CloudWatch metrics for regional performance monitoring.
+[x] **Fine-tune the Titan model in SageMaker AI using training data stored in Amazon S3 with KMS encryption, deploy the model through Bedrock with a customer-managed KMS key, enable AWS CloudTrail for API auditing, and use Amazon CloudWatch metrics for regional performance monitoring.**
 
 [ ] Train the Titan model entirely within SageMaker AI, export it to an Amazon EC2-based inference server with Amazon EBS encryption, and use AWS Config for compliance monitoring.
 
@@ -473,7 +473,7 @@ Which hyperparameter tuning job configuration should be used?
 
 [ ] Run a new hyperparameter tuning job using SageMaker AMT Hyperband strategy, allowing the system to aggressively eliminate poorly performing training jobs early while exploring the new quarterly dataset with wider search ranges. Depend on Hyperband efficiency itself rather than importing prior warm start knowledge from the previously tuned model.
 
-[x] Start a warm start hyperparameter tuning job using the TRANSFER_LEARNING warm start type to import the previously saved tuning job results. Enable AMT Early Stopping to automatically terminate exploration as soon as validation loss stops improving when training with the new quarterly dataset.
+[x] **Start a warm start hyperparameter tuning job using the TRANSFER_LEARNING warm start type to import the previously saved tuning job results. Enable AMT Early Stopping to automatically terminate exploration as soon as validation loss stops improving when training with the new quarterly dataset.**
 
 [ ] Configure a warm start hyperparameter tuning job with the IDENTICAL_DATA_AND_ALGORITHM warm start mode and enable AMT Early Stopping to automatically terminate exploration as soon as validation loss stops improving.
 
@@ -521,7 +521,7 @@ The enterprise recently expanded its media repository with several petabytes of 
 
 Which solution provides the fastest and most effective approach to automatically index and categorize the multimedia assets?
 
-[x] Leverage Amazon Comprehend, Amazon Transcribe, and Amazon Rekognition to categorize and tag multimedia content automatically
+[x] **Leverage Amazon Comprehend, Amazon Transcribe, and Amazon Rekognition to categorize and tag multimedia content automatically**
 
 [ ] Convert audio to text using Amazon Transcribe, then use SageMaker’s Neural Topic Model (NTM) and Object Detection to assign category tags across the dataset.
 
@@ -579,7 +579,7 @@ Which is the most effective way to resolve this problem?
 
 [ ] Combine all prompts into a single JSONL file, compress it, and configure the evaluation job in Bedrock to process it as one batch.
 
-[x] Split the dataset into multiple smaller JSONL files of up to 1,000 prompts each, store them in S3, and run separate evaluation jobs in Bedrock orchestrated by SageMaker Pipelines.
+[x] **Split the dataset into multiple smaller JSONL files of up to 1,000 prompts each, store them in S3, and run separate evaluation jobs in Bedrock orchestrated by SageMaker Pipelines.**
 
 [ ] Enable S3 bucket versioning and set proper access permissions for SageMaker and Bedrock.
 
@@ -629,15 +629,15 @@ Which of the following operations should be implemented in the preprocessing pha
 
 [ ] Apply part-of-speech tagging to identify grammatical elements and retain only the verbs and nouns.
 
-[x] Normalize the text by converting every word in the sentence to lowercase.
+[x] **Normalize the text by converting every word in the sentence to lowercase.**
 
 [ ] Replace every word with its corresponding synonym using a lexical database before tokenization.
 
-[x] Segment the sentence into individual word units through tokenization.
+[x] **Segment the sentence into individual word units through tokenization.**
 
 [ ] Convert all tokens into fixed-length character n-grams before Word2Vec training to capture subword features.
 
-[x] Exclude common non-informative words from the dataset using an English stop-word dictionary.
+[x] **Exclude common non-informative words from the dataset using an English stop-word dictionary.**
 
 > Giải thích: 
 
@@ -662,3 +662,1420 @@ Which of the following operations should be implemented in the preprocessing pha
 * **Amazon Titan Text Embeddings:** Đây là một mô hình nhúng (Embedding model) được cung cấp dưới dạng dịch vụ trên Bedrock. Điểm khác biệt là nó đã được huấn luyện sẵn (pre-trained) trên quy mô khổng lồ. Tuy nhiên, trong đề bài này, đội ngũ chọn tự huấn luyện Word2Vec trên SageMaker AI để kiểm soát hoàn toàn bộ dữ liệu đặc thù.
 * **Reproducibility (Tính tái lặp):** Khi sử dụng SageMaker Data Wrangler, mọi bước biến đổi dữ liệu được lưu lại thành một quy trình (flow). Điều này đảm bảo rằng khi có tập dữ liệu mới của quý tiếp theo, bạn chỉ cần chạy lại flow đó để có kết quả tiền xử lý giống hệt, giúp duy trì tính ổn định cho mô hình.
 * **Handling Mixed Encodings:** Trong thực tế, trước khi thực hiện 3 bước trên, bạn thường cần một bước chuẩn hóa Unicode để đảm bảo các ký tự đặc biệt hoặc mã hóa khác nhau (UTF-8, Latin-1) được đưa về cùng một chuẩn.
+
+---
+
+### **Question 16:**
+
+Category: AIP – AI Safety, Security, and Governance
+
+A large retail company is looking to leverage Amazon SageMaker AI notebooks and Amazon Comprehend to process and analyze customer feedback data. The company uses Amazon S3 buckets to store large datasets of customer reviews, and the data needs to be accessed securely for machine learning analysis.
+
+Given the sensitivity of the data, the company mandates that all resources must remain within a secure Amazon Virtual Private Cloud (VPC). Additionally, all communication must occur over the AWS network.
+
+Which solution will satisfy the given requirements?
+
+[ ] Deploy the SageMaker AI notebook in a private subnet with a route to an internet gateway and ensure that all data requests to S3 are routed through an external proxy.
+
+[ ] Deploy the SageMaker AI notebook in a private subnet within a VPC and use a VPC Peering connection with another VPC where S3 is accessible.
+
+[ ] Deploy the SageMaker AI notebook in a private subnet, use a NAT gateway to provide outbound internet access for S3, and restrict access to only specific S3 buckets.
+
+[x] **Deploy the SageMaker AI notebook in a private subnet within a VPC and ensure that the VPC has private endpoints for both SageMaker AI and S3.**
+
+> Giải thích: 
+
+#### 1. Giải thích đáp án đúng
+
+Giải pháp này đáp ứng hoàn hảo hai yêu cầu cốt lõi của đề bài: **Tài nguyên nằm trong VPC bảo mật** và **Mọi giao tiếp phải diễn ra trong mạng nội bộ AWS (AWS network)**.
+
+* **VPC Private Subnet:** Việc đặt SageMaker Notebook trong subnet riêng tư đảm bảo nó không có địa chỉ IP công cộng và không thể bị truy cập trực tiếp từ Internet.
+* **VPC Endpoints (AWS PrivateLink):** Đây là yếu tố then chốt.
+* **Interface VPC Endpoint** cho SageMaker AI và **Gateway VPC Endpoint** cho S3 cho phép traffic di chuyển trực tiếp từ VPC đến các dịch vụ AWS thông qua hạ tầng mạng riêng của AWS.
+* Dữ liệu **không bao giờ đi qua Internet công cộng**. Điều này thỏa mãn yêu cầu về bảo mật dữ liệu nhạy cảm và tuân thủ quy định của công ty.
+
+
+* **Tính bảo mật:** Bằng cách sử dụng Endpoint, bạn có thể áp dụng thêm **Endpoint Policies** để giới hạn quyền truy cập (ví dụ: chỉ cho phép VPC này truy cập vào một Bucket S3 cụ thể), tăng cường khả năng quản trị.
+
+#### 2. Tại sao các phương án còn lại sai?
+
+* **Phương án 1 (Internet Gateway & External Proxy):** Việc sử dụng Internet Gateway và External Proxy có nghĩa là dữ liệu sẽ đi ra khỏi mạng nội bộ AWS để đến proxy trước khi quay lại S3. Điều này vi phạm yêu cầu "all communication must occur over the AWS network" và tạo ra rủi ro bảo mật tiềm ẩn.
+* **Phương án 2 (VPC Peering):** VPC Peering dùng để kết nối hai VPC với nhau. Tuy nhiên, S3 là một dịch vụ công cộng của AWS (public service), không nằm trong một VPC cụ thể của khách hàng. Do đó, VPC Peering không phải là giải pháp để truy cập S3 một cách riêng tư.
+* **Phương án 3 (NAT Gateway):** NAT Gateway cho phép các tài nguyên trong private subnet truy cập Internet. Mặc dù nó giúp kết nối tới S3, nhưng traffic vẫn đi qua các điểm truy cập công cộng (public endpoints) của S3. Điều này không tối ưu bằng VPC Endpoint và không đáp ứng triệt để yêu cầu "giao tiếp trong mạng AWS" một cách khép kín nhất.
+
+#### 3. Notes: Các dịch vụ và lưu ý về Bảo mật AI (Cập nhật 2025)
+
+Dưới đây là những điểm quan trọng về bảo mật hạ tầng cho các dự án AI/ML trên AWS:
+
+* **SageMaker AI (Tên mới):** Như đã đề cập ở các câu trước, AWS đã hợp nhất các dịch vụ dưới thương hiệu SageMaker AI để bao hàm cả GenAI và ML truyền thống.
+* **Interface Endpoint vs. Gateway Endpoint:**
+* **S3 & DynamoDB:** Sử dụng **Gateway Endpoints** (miễn phí, dựa trên bảng định tuyến - route table).
+* **Hầu hết các dịch vụ khác (SageMaker, Comprehend, Bedrock):** Sử dụng **Interface Endpoints** (có phí, dựa trên PrivateLink/ENI).
+
+
+* **Amazon Comprehend với VPC:** Tương tự như SageMaker, nếu bạn muốn gọi các tác vụ phân tích văn bản của Comprehend từ trong VPC mà không qua Internet, bạn cũng cần tạo một **Interface VPC Endpoint** cho Comprehend.
+* **IAM Roles & S3 Bucket Policies:** Ngoài việc thiết lập hạ tầng mạng (VPC), bạn luôn cần áp dụng nguyên tắc **Least Privilege** (Quyền hạn tối thiểu) thông qua IAM Role gắn vào SageMaker Notebook để đảm bảo chỉ những người dùng/dịch vụ hợp lệ mới có thể đọc dữ liệu nhạy cảm.
+
+---
+
+### **Question 17:**
+
+Category: AIP – Foundation Model Integration, Data Management, and Compliance
+
+A global market research firm stores thousands of recorded analyst briefings in Amazon S3. The data science division uses Amazon SageMaker AI JumpStart to experiment with pretrained NLP models for text classification and Amazon Polly to synthesize sample voice outputs for model validation. The next project phase requires grouping all recorded discussions by the conversation themes, such as equity strategy, macroeconomic policy, and currency trends. The AI developer must choose an approach that automatically categorizes these recordings by topic, while minimizing custom development effort.
+
+Which solution will meet this requirement most efficiently?
+
+[ ] Build a custom data labeling workflow in SageMaker AI Ground Truth, then execute Amazon Transcribe jobs to convert audio to text and use SageMaker AI semantic segmentation to group the labeled outputs.
+
+[ ] Run Amazon Transcribe jobs followed by an Amazon Comprehend custom classifier to assign predefined topic labels to each transcript.
+
+[ ] Generate transcripts through Amazon Transcribe jobs, then sequentially train both the SageMaker AI semantic segmentation algorithm and Neural Topic Model (NTM) algorithm to manually group textual content into themes.
+
+[x] **Configure Amazon Transcribe jobs to process all recordings into text, followed by an Amazon Comprehend topic detection job that identifies and clusters conversation topics.**
+
+> Giải thích
+
+#### 1. Giải thích đáp án đúng
+
+Đây là giải pháp hiệu quả nhất (most efficient) vì nó sử dụng các dịch vụ AI được quản lý hoàn toàn (fully managed) để giải quyết bài toán mà không cần huấn luyện mô hình tùy chỉnh:
+
+* **Chuyển đổi âm thanh sang văn bản:** **Amazon Transcribe** là lựa chọn tiêu chuẩn để chuyển đổi hàng ngàn bản ghi âm (analyst briefings) từ S3 thành văn bản (text) một cách tự động và quy mô lớn.
+* **Phân nhóm theo chủ đề (Topic Modeling):** Yêu cầu của đề bài là "grouping discussions by conversation themes". **Amazon Comprehend Topic Detection** được thiết kế chính xác cho việc này. Nó sử dụng thuật toán học không giám sát (unsupervised learning) để tự động kiểm tra các tập tài liệu và xác định các chủ đề chung (như equity strategy, macro policy) mà **không cần người dùng phải gán nhãn dữ liệu trước** hoặc định nghĩa nhãn.
+* **Tối thiểu hóa nỗ lực phát triển:** Cả hai dịch vụ này đều hoạt động thông qua API hoặc bảng điều khiển AWS, giúp giảm thiểu tối đa việc viết code tùy chỉnh, đáp ứng yêu cầu "minimizing custom development effort".
+
+#### 2. Tại sao các phương án còn lại sai?
+
+* **Phương án 1 (SageMaker AI Ground Truth):** Giải pháp này yêu cầu "custom data labeling" (gán nhãn thủ công). Điều này cực kỳ tốn thời gian và công sức, đi ngược lại mục tiêu "giảm thiểu nỗ lực phát triển". Ngoài ra, *Semantic Segmentation* thường dùng cho xử lý hình ảnh (phân đoạn pixel), không phải là thuật toán chính cho phân loại văn bản.
+* **Phương án 2 (Comprehend Custom Classifier):** Để dùng *Custom Classifier*, bạn phải có một tập dữ liệu đã được gắn nhãn sẵn để huấn luyện mô hình nhận diện các chủ đề cụ thể. Đề bài không nói rằng công ty đã có sẵn các nhãn này, nên việc xây dựng bộ phân loại tùy chỉnh sẽ tốn nhiều công sức hơn là dùng tính năng Topic Detection có sẵn.
+* **Phương án 3 (Training NTM manually):** Việc tự huấn luyện thuật toán *Neural Topic Model (NTM)* trên SageMaker AI yêu cầu kiến thức chuyên sâu về Machine Learning, cấu hình hạ tầng, chuẩn bị dữ liệu và điều chỉnh tham số. Đây không phải là cách tiếp cận "hiệu quả nhất" khi đã có dịch vụ AI chuyên dụng như Comprehend thực hiện việc này chỉ với vài cú click.
+
+#### 3. Notes: Các dịch vụ AI phục vụ phân tích ngôn ngữ (NLP)
+
+Dưới đây là các lưu ý quan trọng để phân biệt các công cụ xử lý ngôn ngữ trên AWS:
+
+* **Amazon Comprehend Topic Detection:** Khác với phân loại (classification), Topic Detection là **unsupervised**. Nó tự tìm ra các nhóm từ thường xuyên xuất hiện cùng nhau và nhóm các tài liệu lại. Kết quả trả về là một danh sách các chủ đề và danh sách các tài liệu thuộc về mỗi chủ đề đó.
+* **Amazon SageMaker AI JumpStart:** Đây là một kho chứa (hub) các mô hình nền tảng (Foundation Models) và các thuật toán được xây dựng sẵn. Dù nó rất mạnh mẽ để thực hiện các thí nghiệm nâng cao, nhưng đối với các tác vụ phổ biến như trích xuất chủ đề, các dịch vụ AI cấp cao như Comprehend thường nhanh và rẻ hơn.
+* **Amazon Polly:** Trong câu hỏi này, Polly chỉ là "nhiễu" (distractor). Polly dùng để chuyển văn bản thành giọng nói (Text-to-Speech), phục vụ cho việc xác thực mô hình chứ không đóng góp vào quy trình phân tích và phân loại nội dung audio đầu vào.
+* **Amazon Transcribe Call Analytics:** Một tính năng mở rộng của Transcribe có thể tự động xác định các đặc tính của cuộc hội thoại như tâm trạng (sentiment), các thực thể được nhắc đến, và thậm chí là tóm tắt nội dung, rất hữu ích cho các bản ghi âm hội thoại chuyên sâu.
+
+---
+### **Question 18:**
+
+Category: AIP – Foundation Model Integration, Data Management, and Compliance
+
+A data science team is developing a computer vision model using Amazon SageMaker AI to classify product images that customers upload. In addition to image features, the team plans to integrate Amazon Comprehend to analyze customer feedback text associated with each image. During data preparation, the team noticed that one of the numerical features representing image brightness seemed to affect the model’s convergence rate during training.
+
+The lead ML engineer wants to explore how the brightness values are distributed in the dataset before deciding to apply normalization. The engineer uses SageMaker Data Wrangler for feature engineering and data preprocessing.
+
+Which actions should the engineer take to best understand the range and distribution of the brightness feature values before transformation?
+
+[ ] The engineer should export the dataset to Amazon S3 and use AWS Glue DataBrew to create a box plot visualization of the brightness feature.
+
+[ ] The engineer should use Comprehend to perform sentiment analysis on the brightness values to determine if normalization is needed.
+
+[ ] The engineer should use SageMaker Clarify to detect data bias in the brightness feature before performing any normalization.
+
+[x] **The engineer should use the SageMaker Data Wrangler histogram visualization to inspect the range of values for the brightness feature and identify any outliers.**
+
+> Giải thích: 
+
+#### 1. Giải thích đáp án đúng
+
+Đây là cách tiếp cận trực tiếp và hiệu quả nhất khi bạn đã sử dụng **SageMaker Data Wrangler** cho quy trình làm việc (workflow) của mình:
+
+* **Histogram (Biểu đồ tần suất):** Là công cụ tiêu chuẩn để quan sát phân phối (distribution) của một đặc tính số học (numerical feature). Nó giúp kỹ sư nhìn rõ giá trị độ sáng tập trung ở đâu, dải giá trị (range) rộng hay hẹp, và liệu có các giá trị ngoại lai (outliers) quá cao hoặc quá thấp hay không.
+* **Tích hợp sẵn (Built-in):** SageMaker Data Wrangler cung cấp các công cụ trực quan hóa tích hợp sẵn. Kỹ sư không cần phải rời khỏi môi trường làm việc hoặc xuất dữ liệu sang dịch vụ khác, giúp tiết kiệm thời gian và duy trì tính nhất quán của quy trình xử lý dữ liệu (data lineage).
+* **Hỗ trợ quyết định:** Dựa trên hình dạng của histogram (ví dụ: nếu nó bị lệch - skewed), kỹ sư có thể quyết định áp dụng các kỹ thuật chuẩn hóa (normalization) hoặc chuẩn hóa theo phân phối chuẩn (standardization) một cách chính xác.
+
+#### 2. Tại sao các phương án còn lại sai?
+
+* **Phương án 1 (AWS Glue DataBrew):** Mặc dù AWS Glue DataBrew cũng có khả năng trực quan hóa mạnh mẽ, nhưng việc phải xuất dữ liệu ngược lại Amazon S3 rồi mới mở DataBrew tạo ra các bước thừa không cần thiết (overhead) khi bạn đang làm việc trực tiếp trong SageMaker Data Wrangler.
+* **Phương án 2 (Amazon Comprehend):** Đây là một phương án gây nhiễu hoàn toàn sai về mặt kỹ thuật. Amazon Comprehend là dịch vụ phân tích ngôn ngữ tự nhiên (NLP) dùng cho văn bản. Nó không thể thực hiện "sentiment analysis" trên các giá trị số (brightness values) và càng không thể giúp xác định nhu cầu chuẩn hóa dữ liệu hình ảnh.
+* **Phương án 3 (SageMaker Clarify):** SageMaker Clarify chủ yếu được dùng để phát hiện độ lệch (bias) liên quan đến các thuộc tính nhạy cảm (như giới tính, sắc tộc) hoặc phân tích sự đóng góp của các đặc tính (feature attribution). Dù nó có thể hiển thị phân phối, nhưng mục đích chính của nó là kiểm tra tính công bằng và giải thích mô hình, không phải là công cụ cơ bản nhất để kiểm tra dải giá trị đơn thuần cho việc chuẩn hóa như Histogram.
+
+#### 3. Notes: Các tính năng phân tích dữ liệu trong SageMaker AI
+
+Dưới đây là một số dịch vụ và tính năng quan trọng phục vụ việc tiền xử lý và hiểu dữ liệu:
+
+* **SageMaker Data Wrangler:** Hiện tại đã được hợp nhất sâu vào Amazon SageMaker Studio, cho phép bạn thực hiện hơn 300 phép biến đổi dữ liệu mà không cần code. Ngoài Histogram, nó còn hỗ trợ *Scatter plots*, *Box plots*, và *Target leakage analysis*.
+* **Normalization vs. Standardization:**
+* **Normalization (Min-Max Scaling):** Đưa dữ liệu về dải [0, 1]. Phù hợp khi bạn biết rõ dải giá trị và không có nhiều nhiễu.
+* **Standardization (Z-score Scaling):** Đưa dữ liệu về dạng có trung bình bằng 0 và độ lệch chuẩn bằng 1. Thường giúp mô hình hội tụ nhanh hơn nếu dữ liệu có phân phối hình chuông (Gaussian).
+
+
+* **Amazon Comprehend (Tích hợp):** Trong bài toán này, Comprehend được dùng để xử lý phần văn bản (customer feedback). Kết quả từ Comprehend (ví dụ: điểm cảm xúc - sentiment score) có thể được kết hợp với các đặc tính hình ảnh (image features) trong SageMaker để tạo ra một mô hình đa phương thức (multimodal model).
+* **Data Insights Report:** Một tính năng trong Data Wrangler tự động tạo báo cáo về chất lượng dữ liệu, cảnh báo về các cột có giá trị bị thiếu hoặc các đặc tính có biến động (variance) quá thấp.
+
+---
+### **Question 19:**
+
+Category: AIP – AI Safety, Security, and Governance
+
+An organization is developing a machine learning-based fraud detection system to process real-time transactions. The system leverages multiple APIs for generating embeddings from transaction descriptions, which are then used to assess the likelihood of fraud. These APIs are integrated with Amazon Comprehend for natural language processing tasks and Amazon SageMaker AI to handle advanced machine learning tasks for analyzing transaction patterns and building custom fraud detection models.
+
+The organization’s security policy requires rotating API tokens every 3 months to reduce exposure risks. The solution must automate token rotation, maintain strong security, and integrate smoothly with existing AWS services. It must also ensure secure token storage, automatic updates within applications, and continuous operation without downtime.
+
+Which solution will best address these requirements?
+
+[ ] Use AWS Secrets Manager to store the tokens, monitor API usage with AWS CloudTrail, and rely on Amazon EventBridge to trigger token rotation.
+
+[ ] Use AWS Systems Manager Parameter Store to store the tokens and rely on an AWS Lambda function for automatic rotation.
+
+[ ] Use AWS Key Management Service (AWS KMS) with customer-managed keys to store the tokens and rely on Amazon EventBridge to trigger rotation events.
+
+[x] **Use AWS Secrets Manager to store the tokens and rely on an AWS Lambda function to perform the rotation process.**
+
+> Giải thích: 
+
+#### 1. Giải thích đáp án đúng
+
+Đây là giải pháp tiêu chuẩn của AWS (Best Practice) để quản lý vòng đời của các thông tin nhạy cảm như API tokens:
+
+* **AWS Secrets Manager:** Được thiết kế chuyên biệt để lưu trữ, quản lý và xoay vòng (rotate) các bí mật (secrets). Dịch vụ này hỗ trợ lưu trữ các thông tin dưới dạng cặp key-value và có tính năng **phiên bản hóa (versioning)**, giúp đảm bảo hệ thống không bị gián đoạn (no downtime) trong khi quá trình xoay vòng đang diễn ra.
+* **AWS Lambda:** Secrets Manager tích hợp trực tiếp với Lambda để thực hiện logic xoay vòng. Khi đến thời hạn (ví dụ: 3 tháng), Secrets Manager sẽ kích hoạt hàm Lambda. Hàm này sẽ thực hiện các bước: tạo token mới từ nhà cung cấp API, cập nhật token mới vào Secrets Manager và kiểm tra tính hợp lệ.
+* **Bảo mật và Tự động hóa:** Giải pháp này loại bỏ việc lưu trữ token "cứng" (hard-coded) trong mã nguồn hoặc tệp cấu hình. Ứng dụng sẽ gọi API Secrets Manager để lấy token mới nhất mỗi khi cần, đảm bảo tính liên tục và an toàn tuyệt đối theo đúng yêu cầu của tổ chức.
+
+#### 2. Tại sao các phương án còn lại sai?
+
+* **Phương án 1 (EventBridge & CloudTrail):** Mặc dù EventBridge có thể lên lịch kích hoạt, nhưng việc sử dụng CloudTrail để giám sát mức độ sử dụng không phải là cơ chế để thực hiện xoay vòng. Phương án này thiếu một thành phần thực thi logic xoay vòng (như Lambda).
+* **Phương án 2 (Systems Manager Parameter Store):** SSM Parameter Store (loại SecureString) có thể lưu trữ token, nhưng nó **không có tính năng tự động xoay vòng tích hợp** mạnh mẽ như Secrets Manager. Bạn sẽ phải tự xây dựng toàn bộ cơ chế quản lý phiên bản và kích hoạt, điều này làm tăng nỗ lực phát triển và rủi ro vận hành.
+* **Phương án 3 (AWS KMS):** KMS được dùng để tạo và quản lý **khóa mã hóa** (encryption keys), không phải là dịch vụ dùng để **lưu trữ** các API tokens của bên thứ ba. Đây là sự nhầm lẫn phổ biến về chức năng của các dịch vụ bảo mật.
+
+#### 3. Notes: Các dịch vụ và lưu ý quan trọng (Cập nhật 2025)
+
+Dưới đây là một số điểm cần lưu ý khi thiết kế hệ thống bảo mật cho AI/ML:
+
+* **Secrets Manager vs. Parameter Store:** * Sử dụng **Secrets Manager** khi bạn cần tính năng tự động xoay vòng và quản lý các bí mật phức tạp (có phí).
+* Sử dụng **Parameter Store** cho các cấu hình thông thường hoặc bí mật đơn giản không yêu cầu xoay vòng tự động (miễn phí cho các tham số tiêu chuẩn).
+
+
+* **VPC Endpoints cho Secrets Manager:** Để đảm bảo tính bảo mật cao nhất (như yêu cầu của đề bài), bạn nên sử dụng **Interface VPC Endpoint (AWS PrivateLink)** để các ứng dụng trong VPC (như SageMaker Notebooks) truy cập Secrets Manager mà không cần đi qua Internet công cộng.
+* **IAM Policy:** Luôn áp dụng nguyên tắc **Least Privilege** (Quyền hạn tối thiểu). Chỉ cho phép hàm Lambda thực hiện xoay vòng có quyền truy cập vào secret cụ thể và chỉ cho phép ứng dụng Fraud Detection có quyền `GetSecretValue`.
+* **Integration with SageMaker AI:** Trong các pipeline của SageMaker, bạn có thể sử dụng thư viện `boto3` để truy xuất API tokens từ Secrets Manager ngay trong quá trình huấn luyện hoặc suy luận (inference), đảm bảo thông tin luôn được cập nhật mới nhất.
+
+---
+### **Question 20:**
+
+Category: AIP – AI Safety, Security, and Governance
+
+A financial services company is modernizing its machine learning (ML) platform using Amazon SageMaker AI and Amazon Rekognition to automate fraud detection and document verification workflows. The AI development team uses Rekognition to extract and analyze visual data from scanned identification documents, and then processes these insights in dedicated SageMaker notebook instances to train models that classify fraudulent patterns.
+
+The administrator must ensure that each AI developer can access only the assigned SageMaker notebook instance while maintaining shared access to the Rekognition APIs and centralized training data stored in Amazon S3.
+
+Which solution will meet this requirement?
+
+[ ] Enable port forwarding on the SageMaker notebook instances to block external network access for unauthorized users.
+
+[ ] Configure SageMaker lifecycle configurations to prevent developers from accessing unassigned notebook instances.
+
+**[x] Create an IAM policy for each AI developer’s IAM user that grants SageMaker permissions only for the ARN of their assigned notebook instance.**
+
+[ ] Create a shared SageMaker notebook instance and restrict developer access by configuring JupyterLab role-based permissions.
+
+> Giải thích: 
+
+#### 1. Giải thích đáp án đúng
+
+Đây là giải pháp tuân thủ **Nguyên tắc quyền hạn tối thiểu (Principle of Least Privilege)** của AWS để quản lý truy cập:
+
+* **IAM Policy dựa trên ARN:** Mỗi tài nguyên trong AWS (bao gồm cả SageMaker Notebook Instance) đều có một mã định danh duy nhất gọi là **ARN (Amazon Resource Name)**. Bằng cách viết một chính sách IAM chỉ cho phép hành động `sagemaker:CreatePresignedNotebookInstanceUrl` hoặc `sagemaker:StartNotebookInstance` trên một ARN cụ thể, quản trị viên đảm bảo rằng Developer A không thể mở hoặc can thiệp vào Notebook của Developer B.
+* **Quyền truy cập chung (Shared Access):** Các quyền truy cập vào **Amazon Rekognition APIs** và **Amazon S3** (dữ liệu huấn luyện tập trung) có thể được định nghĩa trong một chính sách IAM khác hoặc gán trực tiếp vào IAM Role mà tất cả các developer đều sử dụng. Điều này cho phép họ làm việc độc lập trên môi trường tính toán của mình nhưng vẫn dùng chung tài nguyên dữ liệu và dịch vụ AI của công ty.
+* **Tính quy mô:** Giải pháp này tận dụng hạ tầng quản lý định danh (IAM) có sẵn của AWS, giúp dễ dàng kiểm soát, kiểm toán và thay đổi quyền hạn mà không cần can thiệp vào cấu hình bên trong máy chủ.
+
+#### 2. Tại sao các phương án còn lại sai?
+
+* **Phương án 1 (Port forwarding):** Port forwarding là một kỹ thuật mạng, không phải là cơ chế quản lý danh tính và quyền truy cập (IAM) chính thống của AWS. Việc chặn truy cập mạng không thay đổi được việc một người dùng có quyền gọi API của AWS để điều khiển tài nguyên hay không.
+* **Phương án 2 (Lifecycle configurations):** Lifecycle configurations là các tập lệnh chạy khi khởi tạo hoặc bắt đầu Notebook (ví dụ: cài đặt thư viện). Chúng không được thiết kế để kiểm soát quyền truy cập của người dùng (Who can access what). Việc dùng script để chặn người dùng truy cập là cách làm không an toàn và dễ bị bỏ qua.
+* **Phương án 4 (Shared SageMaker instance):** Dùng chung một Notebook Instance gây ra rủi ro lớn về bảo mật và xung đột tài nguyên. JupyterLab không hỗ trợ mạnh mẽ việc phân quyền Role-based cho nhiều người dùng trên cùng một thực thể máy chủ đơn lẻ theo cách mà IAM thực hiện ở cấp độ dịch vụ AWS.
+
+#### 3. Notes: Các dịch vụ và lưu ý về Quản trị AI
+
+Dưới đây là một số lưu ý quan trọng để tối ưu hóa quản trị nền tảng ML:
+
+* **SageMaker AI (Tên gọi mới):** AWS đã cập nhật tên gọi từ SageMaker sang SageMaker AI để phản ánh sự mở rộng sang các mô hình nền tảng và Generative AI.
+* **Amazon Rekognition:** Trong ngữ cảnh này, dịch vụ được dùng để trích xuất văn bản từ hình ảnh (OCR) hoặc so sánh khuôn mặt trên giấy tờ định danh. Đây là một dịch vụ "Pre-trained", không cần người dùng quản lý máy chủ.
+* **Tag-based Access Control:** Thay vì tạo chính sách cho từng ARN (có thể gây mệt mỏi nếu có hàng trăm developer), bạn có thể sử dụng **Tags**. Ví dụ: Chỉ cho phép Developer truy cập vào Notebook có Tag `Owner: [Tên_Developer]`. Đây là cách quản lý hiện đại và linh hoạt hơn.
+* **Sagemaker Studio (Update 2025):** Hiện nay AWS khuyến khích sử dụng SageMaker Studio vì nó hỗ trợ **Space** – các không gian làm việc riêng tư cho từng người dùng hoặc nhóm, giúp việc quản lý quyền truy cập trở nên trực quan và dễ dàng hơn so với việc quản lý từng Notebook Instance riêng lẻ.
+
+---
+### **Question 21:**
+
+Category: AIP – Foundation Model Integration, Data Management, and Compliance
+
+A global online publishing company is developing a generative AI-based content recommendation system to suggest relevant tags for articles. The raw data for the articles, stored in JSON format, is housed in an Amazon S3 bucket. The data scientist is using the Amazon SageMaker Neural Topic Model (NTM) algorithm to build a model that can generate the most appropriate tags for each article. To enhance the model’s performance, Amazon Titan is being utilized to improve natural language understanding and generate contextual insights from the article content, leveraging Titan’s powerful pre-trained models for tag suggestions.
+
+During the evaluation phase, the model’s recommendations include common stopwords such as “and,” “of,” and “in,” along with some rare words that appear only in a few specific articles. After working with the content team to review the model’s output, the data scientist determines that while the rare words are unusual, the words could still be valuable for generating more relevant tags. The challenge is to find a way to exclude the stopwords from the model’s tag predictions while still retaining the rare but meaningful words.
+
+How can the model be refined to exclude stopwords and retain rare words in tags?
+
+[ ] Employ the CountVectorizer function from scikit-learn to preprocess the articles by removing stopwords while retaining rare words, then upload the processed data back to the S3 bucket.
+
+[ ] Index the article content using Amazon OpenSearch, configuring it to filter out stopwords and retain rare terms during indexing, then store the indexed data in the S3 bucket.
+
+[ ] Use Amazon Comprehend’s entity detection capabilities to detect the keywords while removing stopwords from the articles, and then update the data in the S3 bucket with the cleaned version.
+
+**[x] Apply SageMaker Processing to run a custom script that removes stopwords and filters out irrelevant terms, while preserving rare but meaningful words, and then store the cleaned data in an S3 bucket.**
+
+> Giải thích:
+
+#### 1. Giải thích đáp án đúng
+
+Đây là giải pháp linh hoạt và mạnh mẽ nhất để xử lý dữ liệu phức tạp trong hệ sinh thái AI/ML của AWS:
+
+* **Tính tùy biến cao (Custom Logic):** Yêu cầu của đề bài rất đặc thù: loại bỏ từ dừng (stopwords) nhưng **phải giữ lại** các từ hiếm (rare words). Các công cụ tự động đôi khi sẽ loại bỏ cả hai (vì từ hiếm thường bị coi là nhiễu). Với **SageMaker Processing**, bạn có thể viết một script Python (sử dụng thư viện như `nltk` hoặc `spaCy`) để thực hiện chính xác logic này: lọc theo danh sách stopwords cụ thể và giữ lại các từ có tần suất thấp nhưng mang ý nghĩa chuyên môn.
+* **Xử lý quy mô lớn:** SageMaker Processing tự động hóa việc cung cấp hạ tầng (infrastructure provisioning), chạy script trên các tập dữ liệu lớn từ S3, sau đó lưu kết quả trở lại S3. Điều này đảm bảo tính ổn định cho môi trường sản xuất.
+* **Tích hợp vào Pipeline:** Bước xử lý này có thể dễ dàng trở thành một phần trong **SageMaker Pipeline**, giúp quy trình từ làm sạch dữ liệu đến huấn luyện mô hình NTM và tích hợp Amazon Titan trở nên hoàn toàn tự động và có khả năng tái lặp.
+
+#### 2. Tại sao các phương án còn lại sai?
+
+* **Phương án 1 (scikit-learn CountVectorizer):** Mặc dù `CountVectorizer` có thể loại bỏ stopwords, nhưng nó thường được dùng trong môi trường local hoặc notebook đơn lẻ. Việc xử lý thủ công rồi upload lại S3 không mang tính tự động hóa và khó quản lý khi dữ liệu lớn (thousands of articles). Nó thiếu khả năng mở rộng (scalability) so với SageMaker Processing.
+* **Phương án 2 (Amazon OpenSearch):** OpenSearch là dịch vụ tìm kiếm và phân tích, không phải là công cụ chuyên dụng để tiền xử lý dữ liệu cho việc huấn luyện mô hình ML. Việc index dữ liệu rồi xuất ngược lại S3 là một quy trình vòng vèo, tốn kém tài nguyên và không cần thiết cho mục đích này.
+* **Phương án 3 (Amazon Comprehend Entity Detection):** Comprehend Entity Detection dùng để nhận diện các thực thể như "Tên người", "Địa điểm", "Tổ chức". Nó không được thiết kế để làm sạch văn bản tổng quát theo yêu cầu giữ lại "từ hiếm" (rare words) mà không phải là thực thể. Việc ép dùng Comprehend sẽ không giải quyết được triệt để bài toán về các từ chuyên ngành hiếm gặp.
+
+#### 3. Notes: Các lưu ý về NTM và Tiền xử lý dữ liệu
+
+* **Neural Topic Model (NTM):** Đây là một thuật toán "Unsupervised Learning" (Học không giám sát). Nó rất nhạy cảm với stopwords vì các từ này xuất hiện quá nhiều, khiến mô hình lầm tưởng chúng là "chủ đề" chính. Việc làm sạch dữ liệu trước khi đưa vào NTM là bước sống còn.
+* **Amazon Titan Integration:** Việc sử dụng Titan để lấy "contextual insights" cho thấy xu hướng kết hợp giữa **Topic Modeling truyền thống** và **LLMs (Large Language Models)**. Titan giúp hiểu ngữ cảnh sâu hơn, trong khi NTM giúp phân loại cấu trúc theo các nhóm chủ đề cố định.
+* **TF-IDF (Term Frequency-Inverse Document Frequency):** Một lưu ý kỹ thuật nhỏ là khi giữ lại "rare words", bạn có thể sử dụng chỉ số TF-IDF trong script của SageMaker Processing. Những từ hiếm nhưng xuất hiện tập trung trong một số bài viết sẽ có điểm TF-IDF cao, giúp mô hình NTM nhận diện chúng là các tag đặc trưng.
+* **SageMaker Processing Containers:** Bạn có thể sử dụng các container có sẵn của AWS (như Scikit-learn container) hoặc mang theo container riêng (Bring Your Own Container - BYOC) nếu script xử lý của bạn yêu cầu các thư viện ngôn ngữ đặc biệt.
+
+---
+### **Question 22:**
+
+Category: AIP – Operational Efficiency and Optimization for Generative AI Applications
+
+A national utility company manages hourly power consumption data for 150 types of smart meters deployed across multiple regions. Over the past 30 years, the company has collected a large volume of historical usage data enriched with weather metrics, regional energy prices, and maintenance logs.
+
+The data science team currently uses Amazon SageMaker AI Data Wrangler to perform feature engineering and data preprocessing, and SageMaker AI Canvas (a no-code ML service) to generate baseline forecasts for monthly energy demand. However, the team now plans to build a custom machine learning (ML) model that can forecast future meter-usage patterns across all meter types.
+
+Which option satisfies the requirement with the LEAST operational overhead?
+
+[ ] Use SageMaker AI Autopilot to automatically create and tune a single predictive model for all meter types using the combined dataset.
+
+**[x] Build a single global forecasting model using the SageMaker AI DeepAR forecasting algorithm trained on all meter types to capture shared consumption patterns.**
+
+[ ] Train multiple forecasting models using the SageMaker AI Prophet algorithm, one for each meter type, to capture seasonal consumption patterns for individual devices.
+
+[ ] Create a single global forecasting model using the SageMaker AI XGBoost algorithm trained on all meter types to predict future consumption patterns.
+
+> Giải thích: 
+
+#### 1. Giải thích đáp án đúng
+
+Để giải quyết bài toán dự báo cho nhiều chuỗi thời gian (150 loại công tơ mét) với "nỗ lực vận hành ít nhất" (least operational overhead), **DeepAR** là sự lựa chọn tối ưu vì:
+
+* **Global Model (Mô hình toàn cầu):** Thay vì phải huấn luyện và quản lý 150 mô hình riêng lẻ cho từng loại thiết bị, DeepAR cho phép huấn luyện một mô hình duy nhất trên toàn bộ tập dữ liệu. Nó có khả năng học các mô hình tiêu thụ chung (shared patterns) giữa các loại công tơ mét khác nhau.
+* **Deep Learning (RNN/LSTM):** DeepAR sử dụng mạng thần kinh tái phát, cực kỳ mạnh mẽ trong việc xử lý dữ liệu chuỗi thời gian có độ phức tạp cao, đặc biệt khi có các yếu tố bổ trợ (như dữ liệu thời tiết, giá năng lượng) mà đề bài đã nêu.
+* **Xử lý dữ liệu đa dạng:** DeepAR hoạt động rất tốt khi các chuỗi thời gian có thang đo khác nhau (ví dụ: một hộ gia đình dùng ít điện vs một nhà máy dùng nhiều điện) nhờ cơ chế tự động điều chỉnh tỷ lệ (scaling) tích hợp sẵn.
+* **Tính dự báo xác suất:** DeepAR không chỉ đưa ra một con số duy nhất mà còn cung cấp các khoảng tin cậy (confidence intervals), giúp công ty tiện ích quản lý rủi ro tốt hơn trong việc điều phối năng lượng.
+
+#### 2. Tại sao các phương án còn lại sai?
+
+* **Phương án 1 (SageMaker AI Autopilot):** Autopilot là công cụ tuyệt vời để tìm ra mô hình tốt nhất cho các bài toán Tabular (phân loại/hồi quy), nhưng nó không được tối ưu hóa đặc thù cho bài toán **Time-series forecasting** quy mô lớn với nhiều chuỗi thời gian đan xen như DeepAR. Việc ép Autopilot xử lý dữ liệu này sẽ tốn nhiều công sức chuẩn bị dữ liệu hơn.
+* **Phương án 3 (Prophet - Multiple Models):** Yêu cầu "huấn luyện một mô hình cho mỗi loại công tơ" tạo ra **operational overhead khổng lồ**. Bạn sẽ phải quản lý, lưu trữ và theo dõi 150 mô hình riêng biệt. Prophet cũng là mô hình đơn biến (univariate), khó tận dụng được các mối tương quan chéo giữa các thiết bị khác nhau.
+* **Phương án 4 (XGBoost):** XGBoost là một thuật toán mạnh mẽ cho dữ liệu bảng, nhưng để dùng cho chuỗi thời gian, bạn phải tự thực hiện "feature engineering" rất phức tạp (tạo các cột lag, rolling window, v.v.). Điều này vi phạm tiêu chí "least operational overhead" so với một thuật toán chuyên dụng cho time-series như DeepAR.
+
+#### 3. Notes: Các dịch vụ và lưu ý về Dự báo (Forecasting)
+
+* **SageMaker AI Canvas:** Là công cụ No-code rất tốt cho Business Analysts để tạo dự báo nhanh (baseline). Tuy nhiên, khi chuyển sang "Custom ML Model", chúng ta cần các thuật toán chuyên sâu hơn có thể can thiệp vào mã nguồn và tham số.
+* **DeepAR vs. Amazon Forecast:** * **DeepAR:** Là thuật toán nằm trong SageMaker, phù hợp cho các Data Scientists muốn kiểm soát sâu quy trình huấn luyện và tích hợp vào Pipeline.
+* **Amazon Forecast:** Là dịch vụ AI cấp cao hơn (managed service), tự động chọn thuật toán (bao gồm cả DeepAR, Prophet, CNN-QR) và xử lý dữ liệu. Nếu đề bài không yêu cầu "Custom ML model on SageMaker", Amazon Forecast thường là đáp án cho "ít nỗ lực nhất".
+* **Dữ liệu bổ trợ (Dynamic Variables):** Trong dự báo năng lượng, thời tiết (nhiệt độ) là biến quan trọng nhất. DeepAR cho phép đưa các biến này vào dưới dạng "dynamic features" để tăng độ chính xác đáng kể.
+* **Cold Start Problem:** DeepAR có khả năng dự báo cho các thiết bị mới lắp đặt (chưa có nhiều dữ liệu lịch sử) bằng cách học từ các thiết bị tương tự đã có trong tập huấn luyện.
+
+---
+### **Question 23:**
+
+Category: AIP – Operational Efficiency and Optimization for Generative AI Applications
+
+A global logistics company is developing an AI-powered fleet safety monitoring platform to improve driver safety and minimize accident-related costs. The platform analyzes dashboard camera feeds from delivery trucks to detect behaviors that indicate driver distraction or fatigue. The system is being tested on long-haul trucks that operate primarily on overnight routes, where drivers encounter challenging nighttime conditions such as low visibility, glare from oncoming headlights, and inconsistent illumination from streetlights during extended driving periods. Amazon Rekognition Custom Labels is used to train a computer vision model capable of identifying visual patterns such as yawning, looking away, or using a mobile device, while Amazon SageMaker AI is used to handle the end-to-end machine learning workflow, including model training, tuning, and evaluation.
+
+The company’s AI team collected 1,000 labeled driver training images in a controlled facility to represent different attention states such as “alert,” “sleepy,” and “distracted.” During training in SageMaker AI, the team observed that the training loss decreases quickly with each epoch, but the validation accuracy remains low. When tested in real driving conditions, the model often misclassifies drivers under varying lighting and road environments. The AI team must find a way to improve the model’s ability to generalize to new, unseen data without collecting additional samples or modifying the model’s architecture.
+
+Which combination of actions should be implemented to address this issue? (Select TWO.)
+
+[ ] Perform data augmentation on the training dataset using randomized transformations and preprocessing operations.
+
+[ ] Increase the total number of training epochs within the current model configuration.
+
+[ ] Adjust the optimizer settings to use a higher learning rate across all training iterations.
+
+[ ] Execute gradient checking after initializing model parameters and performing initial training runs.
+
+[ ] Add L2 regularization to the neural network during the optimization phase of the training cycle.
+
+> Giải thích: 
+
+
+---
+### **Question 24:**
+
+Category: AIP – Implementation and Integration
+
+A data scientist is tasked with developing a fraud detection model for an e-commerce platform. The dataset consists of transaction records where fraudulent transactions are much less frequent than legitimate ones, resulting in a class imbalance.
+
+To enrich the dataset, voice-based transaction logs or customer support calls may be transcribed using Amazon Transcribe and analyzed with Amazon Comprehend, but the core model will be built using structured data.
+
+The data scientist has limited experience with advanced model development techniques but aims to minimize the operational overhead while ensuring the model is fair and unbiased. To accelerate development, the data scientist is planning to use Amazon SageMaker AI.
+
+Which approach will fulfill the given requirements?
+
+[ ] Use SageMaker Studio to preprocess the data and apply SMOTE, then use SageMaker Reinforcement Learning to build a fraud detection model and check for bias with SageMaker Clarify.
+
+[ ] Use SageMaker Studio to preprocess and balance the data using the synthetic minority oversampling technique (SMOTE), then develop a fraud detection model with SageMaker JumpStart. Afterward, use SageMaker Clarify to check for bias and finalize the model for deployment.
+
+[ ] Use SageMaker Studio for data processing and model development, integrating the synthetic minority oversampling technique (SMOTE) into the workflow. Once the model is trained, use Amazon Augmented AI (Amazon A2I) for bias detection before deployment.
+
+[ ] Use SageMaker Studio to preprocess the data and apply the synthetic minority oversampling technique (SMOTE) to balance the dataset. Build the model using SageMaker Pipelines and use SageMaker Clarify for bias detection before deployment.
+
+> Giải thích:
+
+
+---
+### **Question 25:**
+
+Category: AIP – Operational Efficiency and Optimization for Generative AI Applications
+
+An e-commerce company leverages both Amazon SageMaker AI to train a machine learning (ML) model that predicts product-interest scores for users, and Amazon Personalize to generate real-time personalized product recommendations based on that model’s output.
+
+The AI developer wants to visualize recommendation results across four distinct dimensions: the user’s interest score (first dimension) plotted against the product’s prior conversion rate (second dimension), then visualize a third dimension (product category) via color, and a fourth dimension (number of impressions for that product) via the size of each data point. The goal is to spot segments where high-interest, high-conversion products still receive low impressions.
+
+Which approach best satisfies the given requirements?
+
+[ ] Use the SageMaker Canvas Box Plot visualization to compare distributions and use a fill pattern for the third dimension.
+
+[ ] Use the SageMaker Canvas Bar Chart visualization to group products by category and simultaneously apply bar color and height to represent interest score and conversion rate.
+
+[ ] Apply the SageMaker Canvas scatter plot visualization and map the third dimension (product category) to scatter point color and the fourth dimension (number of impressions) to scatter point size.
+
+[ ] Visualize the data using the SageMaker Data Wrangler scatter plot visualization and color data points by the third feature to represent all four dimensions.
+
+> Giải thích: 
+
+---
+### **Question 26:**
+
+Category: AIP – Implementation and Integration
+
+A financial analytics firm uses Amazon SageMaker AI and Amazon Comprehend to detect potential fraud patterns across millions of real-time financial transactions. Comprehend extracts critical text features such as transaction context, merchant type, and sentiment from unstructured financial notes, while SageMaker AI consumes this enriched dataset to train and deploy a fraud detection model that classifies transactions as legitimate or suspicious.
+
+A newly optimized model version has recently been retrained in SageMaker AI using improved training features and hyperparameters. The data science team must evaluate the new model’s prediction accuracy and latency in production without impacting the throughput of the currently deployed model. Additionally, the deployment process must introduce minimal operational overhead and must not require any changes to the way the inference endpoint is invoked by clients.
+
+Which of the following options will satisfy the given requirements?
+
+
+[ ] Modify the existing SageMaker AI endpoint configuration by adding the new model as a ProductionVariant through the ProductionVariant API, and set a small 
+
+[ ] InitialVariantWeight compared to the existing model’s ProductionVariant VariantWeight to control the percentage of traffic routed to it.
+
+[ ] Deploy both models in separate SageMaker endpoints and use Amazon CloudWatch metrics to compare their results in post-processing.
+
+[ ] Register the new model version in SageMaker Model Registry and configure an event trigger in AWS Lambda to automatically swap the endpoint to the new model after initial validation.
+
+[ ] Configure an Amazon API Gateway endpoint that splits traffic between the current and the new SageMaker endpoints for A/B testing.
+
+> Giải thích: 
+
+
+---
+### **Question 27:**
+
+Category: AIP – AI Safety, Security, and Governance
+
+A global e-commerce company is developing a product recommendation engine using Amazon SageMaker AI to personalize shopping experiences for millions of users. The data science team trains a deep learning model that predicts product affinity based on customer purchase history, browsing behavior, and geographic location. The model is deployed to a SageMaker real-time inference endpoint and integrated into the company’s recommendation API.
+
+After the model goes live, the data ethics team discovers that specific product categories are being shown disproportionately to customers from certain regions. The organization must verify whether this imbalance is caused by underlying bias in the training dataset or by biased decision patterns in the deployed model predictions. The company must also generate automated reports that explain which input features most strongly influence the model’s recommendations to support transparency and compliance in personalization outcomes.
+
+Which solution should the company implement to identify, measure, and explain potential bias across both the dataset and the model outputs?
+
+[ ] Use SageMaker Data Wrangler to manually rebalance the dataset by filtering and transforming data before retraining the recommendation model.
+
+[ ] Use SageMaker Clarify to detect and measure data bias, evaluate model fairness, and generate feature attribution explainability reports for compliance and transparency.
+
+[ ] Use Amazon Personalize to automatically adjust recommendation weights in real-time to reduce category bias without performing explicit fairness evaluation.
+
+[ ] Use SageMaker Model Monitor to track endpoint metrics such as latency, drift, and accuracy without analyzing model bias or feature influence.
+
+> Giải thích: 
+
+
+---
+### **Question 28:**
+
+Category: AIP – Implementation and Integration
+
+A data science team is running an anti-financial crime workload using Amazon SageMaker Training and SageMaker Feature Store. The team stores transactional features inside the Feature Store offline store, and those features are periodically retrieved and consumed by SageMaker model training jobs inside a scheduled retraining pipeline. The binary classifier is used for real-time fraud detection involving regulated payment flows, but the team is consistently observing a very high count of false negatives, even though the overall model accuracy is greater than 96%. The core issue is the severe class imbalance condition, where fraud transactions represent less than one-half of one percent of the entire dataset, and historical fraud samples remain extremely limited.
+
+The goal is to increase the model’s ability to correctly detect fraudulent cases. The team wants to directly correct this imbalance problem before running the next retraining cycle.
+
+Which solution will increase the fraudulent case detection performance?
+
+[ ] Enable automatic model tuning in SageMaker using Bayesian Optimization to find the best hyperparameters by running multiple training jobs. Increase the number of hyperparameter tuning jobs to explore a broader range of hyperparameter values and potentially improve model performance.
+
+[ ] Integrate a preprocessing step that applies the Synthetic Minority Oversampling Technique (SMOTE) on the minority fraudulent transaction class only before the training run begins.
+
+[ ] Perform random oversampling on the non-fraudulent transactions to equalize batch sizes during training.
+
+[ ] Enable early stopping in SageMaker to automatically halt training when the model's accuracy on the validation set no longer improves.
+
+> Giải thích: 
+
+
+---
+### **Question 29:**
+
+Category: AIP – Operational Efficiency and Optimization for Generative AI Applications
+
+An AI development team at a publishing company is tasked with automating the summarization of large volumes of text, such as news articles, legal documents, and academic papers. The team needs to fine-tune a pre-trained large language model (LLM) for this task, but prefers a low-code/no-code (LCNC) solution. To ensure the summaries are accessible to a global audience, Amazon Translate is utilized to adapt the generated summaries for different regions and languages. The team now needs a solution to fine-tune the LLM with minimal manual intervention while integrating seamlessly with the existing workflow.
+
+To meet these needs, Amazon SageMaker AI is being considered for fine-tuning the LLM, as it provides a low-code environment for experimentation. The team is focused on automating model training and fine-tuning to improve efficiency and reduce manual intervention, ensuring scalability and ease of use.
+
+Which solution will best meet the team’s requirements?
+
+[ ] Leverage SageMaker Script Mode to fine-tune an LLM on Amazon EC2 instances, enabling custom training scripts to optimize model performance with flexibility.
+
+[ ] Use SageMaker Training Jobs to fine-tune an LLM deployed through a custom API endpoint, automating the model training process with scalable resources.
+
+[ ] Utilize SageMaker Studio for fine-tuning an LLM deployed on Amazon EC2 instances, simplifying the training process with an interactive and intuitive environment.
+
+[ ] Configure SageMaker Autopilot to fine-tune an LLM deployed via SageMaker JumpStart, streamlining model customization with automatic setup and minimal user intervention.
+
+> Giải thích: 
+
+
+---
+### **Question 30:**
+
+
+Category: AIP – Implementation and Integration
+
+A global e-commerce company is building an AI-powered customer service assistant to handle order inquiries, refunds, and personalized product recommendations. The assistant must understand customer questions, maintain conversation context, and update order records securely.
+
+The company plans to use Amazon Bedrock for generative AI to manage reasoning and dialogue, and Amazon SageMaker AI to analyze historical customer interactions and optimize personalized recommendations. Customer session data and order history must be stored securely for compliance and accurate responses.
+
+Which solution best satisfies the company’s requirements?
+
+[ ] Use Amazon Lex V2 to build a conversational chatbot for customer interactions and store conversation transcripts in Amazon S3 for historical analysis.
+
+[ ] Use Amazon Bedrock AgentCore to develop an AI agent capable of reasoning, planning, and executing workflows for order management. Integrate the agent with Amazon DynamoDB to store and retrieve customer session data, order history, and interaction context for each user conversation.
+
+[ ] Use Amazon Kendra to search for answers to product manuals and FAQs. Combined with AWS Lambda to manage refund requests and data updates.
+
+[ ] Use Amazon Titan Text G1 for conversation handling and maintain customer session states in a Python dictionary within the application memory for short-term interactions.
+
+> Giải thích: 
+
+---
+### **Question 31:**
+
+Category: AIP – Foundation Model Integration, Data Management, and Compliance
+
+A global e-commerce company uses Amazon Bedrock with the Amazon Titan foundation model (FM) to power a multilingual customer support chatbot. In addition to Titan FM, the company also uses Amazon Comprehend to perform entity recognition and sentiment analysis on incoming customer messages. However, the support chatbot often provides generic answers because it lacks access to the company’s proprietary order management and product documentation data stored in Amazon S3 and an internal database.
+
+The AI developer wants to enhance the chatbot’s responses with retrieval-augmented generation (RAG) so that Titan FM can generate more accurate and contextually relevant replies based on real-time, private company data, without retraining the model.
+
+Which of the following options will satisfy this requirement?
+
+[ ] Fine-tune the Amazon Titan foundation model with the company’s support data using Amazon SageMaker AI.
+
+[ ] Increase the temperature parameter for the Amazon Titan model to improve contextual understanding.
+
+[ ] Set up a Bedrock knowledge base and integrate it with the company’s private data sources.
+
+[ ] Use the Comprehend custom classification to provide the model with retrieval capabilities.
+
+> Giải thích: 
+
+
+---
+### **Question 32:**
+
+Category: AIP – Implementation and Integration
+
+A global publishing company manages a large repository of multimedia content, including PDFs, images, audio files, and video recordings from news articles, interviews, and webinars. The company seeks to automate the extraction of insights such as key topics and relevant entities to help journalists and editors quickly access information. The company aims to build a generative AI-powered research assistant capable of answering natural language queries like, “Which article mentioned climate adaptation in Southeast Asia and included aerial images?”
+
+The company plans to use Amazon Bedrock Data Automation (BDA) for processing unstructured media and extracting structured insights, and Amazon SageMaker AI to host the generative AI model for context‑aware response generation.
+
+Which approach will best meet the requirements?
+
+[ ] Utilize Bedrock Data Automation (BDA) to process media files, analyze the structured content using Amazon Comprehend for entity and sentiment extraction, and then forward the results to a foundation model hosted on Amazon EC2 for generating answers.
+
+[ ] Leverage Bedrock Data Automation (BDA) to process documents, images, audio, and video, index the results in Bedrock Knowledge Bases for semantic search, and then input the retrieved context into a foundation model via SageMaker AI for response generation.
+
+[ ] Use Bedrock Data Automation (BDA) to process the media files, store the raw content in Amazon S3, and deploy a custom AWS Lambda function to create your own vector database outside of Bedrock Knowledge Bases before passing it to SageMaker AI.
+
+[ ] Employ Bedrock Data Automation (BDA) to process all media types and directly supply the structured output into a foundation model via SageMaker AI, bypassing the use of a knowledge base.
+
+> Giải thích: 
+
+
+---
+### **Question 33:**
+
+Category: AIP – AI Safety, Security, and Governance
+
+A financial services organization is developing a document classification model to detect fraudulent claims from scanned forms. The team uses Amazon Textract to extract text and structured data from thousands of claim documents, then builds a training dataset in Amazon SageMaker AI. During model evaluation, the data scientists notice that the model performs very well on “legitimate claim” documents but frequently misclassifies “fraudulent claim” samples.
+
+To understand the cause, the team uses SageMaker Clarify and observes that the pretraining bias analysis reveals a significant skew in the dataset. The team realizes this uneven class distribution leads to biased predictions and poor generalization to minority classes.
+
+What issue is most likely causing the model’s poor performance on fraudulent claim detection?
+
+[ ] The issue is due to overfitting, where the model has memorized training examples and performs poorly on unseen data, regardless of label distribution.
+
+[ ] The issue is due to a high learning rate, which causes the optimization process to skip over the optimal weights during training.
+
+[ ] The issue is due to insufficient text extraction, where Textract failed to extract all key fields, leading to missing features for the model.
+
+[ ] The issue is due to class imbalance (CI) in the training dataset, where the minority class has too few samples, causing the model to learn biased decision boundaries.
+
+> Giải thích: 
+
+
+
+---
+### **Question 34:**
+
+Category: AIP – AI Safety, Security, and Governance
+
+A large healthcare organization is developing an AI-powered system to predict patient health outcomes using both historical and real-time medical data. The system will use Amazon SageMaker AI to train machine learning models on historical data stored in an on-premises Microsoft SQL Server database, and then utilize Amazon Comprehend Medical to extract relevant insights from unstructured clinical notes. To comply with strict regulatory guidelines, sensitive data such as patient records must never leave the on-premises data center, while non-sensitive data can be securely transferred to Amazon S3 for periodic model retraining. All data transfers to the cloud must be done through a secure Internet Protocol security (IPsec) connection.
+
+The organization needs a solution to securely upload only the non-sensitive data from the MySQL database to S3 each day for retraining the model, without violating data localization regulations.
+
+Which solution will satisfy the given requirements?
+
+[ ] Utilize Amazon Data Firehose to stream non-sensitive transaction data into S3. Ensure that the data transfer happens over an IPsec-protected connection, and leverage AWS Lambda to filter out sensitive data before uploading.
+
+[ ] Set up an AWS Glue job to connect to the Microsoft SQL Server database, extract only the non-sensitive data, and transfer it to S3 over an AWS Site-to-Site VPN connection for model retraining.
+
+[ ] Employ SageMaker AI Data Wrangler to directly connect to the Microsoft SQL Server database, filter sensitive data, and upload the sanitized data to S3 over an AWS Direct Connect connection with IPsec encryption for secure model retraining.
+
+[ ] Configure AWS Database Migration Service (AWS DMS) to replicate non-sensitive data from the Microsoft SQL Server database into S3, and transfer it over an IPsec connection.
+
+> Giải thích: 
+
+
+
+
+---
+### **Question 35:**
+
+Category: AIP – Operational Efficiency and Optimization for Generative AI Applications
+
+A global insurance technology company built a claims automation system using Amazon SageMaker AI endpoint and Amazon Rekognition. Rekognition analyzes uploaded vehicle images to detect the severity and type of damage, while SageMaker uses this information, along with other structured features such as vehicle age, mileage, and estimated repair cost, to predict claim approval probability and estimated settlement time.
+
+During initial training, the model assigned greater weight to the damage severity score and repair cost estimate as the most influential features for decision-making. However, recent observations suggest that the deployed model on the SageMaker AI endpoint might now be emphasizing vehicle age more heavily than damage severity, resulting in inconsistent predictions and potential policy compliance issues.
+
+The data science team must implement a monitoring solution that detects when the feature weight or attribution importance of input variables shifts in production and automatically triggers alerts for investigation.
+
+Which of the following should be implemented?
+
+[ ] Deploy SageMaker Clarify to perform bias and explainability analysis on the training dataset. Use Amazon CloudWatch to alert if Clarify reports significant changes in feature attribution or fairness metrics.
+
+[ ] Implement a baseline for model quality using the ModelQualityMonitor class. The baseline will evaluate key performance metrics such as accuracy and recall, with periodic checks to identify any significant shifts in model performance. Set up an Amazon CloudWatch if the model’s quality metrics diverge from the baseline.
+
+[ ] Enable SageMaker DataCapture to log inference inputs and outputs. Build a custom pipeline to analyze feature distributions and model responses over time. Use Amazon CloudWatch to alert when significant shifts in input patterns or predictions are detected.
+
+[ ] Use ModelExplainabilityMonitor class with a SHAP-based baseline to detect feature attribution drift in production. Regularly compare how the model assigns importance to input features against the baseline, and configure Amazon CloudWatch to alert stakeholders when attribution values drift beyond acceptable thresholds.
+
+> Giải thích: 
+
+
+
+---
+### **Question 36:**
+
+Category: AIP – Foundation Model Integration, Data Management, and Compliance
+
+A financial technology company manages multiple machine learning models that predict credit default risk for real-time loan applications. These models are versioned and stored in the Amazon SageMaker Model Registry, which tracks approved models for production deployment. The engineering team deploys models to a SageMaker real-time inference endpoint running on accelerated instance types, backed by Reserved Instances to optimize long-term cost efficiency.
+
+A new model version has been approved after demonstrating improved accuracy during evaluation. However, during a previous deployment, the team observed latency spikes and request failures immediately after switching models in production. To minimize downtime and mitigate the risk of performance degradation while still validating the new model in live traffic, the team must select an appropriate deployment strategy that offers safe rollout and automatic rollback capabilities.
+
+Which deployment configuration best meets these requirements?
+
+[ ] Deploy both models using a multi-model endpoint configuration. Dynamically select the model version at runtime based on an API request parameter.
+
+[ ] Use SageMaker batch transform to validate the new model offline. Promote directly to full production using a single update event.
+
+[ ] Use a shadow testing deployment to send duplicate inference requests to the new model. Log results for later comparison, without affecting live predictions.
+
+[ ] Configure a blue/green deployment with canary traffic shifting and a traffic size of 10%. Gradually route requests to the new model while maintaining the existing version as a fallback.
+
+> Giải thích: 
+
+
+
+---
+### **Question 37:**
+
+Category: AIP – Operational Efficiency and Optimization for Generative AI Applications
+
+A publishing company uses Amazon Comprehend to analyze the sentiment and key phrases in customer feedback about its books. The company also uses a text-to-text foundation model (FM) on Amazon Bedrock to summarize and retrieve insights from thousands of customer reviews.
+
+The company has accumulated a large volume of diverse customer feedback collected from various regions. These reviews contain casual language, local expressions, and abbreviations that differ from standard writing styles. The data science team observed that the model sometimes misinterprets these phrases, resulting in summaries that fail to fully reflect the tone and intent of the reviewers. This inconsistency affects the company’s ability to make accurate business decisions based on the generated insights.
+
+Which solution provides the most efficient and cost-effective approach to improve the model’s understanding of customer feedback?
+
+[ ] Use Amazon SageMaker Data Wrangler to preprocess customer feedback data, remove slang and abbreviations, and standardize the language before sending it to the Bedrock model for summarization.
+
+[ ] Customize the current foundation model by applying fine-tuning using labeled datasets of customer feedback that reflect informal wording, abbreviations, and expressions.
+
+[ ] Implement Custom Entity Recognition (CER) to extract slang terms and abbreviations from customer feedback and use these extracted entities as metadata inputs to Bedrock during text generation.
+
+[ ] Launch a new large-scale training job in Amazon SageMaker AI using the model-parallelism library to build a domain-specific language model trained entirely on historical customer reviews.
+
+> Giải thích: 
+
+
+
+---
+### **Question 38:**
+
+Category: AIP – Operational Efficiency and Optimization for Generative AI Applications
+
+An e-commerce platform is developing a generative AI (GenAI) application designed to improve the shopping experience. The application will handle customer requests such as personalized product recommendations, real-time language translation, and automated product descriptions. Each task will be managed by a distinct foundation model (FM). The platform is powered by AWS services such as Amazon API Gateway, AWS Lambda, and Amazon Bedrock to orchestrate these tasks, while Amazon Personalize is utilized to scale personalized recommendations across multiple regions.
+
+The application must meet the following requirements:
+
++ Direct inference requests to specific foundation models (FMs) based on task type (e.g., translation, product recommendations) and customer configuration.
+
++ Alter the routing behavior at runtime without redeploying or restarting the system.
+
++ Optimize for low response times, system reliability, and cross-region operation across multiple providers.
+
++ Implement failover mechanisms to switch to a standby model or AWS Region in case of primary model or region failure.
+
+Which approach delivers the needed functionality with the least operational effort?
+
+[ ] Configure API Gateway to route requests to a Lambda function for each task type. Store model configurations in Amazon S3. Use AWS Elastic Load Balancing (ELB) to distribute traffic across regions and set up Amazon Route 53 for automatic regional failover. Update routing logic by modifying the S3 configuration file and redeploying the Lambda function to apply the changes.
+
+[ ] Set up a Flask-based model router in Amazon ECS, with routing data stored in Amazon Aurora. Route inference requests via API Gateway to the Flask application, which selects and invokes the corresponding model using the Bedrock SDK. Set up Amazon CloudWatch alarms to monitor errors and initiate updates to the model routing table.
+
+[ ] Create a Lambda function with AppConfig Agent Lambda extension to dynamically fetch model routing rules from AWS AppConfig. Use AWS Step Functions to manage task-specific workflows, incorporating a failover strategy with circuit breaker functionality. Ensure model invocations use Bedrock regional endpoints, retrying in a secondary region in case of failure.
+
+[ ] Deploy a Kubernetes router on Amazon EKS, using ConfigMaps for routing rules. Forward requests from API Gateway to an Ingress controller that sends them to the router, which invokes the appropriate FM through the Bedrock SDK. Manage failover by updating ConfigMaps and restarting Pods when a Region or model fails.
+
+> Giải thích: 
+
+
+
+---
+### **Question 39:**
+
+Category: AIP – Foundation Model Integration, Data Management, and Compliance
+
+A startup is training an autonomous vehicle detection model using Amazon SageMaker AI with labeled image data stored in an Amazon S3 bucket. The dataset is annotated using SageMaker Ground Truth, which contains thousands of high-resolution images.
+
+During model training, the team observes slow startup times and low GPU utilization because the training job downloads data sequentially from S3. The company wants to keep the S3 bucket as the primary data repository but improve data access performance and training throughput for SageMaker AI without duplicating data or significantly altering the training script.
+
+Which solution should be implemented to optimize SageMaker AI training performance while maintaining the existing S3-based workflow?
+
+[ ] Create an Amazon FSx for Lustre file system and connect it to the existing S3 bucket. Update the SageMaker AI training job to access the dataset directly from the FSx mount.
+
+[ ] Enable S3 Transfer Acceleration to reduce latency when downloading data during each training job.
+
+[ ] Copy the dataset from S3 to local Amazon EBS volumes before each SageMaker AI training run to eliminate data transfer delays.
+
+[ ] Use Amazon EFS to store the training data and mount it directly to the SageMaker AI training container for faster sequential reads.
+
+> Giải thích: 
+
+
+
+---
+### **Question 40:**
+
+Category: AIP – Operational Efficiency and Optimization for Generative AI Applications
+
+A global robotics manufacturing enterprise is building a next-generation, Generative AI-powered automated quality control vision pipeline. The engineering team uses Amazon SageMaker AI to optimize embedding generation and model parameter tuning for transformer architectures specifically designed for high-speed visual defect scoring, and uses Amazon Rekognition Custom Labels to train specialized defect classifiers from thousands of labeled factory images capturing micro-scratches, misalignment, surface distortion, and abnormal texture patterns. Each production lane has an industrial PC configured with AWS IoT Greengrass and a long-running AWS Lambda function that uploads every captured image to Amazon S3. A Python-based Lambda function invokes a custom model that runs on a SageMaker endpoint, and inference results are returned to a local web service that triggers mechanical diverters to prevent defective items from reaching final shipment.
+
+This workflow worked during the pilot with one machine, but after scaling across hundreds of units, inference latency increased beyond the acceptable SLA (Service Level Agreement) for real-time processing. Deep analysis confirms that the internet outbound throughput limit at the production facility is now saturated due to continuously streaming raw, uncompressed images to the cloud for every inference call.
+
+Which solution is the most cost-effective fix for this performance issue while maintaining inference accuracy?
+
+[ ] Provision a high-capacity 10 Gbps AWS Direct Connect link to the closest AWS Region for uploading the generated images and expand the SageMaker endpoint capacity by using larger instances and additional endpoint instances.
+
+[ ] Configure IoT Greengrass to invoke the existing Lambda inference function only after batching multiple image frames together into a single S3 upload event, and increase the Lambda memory size to accelerate decompression and preprocessing before calling the SageMaker endpoint.
+
+[ ] Enable S3 Transfer Acceleration to improve cross-region upload performance from the production site and configure automatic scaling on the SageMaker endpoint to handle higher parallel request volume generated by all industrial PCs.
+
+[ ] Host the inference Lambda code and the ML model on the IoT Greengrass core running on each industrial PC and perform the defect detection workflow locally, then return only the reduced inference output to the local web service.
+
+> Giải thích: 
+
+
+
+---
+### **Question 41:**
+
+Category: AIP – Operational Efficiency and Optimization for Generative AI Applications
+
+A global retail company is transforming its customer support system with a conversational AI chatbot built using Amazon Lex for natural language understanding and automated conversation flows. Amazon Transcribe is integrated for speech-to-text conversion, allowing customers to voice inquiries and interact naturally with the system. This setup improves the customer experience by enabling spoken communication, but the company now aims to automate the chatbot’s responses by leveraging its vast knowledge base of product documentation, FAQs, and support articles.
+
+The solution must quickly and accurately retrieve relevant information from the company’s documentation library. It should seamlessly integrate with existing AWS tools to provide real-time, dynamic responses to customer queries, reducing the need for manual updates or custom model training.
+
+What approach will provide the desired result with the least amount of development work?
+
+[ ] Store the company documentation in an Amazon Bedrock Knowledge Base, then use Amazon Comprehend to analyze the customer queries and extract relevant insights from the documentation to provide accurate responses.
+
+[ ] Use a BERT-based model in Amazon SageMaker AI, store documentation in Amazon S3, and rely on Lex to handle queries and invoke the SageMaker endpoint for responses.
+
+[ ] Train a Bidirectional Attention Flow (BiDAF) model using customer questions and company documentation, deploy it via Amazon SageMaker AI, and integrate it with the chatbot through the SageMaker Runtime InvokeEndpoint API to provide responses.
+
+[ ] Utilize Amazon Kendra for indexing company documents and integrate it with the chatbot through the Kendra Query API for dynamic response generation.
+
+> Giải thích: 
+
+
+---
+### **Question 42:**
+
+Category: AIP – AI Safety, Security, and Governance
+
+An AI developer is creating a convolutional neural network (CNN) model using Amazon SageMaker AI. To preprocess the large amount of unstructured data, the developer uses Amazon Textract to extract text from scanned documents and Amazon Rekognition to analyze images for object detection. To protect sensitive data, the developer is responsible for blocking all external network access during model training to prevent any possibility of data being compromised or leaked by malicious code that may be unintentionally present in the training container.
+
+Which of the following options is the MOST secure protection for the training job?
+
+[ ] Encrypt the dataset using AWS Key Management Service (KMS) before processing it in Rekognition and Textract.
+
+[ ] Configure SageMaker AI to use a private Amazon VPC endpoint for accessing Textract and Rekognition during training.
+
+[ ] Enable SageMaker AI Model Monitor to prevent data leakage during model training.
+
+[ ] Activate network isolation during the training job.
+
+> Giải thích: 
+
+
+---
+### **Question 43:**
+
+Category: AIP – Operational Efficiency and Optimization for Generative AI Applications
+
+A Generative AI engineering team is developing a supervised image recognition model to accurately identify pandas from a diverse dataset of wildlife photographs. Amazon SageMaker Ground Truth is used to label 1,000 panda images and split the data into training and testing sets, reserving 100 images as a constant test set. Amazon Rekognition Custom Labels is then configured to train a custom image classification model capable of recognizing distinctive panda features such as fur patterns, posture, and environmental background.
+
+During the evaluation phase, the engineering team observes that the image classifier misclassifies several test images. A closer analysis reveals that in more than 75% of the misclassified images, the pandas appear upside down, indicating the model’s sensitivity to image orientation. The team must enhance the model’s ability to correctly identify pandas regardless of orientation, without collecting an entirely new dataset or extensively modifying the existing training pipeline.
+
+Which approach will most effectively enhance the model’s accuracy in addressing this specific misclassification issue?
+
+[ ] Apply transfer learning techniques to reuse a proven vision model’s base layers while retraining task-specific layers for panda identification.
+
+[ ] Expand the existing training dataset by introducing data augmentation techniques such as image rotation, flipping, and scaling.
+
+[ ] Raise the number of training epochs to prolong optimization and reinforce feature representation within the existing dataset.
+
+[ ] Implement normalization preprocessing steps to make all images share a common scale and brightness distribution.
+
+> Giải thích: 
+
+
+
+---
+### **Question 44:**
+
+Category: AIP – Implementation and Integration
+
+A multinational company is gathering a diverse set of multimedia data in various languages, including Spanish, from customer interactions, video recordings, and written documents. The company operates in multiple countries and needs to extract valuable insights by converting audio and video content into text, translating it into English, and summarizing it efficiently. The company already uses Amazon Kendra for indexing and searching large volumes of documents and Amazon Textract to extract text from scanned documents. These services help the company manage and process content in different languages, but an efficient solution is still needed to translate and summarize the content for a global audience.
+
+The company is now looking for a solution that can process audio and video data, translate it into English, and summarize it quickly using a large language model (LLM). The solution should minimize deployment time, ensuring that it can scale efficiently to meet the company’s global needs.
+
+Which option will best fulfill these requirements in the shortest time possible?
+
+[ ] Use AWS Glue to clean and prepare the data, then use Amazon Translate to translate the data into English, and summarize the content using Amazon Lex to create a conversational summary.
+
+[ ] Leverage Amazon Translate to translate the text into English, apply a pre-trained model in Amazon SageMaker AI for analysis, and summarize the content using the Claude Anthropic model in Amazon Bedrock.
+
+[ ] Utilize Amazon Transcribe for audio and video-to-text conversion, Amazon Translate for translating the content into English, and Amazon Bedrock with the Jamba model for summarizing the text.
+
+[ ] Train a custom model in Amazon SageMaker AI to process the data into English, then deploy an LLM in SageMaker AI for summarizing the content.
+
+> Giải thích: 
+
+
+
+
+---
+### **Question 45:**
+
+Category: AIP – Foundation Model Integration, Data Management, and Compliance
+
+A team of AI engineers is developing a churn prediction model using Amazon SageMaker AI. The team imports customer interaction and billing data into SageMaker Data Wrangler for data preparation and feature engineering. During exploratory data analysis, the team discovered that only about 8% of customers in the dataset have churned, causing a significant class imbalance.
+
+The team plans to launch a SageMaker training job using an XGBoost model to predict churn. However, initial training results show that the model consistently predicts the majority “non-churn” class, leading to poor recall for churned customers. The data scientist must address the imbalance to improve model performance and ensure the training dataset adequately represents both classes.
+
+Which approach should the team take to resolve this issue before starting the SageMaker training job?
+
+[ ] Apply a Random Undersampling in SageMaker Data Wrangler to remove samples from the majority non-churn class before training the model.
+
+[ ] Enable SageMaker Model Monitor to detect data drift and class imbalance after deployment, and use its reports to adjust the model’s prediction thresholds manually.
+
+[ ] Use SageMaker Clarify to analyze the class imbalance and generate bias metrics. Document the imbalance findings before retraining the model.
+
+[ ] Perform the Synthetic Minority Oversampling Technique (SMOTE) in SageMaker Data Wrangler to rebalance the churn dataset before running the SageMaker training job.
+
+> Giải thích: 
+
+
+---
+### **Question 46:**
+
+Category: AIP – AI Safety, Security, and Governance
+
+A financial services enterprise is standardizing on Amazon SageMaker AI for feature engineering and model lifecycle, while Amazon Fraud Detector scores real-time card transactions using model endpoints hosted on SageMaker AI. Data scientists routinely train and tune machine learning (ML) models on highly confidential payment data inside a dedicated VPC.
+
+The security team must prevent data exfiltration paths from notebooks, training jobs, and hosted endpoints, especially through public internet routes or unauthorized client locations, without breaking internal access for analysts on the corporate network.
+
+Which solution will meet this requirement while minimizing data egress from SageMaker AI? (Select THREE.)
+
+[ ] Attach a NAT gateway to the SageMaker AI subnets to allow outbound internet access for package installations during training and inference.
+[ ] Use SageMaker AI Lifecycle Configurations to install custom packages and configure notebook environments.
+[ ] Route all SageMaker AI API/Runtime calls through VPC interface endpoints (AWS PrivateLink).
+[ ] Run training jobs and models with network isolation enabled (EnableNetworkIsolation=true).
+[ ] Enforce IAM policies that restrict notebook presigned URLs to approved corporate IP ranges using aws:SourceIp and related conditions.
+[ ] Implement Amazon CloudWatch Logs ingestion for all SageMaker notebook and training job activities and set up AWS Security Hub alerts when unusual outbound network egress occurs.
+
+> Giải thích: 
+
+
+
+---
+### **Question 47:**
+
+Category: AIP – AI Safety, Security, and Governance
+
+A developer is working on an advanced machine learning project using Amazon SageMaker AI. The project involves training a deep learning model using large datasets stored in Amazon S3. Additionally, the developer needs to store model artifacts, logs, and evaluation results back to a different S3 bucket upon completion of the training job. To ensure security and proper access control, the developer must grant the SageMaker notebook instance appropriate permissions to read from and write to the specific S3 buckets.
+
+Which approach should be used to securely enable this access?
+
+
+[ ] Define a bucket policy on the S3 bucket that allows the SageMaker AI notebook instance by its ARN to perform `s3:GetObject`, `s3:PutObject`, and `s3:ListBucket` actions.
+
+[ ] Use AWS IAM identity federation to provide temporary access to the S3 bucket by configuring the SageMaker notebook instance to assume a federated role for accessing the data.
+
+[ ] Create an S3 access point for the SageMaker notebook instance, granting it access to the necessary data, and configure the access point to allow only the required actions (`s3:GetObject`, `s3:PutObject`, and `s3:ListBucket`).
+
+[ ] Allow the SageMaker notebook instance to perform `s3:GetObject`, `s3:PutObject`, and `s3:ListBucket` operations by attaching a policy to its associated IAM role that grants access to the designated S3 buckets.
+
+> Giải thích: 
+
+
+---
+### **Question 48:**
+
+Category: AIP – AI Safety, Security, and Governance
+
+An enterprise is currently leveraging Amazon SageMaker Feature Store for cross-model reusable feature lineage and SageMaker Clarify for model bias monitoring pre-deployment. A new model is now planned to be deployed using a SageMaker AI endpoint. The enterprise security team mandates that all inference traffic must remain inside private subnets, so the SageMaker AI endpoint must use a VPC configuration with no public internet route. Expected request payload sizes are consistently 6 MB to 11 MB, and model inference execution time during operational peak can take 18–22 minutes per request. The finance engineering team also requires that costs must remain minimal while still supporting request/response style inference.
+
+Which solution is the most suitable approach to satisfy this requirement?
+
+[ ] Deploy a SageMaker asynchronous endpoint inside private subnets and include VPC configuration parameters during endpoint creation.
+
+[ ] Use SageMaker multi-model endpoint architecture inside private subnets with VPC configuration applied as part of endpoint deployment procedures.
+
+[ ] Configure a SageMaker Batch Transform job to run within private subnets and attach the appropriate VPC configuration parameters during endpoint creation.
+
+[ ] Use SageMaker Neo compiled model packaging and deploy the compiled artifact to a SageMaker real-time inference endpoint inside private subnets using VPC configuration.
+
+> Giải thích: 
+
+
+
+---
+### **Question 49:**
+
+Category: AIP – AI Safety, Security, and Governance
+
+A financial services company is developing a machine learning (ML) model in Amazon SageMaker AI to detect real-time fraudulent transactions. The company plans to integrate this model with Amazon Kinesis Data Streams for continuous transaction data ingestion and Amazon DynamoDB for storing transaction metadata.
+
+The model must be trained on an extensive historical dataset stored in Amazon S3. The company must ensure that all data is encrypted in transit and at rest, and that access to sensitive data and model results is strictly controlled. The company also wants to track model performance over time to ensure that the model remains effective and that predictions align with business rules.
+
+Which solution will secure the ML workflow, control access, and allow for continuous monitoring of model performance?
+
+[ ] Utilize SageMaker AI to train the model with data from S3, store the model and metadata in DynamoDB, and configure Amazon VPC endpoints for secure communication between the SageMaker AI instance, DynamoDB, and Kinesis Data Streams. Use AWS CloudTrail to monitor access and activity.
+
+[ ] Use SageMaker AI to train the model with data from S3, configure Amazon Data Firehose to ingest the transaction data into SageMaker AI, and use AWS Glue to catalog the transaction data. Use Amazon CloudWatch for model performance monitoring and IAM policies to restrict access.
+
+[ ] Use SageMaker AI to train the model with data from S3, enable S3 server-side encryption (SSE-S3) for data at rest, store model results in S3 with IAM roles to control access, and use Amazon Macie for monitoring sensitive data exposure.
+
+[ ] Use SageMaker AI to train the model with data from S3, enable S3 server-side encryption (SSE-KMS) for data at rest, configure IAM roles to control access to the model and data, and use Amazon CloudWatch to monitor model performance metrics and logging.
+
+> Giải thích: 
+
+
+---
+### **Question 50:**
+
+Category: AIP – Foundation Model Integration, Data Management, and Compliance
+
+A sporting goods manufacturer uses Amazon SageMaker AI Canvas for automated time-series feature engineering and SageMaker AI Studio notebooks for custom modeling. To complement a legacy forecasting stack built on traditional exponential smoothing (ETS) models, the analytics team stores weekly sales data by SKU, color, and size variants in Amazon S3 and enriches it with promotional and holiday indicators.
+
+With the introduction of a brand-new product variant that has no direct sales history, the forecasting initiative requires an approach capable of learning shared patterns across existing SKUs and producing reliable demand predictions for the new variant despite sparse or zero historical data.
+
+Which approach best satisfies these requirements?
+
+[ ] Use SageMaker AI to train the built-in DeepAR algorithm across all related SKUs and then generate a forecast for the new variant.
+
+[ ] Use SageMaker AI to train a Linear Learner regression model using historical sales data as features and forecast values as labels for all SKUs.
+
+[ ] Use SageMaker AI to train a Random Cut Forest (RCF) model to detect anomalies in historical sales data and project future demand levels for the new variant.
+
+[ ] Use SageMaker AI to train a K-means clustering model to group similar SKUs and infer demand patterns for the new variant based on the nearest cluster.
+
+> Giải thích
+
+
+---
+### **Question 51:**
+
+Category: AIP – Foundation Model Integration, Data Management, and Compliance
+A global manufacturing company operates factories in remote regions where reliable internet access is often unavailable. The company wants to deploy a machine learning (ML) solution to detect the dimensions of packages.
+
+The company has collected thousands of hours of video footage from the production lines, which will be used for training an ML model. To facilitate this, the company plans to leverage Amazon SageMaker AI for model training and Amazon Rekognition to assist with initial video labeling and annotation for training data preparation. Given the remote locations of the factories, the company needs a deployment strategy that ensures the ML model can make real-time decisions regarding package routing without relying on constant cloud connectivity.
+
+Which of the following solutions would best meet the company’s needs?
+
+Use SageMaker’s built-in Object Detection algorithm to train the model. Deploy the trained model to an AWS IoT Greengrass core with AWS Lambda handling the decision logic at the factory.
+Deploy a Convolutional Neural Network (CNN) in SageMaker AI using Amazon Kinesis Video Streams to analyze the video footage in real time. Use Amazon EventBridge to trigger downstream actions for routing packages based on the detected dimensions.
+Train the model using SageMaker AI and deploy it to Amazon Elastic Kubernetes Service (Amazon EKS) clusters running in each factory. Use Amazon SQS to queue routing decisions and send them to the cloud for processing.
+Use Rekognition Custom Labels to train the model and deploy it using Amazon EC2 instances at each factory. Use Amazon EventBridge to monitor inference results and trigger routing actions.
+
+---
+### **Question 52:**
+
+Category: AIP – AI Safety, Security, and Governance
+An ML engineering team is building a secure, multi-service pipeline that uses Amazon SageMaker AI for model training and Amazon Comprehend for entity extraction. The pipeline is triggered by Amazon EventBridge and orchestrated using AWS Step Functions.
+
+To comply with internal security policies, the team provisions a VPC interface endpoint for the SageMaker AI Service API within a single public subnet of the Amazon VPC. The goal is to ensure that only specific Amazon EC2 instances and IAM users can invoke SageMaker API operations through these instances.
+
+Which combination of actions should the team take to secure the traffic to the SageMaker Service API? (Select TWO.)
+
+Attach a custom VPC endpoint policy that explicitly grants access to selected IAM identities.
+Enable private DNS for the VPC endpoint to ensure that traffic remains within the VPC.
+Deploy an additional VPC endpoint for SageMaker AI Runtime to isolate inference traffic.
+Configure the security group linked to the endpoint network interface to allow traffic only from approved instances.
+Enable VPC Flow Logs to monitor traffic patterns. Use AWS Lambda to automatically block unauthorized access to the SageMaker API endpoint.
+
+---
+### **Question 53:**
+
+Category: AIP – Implementation and Integration
+A cloud development team is using Amazon Q Developer, a generative AI-powered conversational assistant, to accelerate work on AWS applications. The team wants Q Developer to deliver more dynamic and contextually relevant responses by accessing live data from databases and external APIs that provide up-to-date information.
+
+To ensure that Q Developer receives real-time and dynamic contextual data during conversations, the team has decided to use the Model Context Protocol (MCP). A solution is needed that can easily connect to these data sources and enable low-latency access, providing the most relevant information to the assistant during interactions.
+
+Which solution will meet this requirement?
+
+Set up an API gateway to connect the databases and the external APIs.
+Configure the MCP server to connect to the databases and external APIs.
+Use Amazon Quick Suite to integrate with the databases and the external APIs.
+Utilize Amazon Q Developer CLI with MCP to connect to the databases and the external APIs.
+
+---
+### **Question 54:**
+
+Category: AIP – AI Safety, Security, and Governance
+A data science team is leveraging Amazon SageMaker AI to build and deploy machine learning models for predictive analytics. The team also uses Amazon Comprehend to perform natural language processing (NLP) on text data as part of their analysis pipeline. The SageMaker notebook instances are deployed within an isolated Amazon VPC to ensure that the development work is secure. VPC interface endpoints were set up to establish private connectivity between the VPC and the SageMaker API. The team later discovers that unauthorized users from outside the VPC can still access the notebook instances through the internet, raising security concerns.
+
+How can the team limit access to the SageMaker notebook instances, ensuring only authorized VPC users can connect?
+
+
+Configure an IAM policy that allows sagemaker:CreatePresignedNotebookInstanceUrl and sagemaker:DescribeNotebookInstance actions exclusively from VPC interface endpoints. Ensure this policy is applied to the appropriate IAM users, groups, and roles.
+Apply VPC Endpoint Policies to control which IAM users or services can access SageMaker AI through the VPC interface endpoint, providing more granular access control for interactions with SageMaker AI.
+Update the security group for the notebook instances to restrict incoming traffic to only the CIDR blocks associated with the VPC. Apply this security group across all interfaces linked to the SageMaker notebook instances.
+Set up VPC Traffic Mirroring to capture traffic to and from the notebook instances and identify unauthorized access attempts, enabling enhanced monitoring.
+
+
+---
+### **Question 55:**
+
+Category: AIP – Operational Efficiency and Optimization for Generative AI Applications
+An AI developer is building a fraud detection model using Amazon SageMaker Autopilot to generate and evaluate candidate models automatically. To further refine model performance, the developer integrates automatic model tuning (AMT) in SageMaker AI to optimize several hyperparameters related to model learning rate, batch size, and regularization strength.
+
+During multiple tuning jobs, the developer notices that some training jobs run unnecessarily long when the model’s validation accuracy stops improving early in the process. The tuning configuration must be adjusted appropriately to optimize resource usage and reduce overall tuning time, allowing SageMaker AI to decide automatically when to stop poorly performing training jobs.
+
+Which configuration step should be taken to address this requirement?
+
+Modify the objective metric in the tuning job definition to use a stricter validation threshold, ensuring underperforming models are ignored automatically.
+
+Enable early stopping by setting the TrainingJobEarlyStoppingType parameter to the AUTO value in the tuning job configuration.
+Configure the tuning strategy to use Bayesian optimization, ensuring that all training jobs complete fully before evaluating results.
+
+Increase the MaxRuntimeInSeconds parameter in the tuning job configuration to allow more time for underperforming training jobs to complete.
+
+
+---
+### **Question 56:**
+
+Category: AIP – Operational Efficiency and Optimization for Generative AI Applications
+A global hotel chain operates across multiple regions, collecting vast amounts of customer interaction and booking data. The platform uses Amazon Lex to power an AI-driven chatbot that handles booking requests, customer inquiries, and preferences. Amazon Comprehend is integrated to process and analyze customer feedback and booking reviews to enhance the accuracy of the chatbot’s responses. The data, collected from various sources such as web activity logs, booking histories, and customer reviews, is continuously streamed into AWS.
+
+The company seeks to automate the process of identifying high-demand rooms in real-time and providing up-to-date visual insights into booking trends for hotel managers. The solution must stream the booking data to Amazon S3 in near real-time, apply machine learning models to detect demand fluctuations and forecast trends, and provide an automated visualization dashboard that continuously displays the most current and accurate insights as new data flows in, reflecting the latest room demand and booking patterns.
+
+Which approach delivers the desired setup with the least development time?
+
+Use Amazon Data Firehose to stream the booking data into Amazon S3, process the data with AWS Glue, and detect high-demand outliers using the Random Cut Forest (RCF) model in Amazon SageMaker AI. Visualize the results in Amazon QuickSight.
+Push booking data to S3 with Amazon Kinesis Data Streams, use a Random Cut Forest (RCF) model in Amazon SageMaker AI to detect demand anomalies, and visualize the results in Amazon QuickSight.
+Stream booking data to S3 using Amazon Kinesis Data Streams, process the data with Amazon Athena, and apply AWS Glue for data enrichment. Use Amazon QuickSight to visualize demand trends and anomalies.
+Utilize Amazon Data Firehose for direct streaming of booking data to S3 and employ Amazon QuickSight ML Insights for anomaly detection, followed by visualizing the insights in QuickSight.
+
+
+---
+### **Question 57:**
+
+Category: AIP – Testing, Validation, and Troubleshooting
+A data analytics company is developing a personalized news recommendation platform that delivers tailored article suggestions to readers. The AI development team uses Amazon Comprehend to perform sentiment analysis and entity recognition on articles and reader feedback data. The extracted insights are then stored in Amazon S3 and used by an Amazon Personalize solution to generate ranked recommendations for each user session.
+
+The company has trained multiple recommendation models to improve model accuracy and wants to evaluate the effectiveness through A/B testing in a beta production environment. The system must route live inference traffic between multiple model variants, monitor real-time engagement metrics, and seamlessly direct 100% of traffic to the best-performing model.
+
+Which solution will meet these requirements in the most operationally efficient way?
+
+Use AWS CodeDeploy with blue/green deployment strategies and an Application Load Balancer (ALB) to alternate traffic between model versions during A/B testing. Gradually route 100% of traffic to the model with the highest engagement metrics.
+Deploy the models on Amazon EC2 instances behind an Application Load Balancer (ALB) to perform A/B testing, then manually adjust the ALB weights when a model shows higher engagement.
+Create a separate Amazon SageMaker AI endpoint for each model and configure Amazon API Gateway to distribute traffic for A/B testing based on weighted routing rules.
+Use Amazon SageMaker AI multi-variant endpoints to deploy all model versions behind a single endpoint. Configure traffic weights for A/B testing and update routing to send all inference requests to the best-performing model once identified.
+
+---
+### **Question 58:**
+
+Category: AIP – Foundation Model Integration, Data Management, and Compliance
+A financial analytics company is building a customer-facing chatbot that uses a large language model (LLM) to answer domain-specific questions about investment products and compliance policies. The company has thousands of PDF documents stored in an Amazon S3 bucket that contain detailed policy explanations and financial regulations.
+
+The AI engineering team wants the chatbot to retrieve precise answers from these documents instead of relying solely on the LLM’s pre-trained knowledge. The goal is to implement a Retrieval-Augmented Generation (RAG) approach to ground the model’s responses with proprietary data. The team is evaluating whether to use Amazon Kendra or Amazon Bedrock to manage this retrieval pipeline efficiently while maintaining scalability and minimal infrastructure overhead.
+
+Which solution provides the most effective and AWS-managed way to integrate proprietary document retrieval with an LLM for this RAG-based chatbot?
+
+Deploy Kendra as an independent search engine to index the documents in the S3 bucket. Configure the LLM to query Kendra’s search results directly for every user request.
+Configure a knowledge base in Bedrock. Add the S3 bucket as the connected data source, and utilize the Bedrock API to perform RAG queries that dynamically combine document retrieval with LLM generation.
+Fine-tune the LLM in Bedrock on the text extracted from the S3 bucket so that the model permanently learns the organization’s policies and eliminates the need for document retrieval.
+Use Kendra to extract document embeddings then store it manually in an Amazon DynamoDB table. Query the embeddings from a custom inference endpoint for every RAG request.
+
+
+---
+### **Question 59:**
+
+Category: AIP – Implementation and Integration
+A company manages a large-scale analytics platform that stores high-volume transaction data in a PostgreSQL database. The dataset includes hundreds of millions of records with customer details, purchase amounts, product categories, and regions. The analytics team wants to use Amazon SageMaker AI to predict which customers are likely to churn in the next 90 days and improve retention strategies.
+
+The company needs a solution that automates data extraction and preparation from the PostgreSQL database for scheduled cleaning, normalization, and handling of missing values. After refining the data, the team considers using Amazon SageMaker Feature Store to store and manage customer features for consistent inputs in machine learning workflows. Analysts should then be able to build and deploy a no-code churn-prediction model and easily generate predictions on new customer data without support from data scientists.
+
+Which is the best option to achieve this requirement?
+
+Use AWS Glue DataBrew to extract the data from PostgreSQL, clean and normalize the dataset, and write the prepared data back into Amazon S3. Import the cleaned dataset into Amazon SageMaker Canvas to build a no-code churn-prediction model and generate predictions for business analysts.
+Use AWS Glue DataBrew to prepare and clean the data from the PostgreSQL database. Use Amazon SageMaker Studio to build, train, and deploy a custom churn-prediction model using a notebook-based workflow for data scientists.
+Use AWS Glue DataBrew to extract the data and build the churn-prediction model directly within DataBrew. Generate predictions that are written into Amazon Redshift.
+Use AWS Database Migration Service (AWS DMS) to replicate data from the PostgreSQL database into Amazon S3 continuously. Use AWS Glue DataBrew to clean and normalize the replicated dataset before importing it into Amazon SageMaker Canvas to build and deploy the churn-prediction model.
+
+
+---
+### **Question 60:**
+
+Category: AIP – Implementation and Integration
+A publishing company is developing an internal generative AI platform to automate the creation of research article drafts and editorial summaries. The company uses Amazon Comprehend for text preprocessing and data cleaning, and Amazon Bedrock Agents to automate content retrieval, citation validation, and orchestration of large language model (LLM) tasks across the editorial workflow. An AI developer has recently built and fine-tuned a large language model (LLM) outside of Amazon SageMaker AI and stored the model artifacts in an Amazon S3 bucket for internal use.
+
+The AI developer wants to make the model available to the data specialist team through SageMaker Canvas, allowing the data specialists to experiment with the model’s text-generation capabilities through a no-code interface. The AI developer and the data specialist team belong to the same SageMaker AI domain, and the AI developer must ensure the model is properly registered and accessible within SageMaker AI.
+
+Which combination of steps must be taken for the AI developer to enable SageMaker Canvas access to the model? (Select TWO.)
+
+The AI developer must register the model in the SageMaker Model Registry to enable the data specialist team's access via SageMaker Canvas.
+The AI developer must convert the model into a TensorFlow or PyTorch format for SageMaker Canvas compatibility.
+The data specialist team must create a shared workspace within SageMaker Canvas that allows both the AI developer and data specialists to access the model.
+The AI developer is required to set up a SageMaker endpoint for the model.
+The data specialist team must be granted the necessary permissions to access the S3 bucket where the model artifacts are stored.
+
+
+---
+### **Question 61:**
+
+Category: AIP – Foundation Model Integration, Data Management, and Compliance
+A large-scale e-commerce platform is developing an AI-powered email filtering system that automatically identifies and flags malicious, spam, and phishing emails before reaching end users. The AI development team will implement this solution using Amazon SageMaker AI for model training and deployment, taking advantage of SageMaker’s managed environment for building and fine-tuning machine learning models. The system will rely on Amazon Comprehend to extract key entities and sentiment from incoming emails, helping the model identify potential threats. The training dataset consists of several thousand human-labeled emails, where each email is paired with a label of “spam” or “not spam”.
+
+The AI development team aims to improve the model’s performance by applying transfer learning using a Bidirectional Encoder Representations from Transformers (BERT) model that was pretrained on a large corpus of text data. The goal is to fine-tune the pretrained BERT model on the labeled email dataset, which will allow the model to learn how to better classify email content. The pretrained BERT model weights need to be correctly loaded and used as the initialization point for fine-tuning, ensuring the model can effectively detect spam without requiring a full retraining process.
+
+Which approach will correctly initialize the BERT model to achieve this requirement?
+
+Initialize the model with pretrained weights, convert the output layer into a multi-task classifier that predicts multiple text classes beyond spam detection, and train this classifier using the labeled dataset.
+Apply pretrained model parameters across all layers, then discard the existing final layer. Introduce a custom classifier and train it using the labeled data for spam detection.
+Load the pretrained model weights for every layer and place an external classifier on top of the primary model output vector. Train the newly added classifier with the labeled dataset.
+Use the pretrained model weights for all transformer layers and attach a second classifier layer in parallel with the existing output layer. Train only this additional classifier using the labeled dataset.
+
+
+
+
+---
+### **Question 62:**
+
+
+Category: AIP – Operational Efficiency and Optimization for Generative AI Applications
+A global e-commerce platform utilizes Amazon SageMaker AI to implement a real-time recommendation system that provides personalized product suggestions. The model is developed using SageMaker Studio. Once trained, the model is hosted on a SageMaker endpoint, enabling it to deliver inferences in real time. Additionally, the company employs Amazon Comprehend to analyze customer feedback and sentiment derived from reviews and product ratings. This analysis helps the company better understand customer preferences and enhance its recommendations.
+
+As the business prepares for major sales events, the operations team observes that increased customer activity results in significant delays when retrieving product recommendations, ultimately leading to a poor user experience. To address this issue, there is a need to adjust the target tracking scaling policy on the SageMaker endpoint. The goal is to ensure effective scaling during high-traffic periods, preventing latency from adversely affecting the customer experience.
+
+Which solution will best optimize the scaling of the SageMaker inference endpoint?
+
+Use AWS Lambda to periodically restart the SageMaker endpoint during peak traffic to refresh instance performance.
+Configure a scheduled scaling policy to increase the capacity of the SageMaker inference endpoint before the sales events begin.
+Implement a step scaling policy for the SageMaker inference endpoint that scales based on resource utilization metrics such as CPU and memory usage.
+Increase the instance size of the SageMaker endpoint to a larger instance type to accommodate higher traffic during sales events.
+
+
+
+---
+### **Question 63:**
+
+
+Category: AIP – Operational Efficiency and Optimization for Generative AI Applications
+A data science team is developing an automated pipeline that integrates Amazon SageMaker AI and Amazon Comprehend to analyze large volumes of customer feedback data. The team first uses a PySpark script to perform text preprocessing, tokenization, and feature engineering on millions of feedback records stored in Amazon S3. The preprocessed data is then passed to Comprehend for sentiment and entity extraction, and subsequently used to train multiple sentiment classification models in SageMaker AI.
+
+The AI developer must determine how varying the PySpark feature transformation parameters and sample sizes affects overall model accuracy and inference performance.
+
+Which solution will meet this requirement most effectively?
+
+Use SageMaker Experiments tracker to log PySpark parameters and model metrics while executing the script as a SageMaker processing job.
+Use SageMaker Autopilot to automatically choose the best PySpark preprocessing configuration and feature-engineering parameters for model optimization.
+Use SageMaker Debugger hook to capture feature engineering metrics and execution logs during PySpark script execution within a SageMaker training job.
+Use SageMaker Model Monitor to detect differences in PySpark data transformation parameters before each training iteration.
+
+
+
+
+---
+### **Question 64:**
+
+Category: AIP – Operational Efficiency and Optimization for Generative AI Applications
+An AI engineer trains a Convolutional Neural Network (CNN)–based computer vision model to generate detailed object representations for a custom dataset. The dataset consists of millions of high-resolution labeled images stored in Amazon S3. The engineer uses Amazon Rekognition for feature extraction on raw images before feeding it into an Amazon SageMaker training job for model fine-tuning.
+
+During training, the engineer observed that model training took significantly longer than expected due to slow data reads from S3. The training job uses an Amazon EC2 On-Demand Instance and currently accesses data using File mode.
+
+The engineer wants to improve I/O performance during training without modifying the model architecture, data preprocessing scripts, or the training infrastructure.
+
+Which action should the engineer take to optimize training performance most efficiently?
+
+Increase the instance size of the EC2 On-Demand Instance to a larger GPU type for higher throughput.
+Set the SageMaker training job to Pipe mode instead of File mode to enhance training throughput.
+Change the SageMaker training job’s data input configuration to FastFile mode to stream data directly from S3 without other changes.
+Use Rekognition Custom Labels to optimize image access and retrain the model.
+
+
+
+
+
+
+---
+### **Question 65:**
+
+
+Category: AIP – Foundation Model Integration, Data Management, and Compliance
+A global e-commerce company has deployed a customer service chatbot powered by Amazon Bedrock for real-time query processing. The chatbot uses Amazon SageMaker AI for model training and inference and utilizes a cross-region inference profile to optimize throughput. The company must ensure that input prompts and output results are transmitted securely across regions, with data remaining within the designated geography (the US) to meet compliance requirements. Additionally, the system must stay scalable and responsive during peak traffic bursts, leveraging AWS services to handle traffic fluctuations and ensure consistent performance during high-demand periods.
+
+Which approach should satisfy the requirement?
+
+Configure Bedrock with a cross-region inference profile tied to the US geography and use Amazon Comprehend to analyze and categorize customer queries before routing the inference request, ensuring that only relevant queries are processed for improved throughput.
+Implement a cross-region inference profile tied to the US geography and route requests to destination Regions within the US. Utilize SageMaker AI to handle model inference at peak times by enabling Provisioned Throughput, ensuring consistent performance during traffic bursts.
+Use Bedrock with a global cross-region inference profile, allowing the system to route requests to the best-performing AWS Regions worldwide, increasing throughput and enhancing model performance. Use Amazon Kendra for query-based search to enhance user experience and ensure relevant responses.
+Use Bedrock with a cross-region inference profile tied to the US geography, ensuring that requests from US Regions are routed to the optimal destination Regions within the US, while ensuring that input prompts and output results remain encrypted during transmission across Regions. Additionally, use AWS Step Functions to manage traffic bursts and ensure that service quotas are not exceeded.
+
+
+
+
+
+---
+### **Question 66:**
+
+
+Category: AIP – Implementation and Integration
+A financial technology company manages a large-scale payment platform that processes millions of transactions daily. The company uses Amazon Comprehend to analyze unstructured text data from customer reviews and support tickets to identify sentiment trends and potential user disputes. Amazon SageMaker AI is also used to generate periodic behavior-based risk scores for customer accounts.
+
+Recently, the company has noticed an increasing number of fraudulent transactions, especially from newly registered accounts attempting high-value payments. The existing batch-based model in SageMaker cannot flag these activities quickly enough to prevent losses.
+
+The data science team is looking for a real-time fraud detection solution that can automatically assess and reject fraudulent transactions at the moment of occurrence. The solution must require minimal operational effort.
+
+Which option satisfies these requirements?
+
+Use Amazon Lookout for Vision to detect anomalies in uploaded transaction receipt images and classify them as fraudulent or legitimate.
+Use the Amazon Fraud Detector prediction API to automatically approve or deny transactions that are identified as fraudulent.
+Use SageMaker AI to train a new supervised model for fraud detection and deploy it on Amazon EC2 using custom inference code.
+Use Comprehend to extract entities from transaction metadata and forward them to SageMaker AI to retrain a fraud detection model.
+
+
+
+
+---
+### **Question 67:**
+
+
+Category: AIP – Foundation Model Integration, Data Management, and Compliance
+A company operates a customer support chatbot that uses Amazon Bedrock to send user queries to an Amazon Nova Pro large language model (LLM) for generating conversational responses. The chatbot is integrated with Amazon Kendra to retrieve relevant knowledge base articles, which are appended to the prompt before the request is sent to the model.
+
+Users have reported that when similar questions are asked multiple times, different responses are sometimes returned, even though the retrieved Kendra results remain unchanged. The generative AI developer must configure the system to produce responses that are more consistent, deterministic, and less random, without modifying the knowledge retrieval process.
+
+What approach solves these requirements?
+
+
+Modify the inference parameters by lowering both the temperature value and the top_k sampling threshold.
+
+Modify the inference parameters by increasing both the temperature value and the top_k sampling threshold.
+
+Modify the inference parameters by lowering the temperature value and increasing the top_p sampling threshold.
+
+Modify the inference parameters by lowering both the temperature value and the top_p sampling threshold.
+
+
+---
+### **Question 68:**
+
+
+Category: AIP – Testing, Validation, and Troubleshooting
+A travel company is developing a virtual assistant using Amazon Lex to help customers find vacation packages based on themes such as “relaxation,” “adventure,” and “culture.” The chatbot uses an AWS Lambda function to query an Amazon DynamoDB table that stores package details by category.
+
+During testing, a Generative AI Developer observes that the chatbot sometimes fails to recognize user inputs such as “thrill-seeking,” “sightseeing,” or “chill,” even though these terms correspond to existing categories. The company is exploring Amazon Titan models to enhance future natural language understanding and embedding capabilities but requires an immediate solution that does not involve modifying the Lambda function or database.
+
+Which action should the Generative AI Developer take to improve the chatbot’s ability to recognize these user inputs?
+
+Define the unrecognized words as synonyms linked to current enumeration values in the custom slot type.
+Update the slot type definition to include the unrecognized words as part of its enumeration list.
+Add runtime hints for the slot values to guide Lex in resolving similar user inputs.
+Train a new Lex intent with the unrecognized words as sample utterances.
+
+
+
+
+---
+### **Question 69:**
+
+
+Category: AIP – Operational Efficiency and Optimization for Generative AI Applications
+A multinational e-commerce enterprise, TD Conversation, is developing a Generative AI-powered speech understanding system to transcribe and classify short customer voice messages submitted through its global support platform. Each message, lasting up to 2 minutes, may contain 150 unique product names with uncommon spellings or localized pronunciations. The AI team has built a labeled dataset of 5,000 voicemail transcripts using Amazon SageMaker Ground Truth, enriched with metadata like accent, noise level, and speaker ID. Additionally, Amazon Comprehend is integrated to extract domain-specific entities like product codes and issue categories for downstream summarization.
+
+During the model prototyping phase, developers must frequently test and refine the acoustic and vocabulary parameters of the automatic speech recognition (ASR) workflow to improve recognition accuracy for brand-specific terms. The solution must enable rapid customization iterations and maximize transcription accuracy without requiring full retraining of the ASR model from scratch.
+
+Which solution will improve transcription accuracy for product names while supporting frequent ASR model updates?
+
+Implement a voice bot using Amazon Lex where each product name is configured as a slot entry. Leverage Lex’s synonym feature to capture alternate pronunciations and spelling variations, refining the custom slot list throughout the testing phase.
+Use Amazon Kendra to index the transcribed audio data and automatically retrieve context for similar product names. Use the search feedback mechanism to adjust ASR interpretations for improved term recognition.
+Configure an ASR customization workflow in Amazon Transcribe by creating a custom vocabulary that defines every product name and pronunciation variant. After observing misrecognized words during development, manually update and redeploy the vocabulary for improved performance.
+Leverage Amazon Bedrock to fine-tune a foundation model that analyzes transcribed text and generates improved acoustic embeddings for the ASR pipeline. Integrate these embeddings into subsequent transcription tasks to enhance context understanding.
+
+
+
+---
+### **Question 70:**
+
+Category: AIP – Implementation and Integration
+A data science team at a retail company wants to predict customer churn based on various historical transactional data. The dataset contains 10,000 records, each with 1,500 attributes, such as demographic information, purchasing patterns, and customer service interactions. The team is looking for an automated way to build a model using Amazon SageMaker AI, which can predict whether a customer will churn while also identifying the most relevant features contributing to the prediction. To deepen insights, the team uses Amazon Comprehend to analyze sentiment and key phrases in customer interactions.
+
+Which of the following solutions will best fulfill these requirements while minimizing manual effort?
+
+Leverage SageMaker Autopilot to automatically train a classification model for forecasting customer churn. Then, utilize insights from SageMaker Clarify to determine which features most significantly influence the predictions.
+Use the k-means algorithm in SageMaker AI to cluster customers based on purchasing patterns. After clustering, use the resulting clusters to predict churn based on customer behavior.
+Use SageMaker Data Wrangler to automatically train a churn prediction model and rely on its quick model visualization feature to generate accurate importance scores for deployment decisions.
+Use SageMaker Ground Truth to label customer churn data, then build a custom TensorFlow model to predict churn and analyze feature weights post-training.
+
+
+
+
+---
+### **Question 71:**
+
+
+Category: AIP – Foundation Model Integration, Data Management, and Compliance
+A leading technology company has developed a powerful Retrieval Augmented Generation (RAG) application that enhances user interactions by providing relevant responses through advanced search techniques. The application uses a vector database to store embeddings of documents, understanding the meaning behind user queries rather than relying on keyword matches. As part of the cloud migration, the text repository has been moved to Amazon S3, containing terabytes of unstructured documents such as technical manuals and customer support logs. To support the data processing pipeline, Amazon SageMaker AI is used for building and training custom machine learning models that analyze and classify documents, and Amazon Comprehend is utilized for natural language processing tasks such as sentiment analysis and entity recognition.
+
+The company needs a solution that integrates smoothly with the S3 bucket, scales effectively, and ensures high performance when retrieving relevant, context-aware results from the vast repository. The goal is to provide users with accurate and contextually relevant results based on the deeper meaning of queries, offering a more dynamic and engaging user experience.
+
+Which AWS solution will optimize the company’s RAG application and enable semantic search?
+
+Ingest documents from S3 into Amazon Kendra using the Kendra S3 connector, then perform semantic search queries with Kendra's built-in search engine.
+Use AWS Lambda to process the files and generate embeddings. Store the embeddings in Amazon DynamoDB. Use Amazon QuickSight to perform the semantic searches.
+Generate embeddings for documents using a custom script in SageMaker notebooks, store the embeddings in SageMaker Feature Store, and run semantic searches with SQL queries.
+Leverage Amazon Textract to extract text from the documents in the S3 bucket. Store the extracted data in Amazon Redshift for analytics and perform semantic searches using Amazon OpenSearch Service.
+
+
+
+---
+### **Question 72:**
+
+
+Category: AIP – Foundation Model Integration, Data Management, and Compliance
+A multinational digital payments provider is designing a real-time fraud detection platform using Amazon SageMaker AI for training and hosting machine learning models, and Amazon Comprehend for analyzing unstructured transaction descriptions.
+
+The AI development team has consolidated years of historical transaction data from multiple regions into a single data lake. Each record in this dataset contains the following fields:
+
+client_identifier (string)
+
+account_category (integer)
+
+payment_value (float)
+
+account_duration (integer)
+
+operation_status (string) with possible values “legitimate” or “suspicious”
+
+Before deploying the model to production, the AI developer must prepare the data to ensure compatibility with SageMaker AI built-in algorithms and maintain a valid label structure for classification.
+
+Which preprocessing step should the AI developer perform before training the model in SageMaker AI?
+
+
+Exclude the client_identifier field and encode operation_status into numeric labels, then proceed with launching the model training phase in SageMaker AI.
+
+Retain all fields and use Comprehend to transform operation_status into sentiment-based numeric scores before starting the training job.
+
+Exclude both client_identifier and operation_status fields to reduce data correlation, and initiate model training using the remaining attributes.
+Convert all fields into string format to maintain data consistency, and then start the model training phase in SageMaker AI.
+
+
+
+---
+### **Question 73:**
+
+
+Category: AIP – Implementation and Integration
+A financial services organization has built a custom machine learning (ML) model designed for real-time fraud detection. The model, which is hosted on the company’s on-premises infrastructure, is less than 5 GB in size and processes up to 50 concurrent requests simultaneously. The company is exploring AWS services to migrate its model to the cloud while minimizing infrastructure management. The development team is familiar with Amazon Rekognition for image-based analysis and Amazon Textract for document analysis, and is now looking for the best service to deploy the fraud detection model.
+
+Which of the following will meet the given requirements with the least operational overhead?
+
+Deploy the fraud detection model on a highly available Amazon EC2 instance in an auto-scaling group. Configure an application load balancer to route the incoming requests to the EC2 instance.
+Create a model configuration within Amazon SageMaker AI, then deploy the custom fraud detection model on an asynchronous SageMaker endpoint.
+Create a model configuration within Amazon SageMaker AI, then deploy the custom fraud detection model on a serverless SageMaker endpoint.
+Deploy the custom fraud detection model in Amazon SageMaker Neo to optimize the model, then host the optimized model on a SageMaker real‑time endpoint.
+
+
+
+---
+### **Question 74:**
+
+Category: AIP – Operational Efficiency and Optimization for Generative AI Applications
+A digital media company operates a web platform where customers upload high-resolution product and marketing images that require automated text generation for accessibility and search optimization. Each uploaded image can reach up to 60 MB in size, and the platform experiences unpredictable spikes in traffic during global promotional campaigns.
+
+All uploaded images are securely stored in an Amazon S3 bucket, which acts as the central repository for incoming media files. The company uses Amazon Rekognition to analyze images, detecting objects, scenes, and other visual features that form the foundation of metadata. The extracted information is passed to Amazon Bedrock, which uses a foundation model to generate detailed natural language captions describing the image content accurately and contextually.
+
+The ML workflow automatically starts processing when new images are uploaded to the S3 bucket. The GenAI developer must design a solution that scales automatically to handle fluctuating workloads, maintains high availability during traffic spikes, and operates with minimal infrastructure management overhead.
+
+Which solution fulfills these requirements with minimal infrastructure management and operational effort?
+
+Build a containerized processing pipeline using Amazon ECS on Fargate that runs on a schedule to handle uploaded images and insert processed data into Amazon Aurora.
+Launch an Amazon EC2 Auto Scaling group to host an inference application that monitors the primary S3 bucket for new image uploads and stores processed results in a separate S3 bucket.
+Deploy an Amazon SageMaker Asynchronous Inference endpoint with a scaling policy that automatically adjusts capacity and processes inference requests for each image in the S3 bucket.
+Use Amazon SQS to queue image-processing tasks and trigger AWS Lambda functions that run Rekognition and Bedrock processing for each uploaded image.
+
+
+
+
+---
+### **Question 75:**
+
+
+Category: AIP – Implementation and Integration
+A GenAI developer working for a global technology enterprise is designing a real-time conversational AI assistant that must support thousands of concurrent interactions across multiple business units. Incoming text inputs are enriched with entity and sentiment analysis through Amazon Comprehend, while specialized classification tasks are handled by hosted models on Amazon SageMaker AI. The assistant’s generative responses are produced by an AWS Lambda function that invokes an Amazon Bedrock foundation model with response streaming enabled to deliver token-by-token output with minimal latency.
+
+The development team is standardizing on an event-driven, serverless architecture that uses Amazon API Gateway WebSocket APIs to support persistent bidirectional communication. The system must maintain conversational state across multi-step interactions, manage active connections and retries, and perform disconnect cleanup to prevent stale records or orphaned sessions. The organization requires a fully managed solution that reduces complexity and operational overhead while ensuring reliability, scalability, and secure communication across all client sessions.
+
+Which set of actions will deliver the required functionality while maintaining the lowest operational overhead? (Select THREE.)
+
+
+Grant the Lambda function an IAM role that includes both bedrock:InvokeModelWithResponseStream for Bedrock streaming and execute-api:ManageConnections for WebSocket message operations tied to the API Gateway API ID.
+Set up an API Gateway WebSocket API to trigger a Lambda function that manages connection events and stores session state in Amazon ElastiCache for Redis for use during subsequent message processing.
+
+Maintain session context and active connection IDs in an Amazon DynamoDB table, leveraging $connect/$disconnect triggers and TTL for lifecycle management.
+Use Amazon DynamoDB to accumulate streaming tokens for each session and rely on a Lambda function subscribed to DynamoDB Streams to transmit tokens to WebSocket endpoints.
+Configure AWS Step Functions to control the interaction workflow by calling Bedrock, updating session state, and coordinating Lambda tasks responsible for forwarding messages to WebSocket connections.
+Deploy an API Gateway WebSocket API with defined routes and integrate it with a Lambda function that oversees connection events and pushes streamed messages to clients via the Management API.
