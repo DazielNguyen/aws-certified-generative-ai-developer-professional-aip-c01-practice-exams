@@ -995,7 +995,7 @@ The company’s AI team collected 1,000 labeled driver training images in a cont
 
 Which combination of actions should be implemented to address this issue? (Select TWO.)
 
-[ ] Perform data augmentation on the training dataset using randomized transformations and preprocessing operations.
+**[x] Perform data augmentation on the training dataset using randomized transformations and preprocessing operations.**
 
 [ ] Increase the total number of training epochs within the current model configuration.
 
@@ -1003,10 +1003,29 @@ Which combination of actions should be implemented to address this issue? (Selec
 
 [ ] Execute gradient checking after initializing model parameters and performing initial training runs.
 
-[ ] Add L2 regularization to the neural network during the optimization phase of the training cycle.
+**[x] Add L2 regularization to the neural network during the optimization phase of the training cycle.**
 
 > Giải thích: 
 
+#### 1. Giải thích các đáp án đúng
+
+Tình trạng "training loss giảm nhanh nhưng validation accuracy thấp" là dấu hiệu điển hình của **Overfitting** (Quá khớp). Mô hình đang "học thuộc lòng" 1.000 ảnh trong phòng thí nghiệm thay vì học các đặc trưng tổng quát. Để khắc phục mà không cần thu thập thêm dữ liệu hay thay đổi kiến trúc, chúng ta sử dụng:
+
+* **Data Augmentation (Tăng cường dữ liệu):** Đây là kỹ thuật tạo ra các biến thể mới từ dữ liệu sẵn có. Bằng cách áp dụng các phép biến đổi như: thay đổi độ sáng (để mô phỏng ánh sáng ban đêm/đèn đường), thêm nhiễu (glare), xoay hoặc lật ảnh, mô hình sẽ được tiếp xúc với nhiều tình huống "giả lập" thực tế hơn. Điều này giúp mô hình nhận diện được hành vi "buồn ngủ" ngay cả khi điều kiện ánh sáng thay đổi, từ đó cải thiện khả năng tổng quát hóa (**generalization**).
+* **L2 Regularization (Điều chuẩn L2):** Kỹ thuật này thêm một "hình phạt" (penalty) vào hàm mất mát dựa trên độ lớn của các trọng số (weights). Nó ngăn cản các trọng số trở nên quá lớn, giúp mô hình trở nên "mượt" hơn và ít nhạy cảm hơn với các chi tiết nhiễu trong tập huấn luyện. Đây là một trong những cách hiệu quả nhất để kiểm soát overfitting trong mạng thần kinh mà không cần thay đổi cấu trúc model.
+
+#### 2. Tại sao các phương án còn lại sai?
+
+* **Increase the total number of training epochs (Tăng số lượng epoch):** Nếu mô hình đã bị overfitting, việc tăng thêm số vòng lặp huấn luyện sẽ chỉ khiến mô hình "học thuộc lòng" tập training kỹ hơn nữa, làm khoảng cách giữa training loss và validation loss càng lớn hơn.
+* **Higher learning rate (Tăng tốc độ học):** Tăng learning rate có thể khiến quá trình tối ưu hóa bị mất ổn định, nhảy qua điểm tối ưu và thường không giúp ích gì cho việc cải thiện khả năng tổng quát hóa khi đã bị overfitting.
+* **Gradient checking (Kiểm tra gradient):** Đây là kỹ thuật dùng để gỡ lỗi (debug) quá trình tính toán đạo hàm trong khi lập trình thuật toán lan truyền ngược (backpropagation). Nó không có tác dụng cải thiện độ chính xác hay giải quyết vấn đề overfitting của mô hình.
+
+#### 3. Notes: Các lưu ý về Computer Vision và SageMaker AI
+
+* **Amazon Rekognition Custom Labels:** Dịch vụ này cho phép bạn huấn luyện mô hình nhận diện vật thể/cảnh quan đặc thù (như hành vi tài xế) chỉ với một lượng dữ liệu nhỏ. Nó tự động áp dụng nhiều kỹ thuật tối ưu, nhưng khi gặp dữ liệu quá đặc thù trong phòng thí nghiệm, overfitting vẫn có thể xảy ra.
+* **SageMaker Training & Augmentation:** Trong thực tế, bạn có thể thực hiện Data Augmentation ngay trong **SageMaker Training Job** bằng cách sử dụng thư viện như `Albumentations` hoặc `torchvision` trong file script huấn luyện.
+* **Nighttime Vision Challenges:** Đối với các bài toán lái xe ban đêm, việc Augmentation tập trung vào **Color Jittering** (thay đổi độ sáng/độ tương phản) và **Gaussian Noise** là cực kỳ quan trọng để mô phỏng điều kiện ánh sáng yếu và nhiễu của camera dashboard.
+* **Early Stopping:** Một kỹ thuật khác thường được dùng kèm với L2 Regularization trong SageMaker AI là **Early Stopping** (dừng sớm). Nếu validation loss bắt đầu tăng trong khi training loss vẫn giảm, SageMaker sẽ tự động dừng quá trình huấn luyện để tránh overfitting.
 
 ---
 ### **Question 24:**
@@ -1023,7 +1042,7 @@ Which approach will fulfill the given requirements?
 
 [ ] Use SageMaker Studio to preprocess the data and apply SMOTE, then use SageMaker Reinforcement Learning to build a fraud detection model and check for bias with SageMaker Clarify.
 
-[ ] Use SageMaker Studio to preprocess and balance the data using the synthetic minority oversampling technique (SMOTE), then develop a fraud detection model with SageMaker JumpStart. Afterward, use SageMaker Clarify to check for bias and finalize the model for deployment.
+**[x] Use SageMaker Studio to preprocess and balance the data using the synthetic minority oversampling technique (SMOTE), then develop a fraud detection model with SageMaker JumpStart. Afterward, use SageMaker Clarify to check for bias and finalize the model for deployment.**
 
 [ ] Use SageMaker Studio for data processing and model development, integrating the synthetic minority oversampling technique (SMOTE) into the workflow. Once the model is trained, use Amazon Augmented AI (Amazon A2I) for bias detection before deployment.
 
@@ -1031,6 +1050,26 @@ Which approach will fulfill the given requirements?
 
 > Giải thích:
 
+#### 1. Giải thích đáp án đúng
+
+Giải pháp này xử lý tối ưu các thách thức về dữ liệu mất cân bằng và yêu cầu ít kinh nghiệm ML:
+
+* **Xử lý mất cân bằng (Class Imbalance):** Sử dụng kỹ thuật **SMOTE** (Synthetic Minority Over-sampling Technique) để tạo thêm các mẫu giả lập cho lớp thiểu số (giao dịch gian lận), giúp mô hình không bị thiên kiến về lớp đa số.
+* **Hỗ trợ người dùng ít kinh nghiệm:** **SageMaker JumpStart** cung cấp các giải pháp và mô hình huấn luyện sẵn (pre-trained) được tối ưu hóa cho các bài toán cụ thể như Fraud Detection. Điều này giúp "giảm thiểu chi phí vận hành" (minimize operational overhead) đúng như đề bài yêu cầu.
+* **Đảm bảo tính công bằng:** **SageMaker Clarify** là công cụ chuyên dụng của AWS để phát hiện sai lệch (bias) trong tập dữ liệu và giải thích các dự đoán của mô hình, đảm bảo hệ thống "fair and unbiased".
+
+#### 2. Tại sao các phương án còn lại sai?
+
+* **Phương án 1 (Reinforcement Learning):** Học tăng cường (Reinforcement Learning) thường dùng cho điều khiển robot hoặc game, không phải là phương pháp tiêu chuẩn và ít nỗ lực nhất cho bài toán phát hiện gian lận dựa trên dữ liệu bảng (tabular data).
+* **Phương án 3 (Amazon A2I):** **Amazon Augmented AI (A2I)** được dùng để đưa con người vào vòng lặp kiểm tra (human-in-the-loop) đối với các dự đoán có độ tin cậy thấp, không phải là công cụ chính để phát hiện sai lệch (bias detection) trong quá trình phát triển mô hình.
+* **Phương án 4 (SageMaker Pipelines):** Mặc dù Pipelines rất tốt để tự động hóa, nhưng việc tự xây dựng toàn bộ model trong Pipeline từ đầu đòi hỏi nhiều kinh nghiệm phát triển hơn so với việc dùng giải pháp có sẵn từ **JumpStart**.
+
+#### 3. Notes (Giải thích dịch vụ & Lưu ý)
+
+* **SMOTE (Synthetic Minority Over-sampling Technique):** Một thuật toán tạo ra các mẫu mới dựa trên các mẫu lớp thiểu số hiện có thay vì chỉ sao chép chúng. Nó giúp mô hình học được ranh giới quyết định tốt hơn.
+* **SageMaker JumpStart:** Giống như một "cửa hàng" các giải pháp ML có sẵn. Bạn có thể triển khai mô hình chỉ với vài cú click, phù hợp với người có "limited experience".
+* **SageMaker Clarify:** Cung cấp các chỉ số như *Difference in Positive Proportions (DPP)* để đo lường sự bất công giữa các nhóm dữ liệu (ví dụ: theo khu vực địa lý hoặc loại thẻ).
+* **Amazon Transcribe & Comprehend (Nhiễu):** Trong câu hỏi này, việc nhắc đến Transcribe và Comprehend chỉ là thông tin bổ sung về cách "làm giàu dữ liệu", không quyết định lựa chọn kiến trúc lõi của model.
 
 ---
 ### **Question 25:**
@@ -1047,11 +1086,33 @@ Which approach best satisfies the given requirements?
 
 [ ] Use the SageMaker Canvas Bar Chart visualization to group products by category and simultaneously apply bar color and height to represent interest score and conversion rate.
 
-[ ] Apply the SageMaker Canvas scatter plot visualization and map the third dimension (product category) to scatter point color and the fourth dimension (number of impressions) to scatter point size.
+**[x] Apply the SageMaker Canvas scatter plot visualization and map the third dimension (product category) to scatter point color and the fourth dimension (number of impressions) to scatter point size.**
 
 [ ] Visualize the data using the SageMaker Data Wrangler scatter plot visualization and color data points by the third feature to represent all four dimensions.
 
 > Giải thích: 
+
+#### 1. Giải thích đáp án đúng
+
+Để trực quan hóa dữ liệu có **4 chiều (4 dimensions)** trên cùng một biểu đồ, biểu đồ phân tán (Scatter Plot) là công cụ mạnh mẽ nhất:
+
+* **Trục X và Y (Chiều 1 & 2):** Việc vẽ *interest score* đối lập với *conversion rate* (cả hai đều là dữ liệu số) trên hai trục tọa độ giúp xác định mối tương quan giữa mức độ quan tâm của người dùng và hiệu quả bán hàng thực tế.
+* **Màu sắc (Chiều 3 - Color):** Gán *product category* (dữ liệu phân loại) vào màu sắc của các điểm dữ liệu giúp người dùng dễ dàng phân biệt các nhóm sản phẩm khác nhau trong cùng một không gian.
+* **Kích thước điểm (Chiều 4 - Size):** Đây là yếu tố then chốt để thể hiện chiều thứ tư (*number of impressions*). Khi gán số lượng hiển thị vào kích thước điểm (tạo thành biểu đồ bong bóng - Bubble Chart), nhà phân tích có thể ngay lập tức nhận ra các sản phẩm tiềm năng nhưng đang nhận được ít sự chú ý (điểm nằm ở góc trên bên phải nhưng có kích thước rất nhỏ).
+* **Công cụ:** **SageMaker AI Canvas** cung cấp giao diện no-code cho phép cấu hình linh hoạt các thuộc tính Color và Size này chỉ bằng vài thao tác kéo thả.
+
+#### 2. Tại sao các phương án còn lại sai?
+
+* **Phương án 1 (Box Plot):** Biểu đồ hộp dùng để xem phân phối dữ liệu (trung vị, tứ phân vị) của một biến số theo các nhóm. Nó không thể hiện được mối quan hệ giữa hai biến số độc lập (X vs Y) và không hỗ trợ thay đổi kích thước điểm để biểu diễn chiều thứ tư.
+* **Phương án 2 (Bar Chart):** Biểu đồ cột chủ yếu dùng để so sánh số lượng giữa các danh mục. Việc dùng cả chiều cao và màu sắc cho hai biến số khác nhau trên cùng một cột thường gây rối mắt và không thể hiện rõ ràng các điểm dữ liệu đơn lẻ (từng sản phẩm) như Scatter Plot.
+* **Phương án 4 (Data Wrangler Scatter Plot):** Mặc dù Data Wrangler có biểu đồ phân tán, nhưng mô tả trong phương án này chỉ nhắc đến việc dùng màu sắc để đại diện cho chiều thứ ba, hoàn toàn bỏ qua chiều thứ tư (*Size*). Do đó, nó không đáp ứng đủ yêu cầu "trực quan hóa cả 4 chiều" của đề bài.
+
+#### 3. Notes (Giải thích dịch vụ & Lưu ý)
+
+* **SageMaker AI Canvas:** Là dịch vụ Machine Learning không cần lập trình (no-code), cho phép người dùng kinh doanh hoặc các nhà phân tích dữ liệu xây dựng mô hình dự báo và trực quan hóa dữ liệu một cách nhanh chóng.
+* **Amazon Personalize:** Dịch vụ này sử dụng các thuật toán tương tự như của Amazon.com để tạo ra các đề xuất sản phẩm, xếp hạng tùy chỉnh và phân khúc khách hàng theo thời gian thực.
+* **Mô hình đa chiều (Multivariate Analysis):** Trong phân tích dữ liệu, việc kết hợp X, Y, Color và Size là kỹ thuật phổ biến nhất để quan sát 4 thuộc tính cùng lúc mà không cần dùng đến các không gian 3D phức tạp.
+* **Spotting Segments (Phân khúc mục tiêu):** Mục tiêu của công ty là tìm "high-interest, high-conversion, low impressions". Trên biểu đồ Scatter Plot này, đó chính là những **điểm nhỏ nằm ở phía trên bên phải**. Đây là những sản phẩm "mỏ vàng" cần được tăng cường hiển thị để tối đa hóa doanh thu.
 
 ---
 ### **Question 26:**
@@ -1065,9 +1126,7 @@ A newly optimized model version has recently been retrained in SageMaker AI usin
 Which of the following options will satisfy the given requirements?
 
 
-[ ] Modify the existing SageMaker AI endpoint configuration by adding the new model as a ProductionVariant through the ProductionVariant API, and set a small 
-
-[ ] InitialVariantWeight compared to the existing model’s ProductionVariant VariantWeight to control the percentage of traffic routed to it.
+**[x] Modify the existing SageMaker AI endpoint configuration by adding the new model as a ProductionVariant through the ProductionVariant API, and set a small InitialVariantWeight compared to the existing model’s ProductionVariant VariantWeight to control the percentage of traffic routed to it.**
 
 [ ] Deploy both models in separate SageMaker endpoints and use Amazon CloudWatch metrics to compare their results in post-processing.
 
@@ -1077,6 +1136,27 @@ Which of the following options will satisfy the given requirements?
 
 > Giải thích: 
 
+#### 1. Giải thích đáp án đúng
+
+Đây là phương pháp **Canary Deployment** hoặc **A/B Testing** tích hợp sẵn trong SageMaker, đáp ứng hoàn hảo các ràng buộc của đề bài:
+
+* **Không ảnh hưởng đến lưu lượng hiện tại:** Bằng cách thiết lập `InitialVariantWeight` nhỏ (ví dụ: 0.1 cho model mới và 0.9 cho model cũ), bạn chỉ điều hướng một phần nhỏ traffic thực tế sang model mới để kiểm tra độ chính xác và độ trễ (latency).
+* **Không thay đổi cách gọi Endpoint:** Vì cả hai model (cũ và mới) đều nằm dưới cùng **một Endpoint duy nhất**, khách hàng (client) vẫn gọi đến một URL duy nhất mà không cần biết có bao nhiêu phiên bản model đang chạy phía sau.
+* **Tối thiểu hóa chi phí vận hành (Minimal Overhead):** Bạn không cần thiết lập thêm hạ tầng như API Gateway hay Lambda. Việc quản lý chia tải được thực hiện hoàn toàn bởi cơ chế quản lý Endpoint của SageMaker.
+* **Giám sát hiệu quả:** Bạn có thể so sánh trực tiếp các chỉ số `Invocations`, `ModelLatency`, và `OverheadLatency` của từng biến thể (variant) ngay trên Amazon CloudWatch.
+
+#### 2. Tại sao các phương án còn lại sai?
+
+* **Phương án 2 (Separate Endpoints):** Việc triển khai hai endpoint riêng biệt yêu cầu client phải thay đổi code để gọi đến cả hai nơi, hoặc bạn phải tự xây dựng một bộ điều phối traffic ở phía trước. Điều này vi phạm yêu cầu "no changes to the way the inference endpoint is invoked".
+* **Phương án 3 (Auto-swap via Lambda):** Việc tráo đổi (swap) toàn bộ endpoint là kỹ thuật **Blue/Green Deployment**. Nó không cho phép bạn đánh giá model mới "trong sản xuất mà không ảnh hưởng đến throughput" một cách an toàn (vì nếu model mới lỗi, 100% traffic sẽ bị ảnh hưởng ngay lập tức). Nó cũng không hỗ trợ việc so sánh song song latency giữa hai bản.
+* **Phương án 4 (API Gateway):** Mặc dù API Gateway có thể chia traffic, nhưng nó làm tăng thêm một lớp hạ tầng cần quản lý (operational overhead) và yêu cầu client phải đổi URL từ SageMaker Endpoint sang API Gateway URL.
+
+#### 3. Notes (Giải thích dịch vụ & Lưu ý)
+
+* **Production Variant:** Trong SageMaker, một Endpoint có thể chứa nhiều biến thể. Mỗi biến thể có thể sử dụng các loại máy chủ (instance type) và số lượng máy chủ khác nhau.
+* **Variant Weight:** Là trọng số tương đối để chia tải. Traffic được chia theo tỷ lệ: . Nếu bạn muốn 10% traffic vào model mới, bạn đặt Weight mới là 1 và Weight cũ là 9.
+* **Inference Pipeline:** Trong bài toán này, vì có sự kết hợp giữa **Amazon Comprehend** và **SageMaker**, thực tế bạn có thể sử dụng *Inference Pipelines* để gộp bước trích xuất đặc trưng văn bản và bước dự đoán gian lận vào một quy trình duy nhất.
+* **Shadow Testing (Lưu ý nâng cao):** Nếu đề bài yêu cầu "không được sai sót trên traffic thực", AWS có tính năng **Shadow Variant**. Model mới sẽ nhận được một bản sao của traffic (copy), kết quả của nó được ghi log lại nhưng không trả về cho client. Tuy nhiên, trong câu hỏi này, cách dùng `ProductionVariant` với trọng số nhỏ là phương án tiêu chuẩn nhất.
 
 ---
 ### **Question 27:**
@@ -1091,7 +1171,7 @@ Which solution should the company implement to identify, measure, and explain po
 
 [ ] Use SageMaker Data Wrangler to manually rebalance the dataset by filtering and transforming data before retraining the recommendation model.
 
-[ ] Use SageMaker Clarify to detect and measure data bias, evaluate model fairness, and generate feature attribution explainability reports for compliance and transparency.
+**[x] Use SageMaker Clarify to detect and measure data bias, evaluate model fairness, and generate feature attribution explainability reports for compliance and transparency**
 
 [ ] Use Amazon Personalize to automatically adjust recommendation weights in real-time to reduce category bias without performing explicit fairness evaluation.
 
@@ -1099,6 +1179,30 @@ Which solution should the company implement to identify, measure, and explain po
 
 > Giải thích: 
 
+#### 1. Giải thích đáp án đúng
+
+**SageMaker Clarify** là dịch vụ chuyên biệt của AWS được thiết kế để giải quyết chính xác các vấn đề về đạo đức AI (AI Ethics) và tính minh bạch mà công ty đang gặp phải:
+
+* **Phát hiện Bias trong dữ liệu (Pre-training Bias):** Clarify có thể phân tích tập dữ liệu huấn luyện để xác định xem có sự mất cân bằng nào không (ví dụ: một vùng địa lý có ít dữ liệu mua sắm hơn vùng khác).
+* **Đánh giá tính công bằng của mô hình (Post-training Bias):** Sau khi mô hình được huấn luyện hoặc triển khai, Clarify đo lường xem các dự đoán có thiên vị cho một nhóm đối tượng cụ thể nào không bằng các chỉ số như *Disparate Impact* hay *Statistical Parity*.
+* **Giải thích tính năng (Feature Attribution):** Sử dụng thuật toán **SHAP (SHapley Additive exPlanations)**, Clarify cung cấp các báo cáo giải thích mức độ đóng góp của từng đầu vào (như vùng địa lý, lịch sử mua hàng) vào kết quả đầu ra. Điều này giúp đáp ứng yêu cầu "giải thích những tính năng nào ảnh hưởng mạnh nhất" để phục vụ kiểm toán và tính minh bạch.
+* **Báo cáo tự động:** Clarify có khả năng xuất các báo cáo chi tiết, trực quan giúp các bên liên quan (như đội ngũ đạo đức dữ liệu) dễ dàng hiểu và ra quyết định.
+
+#### 2. Tại sao các phương án còn lại sai?
+
+* **Phương án 1 (SageMaker Data Wrangler):** Mặc dù Data Wrangler có thể dùng để làm sạch và cân bằng lại dữ liệu, nhưng nó là một bước **thực thi (action)**, không phải là một bước **phân tích và đo lường (measurement/explanation)** toàn diện. Nó không thể tự động giải thích tầm quan trọng của tính năng (feature attribution) hay đo lường bias trong các dự đoán thực tế của mô hình.
+* **Phương án 3 (Amazon Personalize):** Đây là một dịch vụ đề xuất được quản lý hoàn toàn. Việc điều chỉnh trọng số (weighting) có thể giúp giảm thiên kiến một cách tạm thời, nhưng nó không cung cấp các báo cáo phân tích bias hay giải thích tính năng chi tiết để phục vụ yêu cầu tuân thủ và minh bạch như đề bài mong muốn.
+* **Phương án 4 (SageMaker Model Monitor):** Dịch vụ này tập trung vào việc giám sát sức khỏe của endpoint (độ trễ, lỗi) và sự trôi dạt dữ liệu (data drift). Mặc dù nó có thể tích hợp với Clarify để theo dõi bias theo thời gian, nhưng bản thân Model Monitor (nếu không cấu hình phần Clarify) sẽ không giải thích được tầm ảnh hưởng của tính năng (feature influence).
+
+#### 3. Notes (Giải thích dịch vụ & Lưu ý)
+
+* **SHAP Values:** Đây là "chìa khóa" trong SageMaker Clarify để giải thích mô hình. Nó phân bổ giá trị dự đoán cho từng đặc tính đầu vào, giúp bạn trả lời câu hỏi: "Tại sao khách hàng này lại được đề xuất sản phẩm X?".
+* **Bias Metrics:** Bạn nên làm quen với một số chỉ số như:
+* **CI (Class Imbalance):** Đo lường sự khác biệt về số lượng mẫu giữa các nhóm trong tập dữ liệu.
+* **DPL (Difference in Positive Proportions):** Đo lường sự khác biệt về tỷ lệ dự đoán tích cực (ví dụ: được đề xuất mua hàng) giữa hai nhóm (ví dụ: Thành phố A và Thành phố B).
+
+
+* **Transparency & Compliance (Tính minh bạch và Tuân thủ):** Trong các ngành nhạy cảm như tài chính hay thương mại điện tử toàn cầu, việc có các báo cáo từ Clarify là bắt buộc để chứng minh rằng thuật toán không phân biệt đối xử dựa trên các thuộc tính nhạy cảm như vùng miền hay sắc tộc.
 
 ---
 ### **Question 28:**
@@ -1113,7 +1217,7 @@ Which solution will increase the fraudulent case detection performance?
 
 [ ] Enable automatic model tuning in SageMaker using Bayesian Optimization to find the best hyperparameters by running multiple training jobs. Increase the number of hyperparameter tuning jobs to explore a broader range of hyperparameter values and potentially improve model performance.
 
-[ ] Integrate a preprocessing step that applies the Synthetic Minority Oversampling Technique (SMOTE) on the minority fraudulent transaction class only before the training run begins.
+**[x] Integrate a preprocessing step that applies the Synthetic Minority Oversampling Technique (SMOTE) on the minority fraudulent transaction class only before the training run begins.**
 
 [ ] Perform random oversampling on the non-fraudulent transactions to equalize batch sizes during training.
 
@@ -1121,6 +1225,26 @@ Which solution will increase the fraudulent case detection performance?
 
 > Giải thích: 
 
+#### 1. Giải thích đáp án đúng
+
+Vấn đề cốt lõi mà đội ngũ đang gặp phải là **Class Imbalance** (Mất cân bằng lớp) cực kỳ nghiêm trọng (tỷ lệ gian lận < 0,5%). Điều này dẫn đến hiện tượng **Accuracy Paradox**: Mô hình đạt độ chính xác cao (96%) nhưng thực tế chỉ là do nó dự đoán tất cả đều là "không gian lận", dẫn đến tỷ lệ **False Negatives** (bỏ lọt tội phạm) rất cao.
+
+* **SMOTE (Synthetic Minority Oversampling Technique):** Đây là giải pháp tiêu chuẩn để xử lý mất cân bằng lớp. Thay vì chỉ sao chép các mẫu gian lận hiện có, SMOTE tạo ra các mẫu "giả" (synthetic) mới bằng cách nội suy giữa các điểm dữ liệu của lớp thiểu số (minority class).
+* **Tăng khả năng phát hiện:** Bằng cách tăng số lượng mẫu gian lận trong tập huấn luyện, mô hình sẽ có đủ dữ liệu để học được các đặc trưng và ranh giới quyết định của hành vi gian lận, từ đó cải thiện đáng kể chỉ số **Recall** (khả năng phát hiện đúng các ca gian lận thực tế).
+* **Quy trình:** Bước này nên được tích hợp vào pipeline tiền xử lý (như dùng SageMaker Processing hoặc Data Wrangler) trước khi dữ liệu được đưa vào SageMaker Training.
+
+#### 2. Tại sao các phương án còn lại sai?
+
+* **Phương án 1 (Hyperparameter Tuning):** Tinh chỉnh tham số có thể cải thiện hiệu năng tổng thể, nhưng nếu tập dữ liệu vẫn bị mất cân bằng trầm trọng, thuật toán tối ưu hóa sẽ vẫn ưu tiên tối thiểu hóa lỗi trên lớp đa số để đạt Accuracy cao. Nó không giải quyết được nguồn gốc của vấn đề là thiếu dữ liệu lớp thiểu số.
+* **Phương án 3 (Random oversampling on non-fraudulent):** Đây là một lỗi logic. Việc tăng thêm mẫu cho lớp **non-fraudulent** (lớp đa số vốn đã quá nhiều) sẽ chỉ làm tình trạng mất cân bằng trở nên tồi tệ hơn. Nếu muốn cân bằng, người ta phải *Undersampling* lớp đa số hoặc *Oversampling* lớp thiểu số.
+* **Phương án 4 (Early Stopping):** Tính năng này giúp tránh Overfitting bằng cách dừng huấn luyện khi Accuracy trên tập validation không tăng nữa. Tuy nhiên, như đã phân tích, Accuracy trong trường hợp này là một thước đo sai lệch. Dừng sớm dựa trên Accuracy không giúp mô hình học được cách phát hiện gian lận tốt hơn.
+
+#### 3. Notes (Giải thích dịch vụ & Lưu ý)
+
+* **SageMaker Feature Store (Offline Store):** Dữ liệu giao dịch lịch sử thường được lưu ở Offline Store (dưới dạng S3/Athena). Khi lấy dữ liệu này ra để train, đây là thời điểm lý tưởng để áp dụng SMOTE.
+* **Số liệu về mất cân bằng:** Trong các hệ thống tài chính thực tế, tỷ lệ gian lận thường dao động từ **0,1% đến 0,5%**. Nếu không xử lý dữ liệu, mô hình "ngây thơ" nhất (luôn đoán là Legitimate) sẽ đạt Accuracy 99,5% nhưng giá trị sử dụng bằng 0.
+* **Các chỉ số thay thế Accuracy:** Trong các bài toán Fraud Detection, bạn nên sử dụng **F1-Score**, **Precision-Recall Curve**, hoặc **AUC-ROC** thay vì Accuracy để đánh giá mô hình.
+* **Cost-sensitive Learning:** Ngoài SMOTE, một kỹ thuật khác có thể dùng trong SageMaker là điều chỉnh **Weight** (trọng số) của hàm mất mát, khiến mô hình bị "phạt" nặng hơn nếu dự đoán sai một ca gian lận so với dự đoán sai một ca hợp pháp.
 
 ---
 ### **Question 29:**
@@ -1139,14 +1263,39 @@ Which solution will best meet the team’s requirements?
 
 [ ] Utilize SageMaker Studio for fine-tuning an LLM deployed on Amazon EC2 instances, simplifying the training process with an interactive and intuitive environment.
 
-[ ] Configure SageMaker Autopilot to fine-tune an LLM deployed via SageMaker JumpStart, streamlining model customization with automatic setup and minimal user intervention.
-
+**[x] Configure SageMaker Autopilot to fine-tune an LLM deployed via SageMaker JumpStart, streamlining model customization with automatic setup and minimal user intervention.**
 > Giải thích: 
 
+#### 1. Giải thích đáp án đúng
+
+Đây là giải pháp hoàn hảo nhất đáp ứng các yêu cầu về **Low-code/No-code (LCNC)** và **tối thiểu hóa can thiệp thủ công**:
+
+* **SageMaker JumpStart:** Cung cấp quyền truy cập vào các mô hình nền tảng (Foundation Models) đã được huấn luyện sẵn cho các tác vụ như tóm tắt văn bản. Nó cho phép triển khai và tinh chỉnh (fine-tuning) các mô hình này một cách nhanh chóng.
+* **SageMaker Autopilot cho LLMs:** Đây là tính năng mới (Cập nhật 2024-2025) cho phép tự động hóa quy trình fine-tuning cho các mô hình ngôn ngữ lớn. Người dùng chỉ cần cung cấp tập dữ liệu (ví dụ: cặp văn bản gốc và bản tóm tắt), Autopilot sẽ tự động chọn các siêu tham số (hyperparameters) tối ưu và quản lý hạ tầng tính toán.
+* **Minimal Manual Intervention:** Sự kết hợp này loại bỏ nhu cầu viết mã lập trình phức tạp để quản lý vòng đời huấn luyện, phù hợp với tiêu chí LCNC của đội ngũ phát triển.
+* **Tích hợp:** Quy trình này dễ dàng kết hợp với **Amazon Translate** trong một workflow tự động để tạo ra các bản tóm tắt đa ngôn ngữ cho khán giả toàn cầu.
+
+#### 2. Tại sao các phương án còn lại sai?
+
+* **Phương án 1 (SageMaker Script Mode):** Đây là phương pháp dành cho các chuyên gia ML muốn kiểm soát hoàn toàn mã nguồn huấn luyện. Nó yêu cầu kỹ năng lập trình cao (High-code), hoàn toàn trái ngược với yêu cầu **low-code/no-code** của đề bài.
+* **Phương án 2 (Custom API endpoint & Training Jobs):** Việc tự xây dựng Training Jobs cho một custom API endpoint đòi hỏi nhiều bước cấu hình thủ công về hạ tầng, container và mã nguồn điều phối, không tối ưu về mặt "minimal manual intervention".
+* **Phương án 3 (SageMaker Studio & EC2):** Mặc dù SageMaker Studio cung cấp giao diện trực quan, nhưng việc triển khai thủ công trên EC2 và tự quản lý quá trình huấn luyện vẫn đòi hỏi nhiều thao tác kỹ thuật và kiến thức về quản lý máy chủ hơn so với giải pháp tự động hóa hoàn toàn của Autopilot.
+
+#### 3. Notes: Xu hướng Low-code AI trên AWS (2025)
+
+Dưới đây là những lưu ý quan trọng về các dịch vụ AI "ít dùng code" mà bạn nên ghi nhớ:
+
+* **SageMaker JumpStart:** Hiện nay hỗ trợ hàng trăm mô hình từ các "ông lớn" như Meta (Llama), Mistral, và cả Amazon (Titan). Bạn có thể fine-tune trực tiếp từ giao diện bảng điều khiển (Console).
+* **Amazon Bedrock vs. JumpStart:**
+* **Bedrock:** Là dịch vụ Serverless hoàn toàn (No-code), tốt nhất cho việc gọi API và fine-tuning nhanh các mô hình đóng (Closed source).
+* **JumpStart:** Cho phép bạn kiểm soát sâu hơn vào máy chủ (Instance) và phù hợp khi bạn muốn dùng các mô hình mã nguồn mở (Open source) trong môi trường SageMaker AI.
+
+
+* **LLM Fine-tuning (Instruction Tuning):** Quá trình mà Autopilot thực hiện thường là *Instruction Fine-tuning*, giúp mô hình hiểu và thực hiện các yêu cầu cụ thể (như "Hãy tóm tắt văn bản này theo phong cách báo chí").
+* **Amazon Translate:** Khi kết hợp với LLM, bạn thường sử dụng Translate để dịch bản tóm tắt cuối cùng thay vì dịch toàn bộ tài liệu gốc, giúp tiết kiệm chi phí và giữ được ngữ cảnh tóm tắt đồng nhất.
 
 ---
 ### **Question 30:**
-
 
 Category: AIP – Implementation and Integration
 
@@ -1158,13 +1307,37 @@ Which solution best satisfies the company’s requirements?
 
 [ ] Use Amazon Lex V2 to build a conversational chatbot for customer interactions and store conversation transcripts in Amazon S3 for historical analysis.
 
-[ ] Use Amazon Bedrock AgentCore to develop an AI agent capable of reasoning, planning, and executing workflows for order management. Integrate the agent with Amazon DynamoDB to store and retrieve customer session data, order history, and interaction context for each user conversation.
+**[x] Use Amazon Bedrock AgentCore to develop an AI agent capable of reasoning, planning, and executing workflows for order management. Integrate the agent with Amazon DynamoDB to store and retrieve customer session data, order history, and interaction context for each user conversation.**
 
 [ ] Use Amazon Kendra to search for answers to product manuals and FAQs. Combined with AWS Lambda to manage refund requests and data updates.
 
 [ ] Use Amazon Titan Text G1 for conversation handling and maintain customer session states in a Python dictionary within the application memory for short-term interactions.
 
 > Giải thích: 
+
+#### 1. Giải thích đáp án đúng
+
+Đây là kiến trúc hiện đại nhất (State-of-the-art) trên AWS để xây dựng các trợ lý AI có khả năng thực thi tác vụ (Action-oriented AI):
+
+* **Amazon Bedrock AgentCore (Agents for Amazon Bedrock):** Đây là "bộ não" của hệ thống. Các Agent này sử dụng mô hình ngôn ngữ lớn (LLM) để hiểu ý định của người dùng, tự lập kế hoạch (Reasoning/Planning) và quyết định xem cần gọi API nào để hoàn thành yêu cầu (như kiểm tra đơn hàng hay hoàn tiền).
+* **Action Groups & Lambda:** Agent kết nối với các hệ thống thực tế thông qua "Action Groups". Khi người dùng muốn cập nhật đơn hàng, Agent sẽ kích hoạt AWS Lambda để thực hiện thay đổi đó một cách bảo mật.
+* **Amazon DynamoDB:** Đây là lựa chọn tối ưu cho **Session Management** (Quản lý phiên làm việc). Nó cung cấp tốc độ truy xuất cực nhanh (mili giây) và khả năng mở rộng vô hạn. Lưu trữ context tại đây giúp Agent "nhớ" được những gì khách hàng đã nói ở các lượt hội thoại trước, đảm bảo tính liên quán và cá nhân hóa.
+* **Bảo mật và Tuân thủ:** DynamoDB và Bedrock đều hỗ trợ mã hóa bằng AWS KMS và tích hợp IAM, đáp ứng yêu cầu lưu trữ dữ liệu đơn hàng và lịch sử tương tác một cách an toàn.
+
+#### 2. Tại sao các phương án còn lại sai?
+
+* **Phương án 1 (Lex V2 + S3):** Amazon Lex V2 là dịch vụ xây dựng chatbot dựa trên quy tắc (rule-based) hoặc ý định (intent) truyền thống. Mặc dù nó có thể tích hợp AI, nhưng nó không mạnh về khả năng "reasoning" (suy luận) và tự lập kế hoạch như Bedrock Agents. S3 lưu trữ transcript là để phân tích sau này, không phải là giải pháp tốt để quản lý **active session state** (trạng thái phiên đang hoạt động) trong thời gian thực.
+* **Phương án 3 (Kendra + Lambda):** Amazon Kendra là dịch vụ tìm kiếm thông minh (RAG). Nó rất tốt để tìm câu trả lời trong tài liệu hướng dẫn, nhưng nó không phải là một công cụ quản lý hội thoại (conversation manager) hay tác vụ suy luận. Kiến trúc này thiếu đi thành phần cốt lõi để duy trì ngữ cảnh hội thoại (context management).
+* **Phương án 4 (Titan Text G1 + Python dictionary):** Sử dụng **Python dictionary** để lưu trữ trạng thái phiên là một sai lầm nghiêm trọng về kiến trúc. Dữ liệu trong bộ nhớ (application memory) sẽ bị mất khi ứng dụng khởi động lại hoặc khi mở rộng (scaling). Nó không bền vững, không bảo mật và không thể chia sẻ giữa nhiều máy chủ khác nhau trong hệ thống e-commerce toàn cầu.
+
+#### 3. Notes: Các dịch vụ và lưu ý quan trọng (Update 2025)
+
+Dưới đây là những khái niệm bạn nên nắm vững khi làm việc với Generative AI trên AWS:
+
+* **Agents for Amazon Bedrock:** Cho phép bạn xây dựng các ứng dụng có thể thực thi các tác vụ phức tạp bằng cách kết nối mô hình nền tảng (Foundation Models) với các nguồn dữ liệu của công ty và các API hệ thống.
+* **Knowledge Bases for Amazon Bedrock:** Đây là giải pháp RAG (Retrieval-Augmented Generation) được quản lý hoàn toàn. Bạn có thể đẩy tài liệu FAQ hoặc hướng dẫn sản phẩm vào đây để Agent có thể trả lời dựa trên thông tin chính xác của công ty.
+* **Session Persistence:** Trong AI Agent, việc lưu giữ lịch sử hội thoại (Conversation History) vào DynamoDB thường được cấu hình thông qua tham số `sessionId`. Điều này giúp duy trì trí nhớ ngắn hạn và dài hạn cho chatbot.
+* **Amazon SageMaker AI Integration:** Kết quả phân tích hành vi từ SageMaker có thể được đẩy vào DynamoDB như các "User Features". Khi Agent hoạt động, nó sẽ đọc các features này từ DynamoDB để đưa ra các lời khuyên mua sắm (Product Recommendations) cực kỳ chính xác.
 
 ---
 ### **Question 31:**
@@ -1181,12 +1354,39 @@ Which of the following options will satisfy this requirement?
 
 [ ] Increase the temperature parameter for the Amazon Titan model to improve contextual understanding.
 
-[ ] Set up a Bedrock knowledge base and integrate it with the company’s private data sources.
+**[x] Set up a Bedrock knowledge base and integrate it with the company’s private data sources.**
 
 [ ] Use the Comprehend custom classification to provide the model with retrieval capabilities.
 
 > Giải thích: 
 
+#### 1. Giải thích đáp án đúng
+
+Đây là giải pháp trực tiếp và hiệu quả nhất để triển khai **RAG (Retrieval-Augmented Generation)** trên AWS:
+
+* **Knowledge Bases for Amazon Bedrock:** Đây là một dịch vụ được quản lý hoàn toàn (fully managed) giúp kết nối các mô hình nền tảng (như Amazon Titan) với các nguồn dữ liệu riêng tư của công ty (S3, Databases).
+* **Quy trình tự động:** Khi khách hàng đặt câu hỏi, Bedrock sẽ tự động thực hiện các bước:
+1. **Chuyển đổi (Vectorization):** Chuyển câu hỏi của khách hàng thành vector.
+2. **Truy xuất (Retrieval):** Tìm kiếm các đoạn thông tin liên quan nhất từ dữ liệu nội bộ trong S3.
+3. **Tăng cường (Augmentation):** Gửi các đoạn thông tin này cùng với câu hỏi gốc đến mô hình Titan.
+4. **Phát sinh (Generation):** Mô hình Titan tạo ra câu trả lời dựa trên ngữ cảnh thực tế của công ty (thông tin đơn hàng, tài liệu sản phẩm).
+
+
+* **Không cần huấn luyện lại:** Đúng như yêu cầu của đề bài, RAG giúp mô hình có kiến thức mới mà **không cần thực hiện fine-tuning** tốn kém và phức tạp.
+
+
+#### 2. Tại sao các phương án còn lại sai?
+
+* **Phương án 1 (Fine-tune):** Fine-tuning là quá trình huấn luyện lại mô hình để thay đổi hành vi hoặc phong cách ngôn ngữ. Nó không phải là cách tốt nhất để cập nhật các dữ liệu thay đổi liên tục như trạng thái đơn hàng (order management). Đề bài cũng yêu cầu cụ thể là "without retraining the model".
+* **Phương án 2 (Increase Temperature):** Tham số `temperature` điều chỉnh tính sáng tạo/ngẫu nhiên của mô hình. Tăng temperature chỉ khiến mô hình đưa ra các câu trả lời bay bổng hơn, thậm chí dễ gây ra hiện tượng "ảo tưởng" (hallucination), chứ không giúp mô hình tiếp cận được dữ liệu riêng tư trong S3.
+* **Phương án 4 (Comprehend Custom Classification):** Amazon Comprehend dùng để phân loại văn bản (ví dụ: xác định đây là khiếu nại hay khen ngợi). Nó không có khả năng truy xuất dữ liệu từ S3 và cung cấp ngữ cảnh cho LLM để tạo ra câu trả lời RAG.
+
+#### 3. Notes (Giải thích dịch vụ & Lưu ý)
+
+* **RAG (Retrieval-Augmented Generation):** Là kỹ thuật cung cấp cho AI một "cuốn sách tra cứu" (dữ liệu nội bộ) để nó trả lời chính xác hơn, thay vì chỉ dựa vào kiến thức đã học trong quá khứ.
+* **Vector Database:** Để Knowledge Base hoạt động, Bedrock cần một nơi lưu trữ dữ liệu đã được vector hóa. Các lựa chọn phổ biến là **Amazon OpenSearch Serverless**, **Pinecone**, hoặc **Amazon Aurora**.
+* **Amazon Titan:** Là dòng mô hình nền tảng do AWS phát triển, bao gồm các mô hình cho văn bản (Text), nhúng (Embeddings) và hình ảnh (Image). Trong RAG, bạn thường dùng *Titan Text Embeddings* để mã hóa dữ liệu và *Titan Text* để tạo câu trả lời.
+* **Tính bảo mật:** Dữ liệu được truy xuất thông qua Bedrock Knowledge Base luôn nằm trong phạm vi kiểm soát của AWS và không được dùng để huấn luyện lại các mô hình công cộng, đảm bảo an toàn cho dữ liệu doanh nghiệp.
 
 ---
 ### **Question 32:**
@@ -1201,7 +1401,7 @@ Which approach will best meet the requirements?
 
 [ ] Utilize Bedrock Data Automation (BDA) to process media files, analyze the structured content using Amazon Comprehend for entity and sentiment extraction, and then forward the results to a foundation model hosted on Amazon EC2 for generating answers.
 
-[ ] Leverage Bedrock Data Automation (BDA) to process documents, images, audio, and video, index the results in Bedrock Knowledge Bases for semantic search, and then input the retrieved context into a foundation model via SageMaker AI for response generation.
+**[x] Leverage Bedrock Data Automation (BDA) to process documents, images, audio, and video, index the results in Bedrock Knowledge Bases for semantic search, and then input the retrieved context into a foundation model via SageMaker AI for response generation.**
 
 [ ] Use Bedrock Data Automation (BDA) to process the media files, store the raw content in Amazon S3, and deploy a custom AWS Lambda function to create your own vector database outside of Bedrock Knowledge Bases before passing it to SageMaker AI.
 
@@ -1209,6 +1409,27 @@ Which approach will best meet the requirements?
 
 > Giải thích: 
 
+#### 1. Giải thích đáp án đúng
+
+Đây là giải pháp tối ưu nhất vì nó kết hợp khả năng xử lý đa phương thức (multimodal) mạnh mẽ với kiến trúc RAG (Retrieval-Augmented Generation) hiện đại:
+
+* **Amazon Bedrock Data Automation (BDA):** Đây là một dịch vụ mới (mạnh hơn các dịch vụ AI riêng lẻ trước đây) chuyên dùng để tự động hóa việc trích xuất dữ liệu từ các tệp không cấu trúc đa dạng (PDF, hình ảnh, âm thanh, video). BDA có khả năng hiểu ngữ cảnh của video và hình ảnh để tạo ra các mô tả và siêu dữ liệu (metadata) có cấu trúc.
+* **Bedrock Knowledge Bases:** Đóng vai trò là "bộ nhớ" và công cụ tìm kiếm. Sau khi BDA trích xuất thông tin, dữ liệu này cần được lập chỉ mục (index) vào một cơ sở dữ liệu vector. Việc sử dụng Knowledge Bases giúp thực hiện **Semantic Search** (tìm kiếm theo ý nghĩa), cho phép trả lời các câu hỏi phức tạp như "bài báo nào có hình ảnh từ trên không" bằng cách khớp các mô tả ảnh do BDA tạo ra.
+* **SageMaker AI Integration:** Sử dụng SageMaker AI để host mô hình ngôn ngữ lớn (LLM) giúp tùy chỉnh quy trình tạo câu trả lời (generation). Mô hình sẽ nhận ngữ cảnh đã được tìm thấy từ Knowledge Bases để trả lời người dùng một cách chính xác và tự nhiên.
+* **Giải quyết bài toán đa phương thức:** Đây là cách duy nhất trong các phương án xử lý hiệu quả cả video và hình ảnh để phục vụ việc trả lời các câu hỏi cụ thể về nội dung hình ảnh.
+
+#### 2. Tại sao các phương án còn lại sai?
+
+* **Phương án 1:** Sử dụng **Amazon EC2** để host foundation model làm tăng đáng kể chi phí vận hành (operational overhead) so với SageMaker AI. Ngoài ra, việc dùng Comprehend sau BDA là thừa thãi vì BDA đã có khả năng trích xuất thực thể và hiểu nội dung rất sâu.
+* **Phương án 3:** Yêu cầu tự tạo cơ sở dữ liệu vector bằng **AWS Lambda** bên ngoài Knowledge Bases. Điều này tạo ra sự phức tạp không cần thiết và tốn nhiều công sức bảo trì ("manual intervention"), đi ngược lại với xu hướng sử dụng các dịch vụ quản lý hoàn toàn (managed services) của AWS.
+* **Phương án 4:** Bỏ qua **Knowledge Base**. Nếu không có Knowledge Base để tìm kiếm và lọc dữ liệu, mô hình AI trên SageMaker sẽ không thể "truy cập nhanh" vào hàng triệu tài liệu. Bạn không thể gửi toàn bộ kho nội dung vào một prompt duy nhất vì giới hạn cửa sổ ngữ cảnh (context window).
+
+#### 3. Notes: Dịch vụ công nghệ mới (Update 2025)
+
+* **Amazon Bedrock Data Automation (BDA):** Đây là một bước tiến lớn so với việc sử dụng kết hợp Rekognition + Transcribe + Textract. BDA sử dụng các mô hình nền tảng để trích xuất dữ liệu, giúp nó hiểu được các logic phức tạp trong tài liệu hoặc các hành động trong video mà các dịch vụ thế hệ cũ khó làm được.
+* **Multimodal RAG (RAG đa phương thức):** Đây là xu hướng mới nhất trong năm 2025. Thay vì chỉ tìm kiếm văn bản, hệ thống giờ đây có thể tìm kiếm dựa trên nội dung hình ảnh (aerial images) và âm thanh nhờ vào việc chuyển đổi tất cả các loại media này sang cùng một không gian vector thông qua BDA.
+* **SageMaker AI (tên mới):** AWS đã đồng bộ thương hiệu SageMaker AI để bao gồm cả các công cụ Generative AI, giúp tích hợp mượt mà hơn với Amazon Bedrock.
+* **Semantic Search vs Keyword Search:** Trong câu hỏi về "climate adaptation", tìm kiếm ngữ nghĩa (semantic) sẽ tìm được cả những bài viết dùng từ "global warming" hoặc "environmental changes", điều mà tìm kiếm từ khóa truyền thống có thể bỏ lỡ.
 
 ---
 ### **Question 33:**
@@ -1227,11 +1448,31 @@ What issue is most likely causing the model’s poor performance on fraudulent c
 
 [ ] The issue is due to insufficient text extraction, where Textract failed to extract all key fields, leading to missing features for the model.
 
-[ ] The issue is due to class imbalance (CI) in the training dataset, where the minority class has too few samples, causing the model to learn biased decision boundaries.
+**[x] The issue is due to class imbalance (CI) in the training dataset, where the minority class has too few samples, causing the model to learn biased decision boundaries.**
 
 > Giải thích: 
 
+#### 1. Giải thích đáp án đúng
 
+Vấn đề này là một kịch bản kinh điển trong Machine Learning cho ngành tài chính, nơi các hành vi gian lận (fraud) thường chiếm tỷ lệ cực kỳ nhỏ so với các giao dịch hợp lệ:
+
+* **Class Imbalance (CI - Mất cân bằng lớp):** Đây là chỉ số chính mà **SageMaker Clarify** sử dụng để đo lường sự chênh lệch số lượng mẫu giữa các nhóm (facets). Khi một lớp (ví dụ: "legitimate claims") chiếm đa số tuyệt đối, mô hình sẽ có xu hướng tối ưu hóa hàm mất mát (loss function) bằng cách dự đoán mọi thứ thuộc về lớp đa số để đạt độ chính xác (accuracy) cao nhất.
+* **Biased Decision Boundaries:** Do có quá ít dữ liệu về "fraudulent claims", mô hình không học được các đặc trưng nhận dạng tinh vi của lớp này. Ranh giới quyết định (decision boundary) sẽ bị đẩy lệch về phía lớp thiểu số, dẫn đến việc bỏ sót (false negatives) rất nhiều trường hợp gian lận thực tế.
+* **Dấu hiệu nhận biết:** Hiệu suất rất tốt trên lớp đa số nhưng cực kỳ kém trên lớp thiểu số là "triệu chứng" đặc trưng của mất cân bằng dữ liệu, chứ không phải do hạ tầng hay tốc độ học.
+
+#### 2. Tại sao các phương án còn lại sai?
+
+* **Overfitting (Quá khớp):** Nếu bị overfitting, mô hình thường đạt kết quả cực tốt trên **toàn bộ** tập huấn luyện nhưng lại kém trên **tập kiểm thử (test set)**. Ở đây, vấn đề xảy ra ngay cả khi đánh giá dựa trên sự phân bổ nhãn, và Clarify đã chỉ ra sự sai lệch (skew) trong tập dữ liệu tiền huấn luyện, điều này hướng trực tiếp tới cấu trúc dữ liệu hơn là việc học thuộc lòng.
+* **High Learning Rate (Tốc độ học cao):** Tốc độ học quá cao thường dẫn đến việc mô hình không thể hội tụ (loss dao động mạnh hoặc bị nổ gradient). Nó sẽ làm giảm hiệu suất tổng thể của mô hình trên tất cả các lớp, thay vì chỉ gây ra lỗi trên một lớp cụ thể như lớp thiểu số.
+* **Insufficient Text Extraction (Trích xuất văn bản thiếu):** Mặc dù việc thiếu trường dữ liệu có thể ảnh hưởng đến độ chính xác, nhưng nếu lỗi này xảy ra ngẫu nhiên trên cả hai loại tài liệu, nó sẽ không tạo ra một sự sai lệch đặc thù chỉ tập trung vào lớp gian lận như kết quả phân tích bias từ SageMaker Clarify đã chỉ ra.
+
+#### 3. Notes: Giải thích dịch vụ & Lưu ý quan trọng
+
+* **SageMaker Clarify:** Là công cụ cung cấp các chỉ số đo lường bias. Trong đó, **Class Imbalance (CI)** là chỉ số cơ bản nhất:
+
+* **Amazon Textract:** Không chỉ trích xuất chữ (OCR), Textract còn nhận diện được bảng (tables) và biểu mẫu (forms). Trong bài toán bảo hiểm, việc trích xuất các ô tích hoặc chữ ký là cực kỳ quan trọng để phát hiện gian lận.
+* **Cách khắc phục:** Để giải quyết vấn đề này, đội ngũ có thể áp dụng các kỹ thuật đã học ở các câu trước như **SMOTE** (tăng cường lớp thiểu số), **Undersampling** (giảm bớt lớp đa số), hoặc sử dụng **Cost-sensitive learning** (tăng trọng số lỗi cho lớp gian lận).
+* **Confusion Matrix:** Để đánh giá chính xác các mô hình mất cân bằng, nhà khoa học dữ liệu nên nhìn vào **Recall** và **F1-Score** cho lớp "Fraudulent" thay vì nhìn vào tổng Accuracy.
 
 ---
 ### **Question 34:**
@@ -1246,7 +1487,7 @@ Which solution will satisfy the given requirements?
 
 [ ] Utilize Amazon Data Firehose to stream non-sensitive transaction data into S3. Ensure that the data transfer happens over an IPsec-protected connection, and leverage AWS Lambda to filter out sensitive data before uploading.
 
-[ ] Set up an AWS Glue job to connect to the Microsoft SQL Server database, extract only the non-sensitive data, and transfer it to S3 over an AWS Site-to-Site VPN connection for model retraining.
+**[x] Set up an AWS Glue job to connect to the Microsoft SQL Server database, extract only the non-sensitive data, and transfer it to S3 over an AWS Site-to-Site VPN connection for model retraining.**
 
 [ ] Employ SageMaker AI Data Wrangler to directly connect to the Microsoft SQL Server database, filter sensitive data, and upload the sanitized data to S3 over an AWS Direct Connect connection with IPsec encryption for secure model retraining.
 
@@ -1254,8 +1495,30 @@ Which solution will satisfy the given requirements?
 
 > Giải thích: 
 
+#### 1. Giải thích đáp án đúng
+
+Giải pháp này đáp ứng đầy đủ các yêu cầu khắt khe về bảo mật, kết nối và quy định về dữ liệu y tế:
+
+* **Trích xuất có chọn lọc:** **AWS Glue** là dịch vụ tích hợp dữ liệu (ETL) mạnh mẽ. Nó có thể kết nối với Microsoft SQL Server (on-premises) thông qua JDBC, thực hiện các script để chỉ trích xuất những cột/hàng chứa dữ liệu phi nhạy cảm (non-sensitive), đảm bảo dữ liệu nhạy cảm không bao giờ rời khỏi trung tâm dữ liệu.
+* **Kết nối bảo mật (IPsec):** **AWS Site-to-Site VPN** sử dụng giao thức **IPsec** để tạo một đường ống mã hóa an toàn giữa mạng on-premises của tổ chức y tế và AWS VPC. Điều này thỏa mãn yêu cầu về phương thức truyền tải dữ liệu.
+* **Tự động hóa định kỳ:** Glue jobs có thể được lập lịch (scheduled) để chạy hàng ngày, tự động hóa quy trình cập nhật dữ liệu cho việc huấn luyện lại mô hình trên S3.
+* **Xử lý dữ liệu không cấu trúc:** Sau khi dữ liệu được chuyển vào S3, **Amazon Comprehend Medical** có thể được tích hợp để xử lý các ghi chú lâm sàng, trích xuất thực thể y tế (như tên thuốc, mã bệnh) một cách bảo mật và tuân thủ HIPAA.
+
+#### 2. Tại sao các phương án còn lại sai?
+
+* **Phương án 1 (Amazon Data Firehose):** Firehose chủ yếu dùng để stream dữ liệu thời gian thực (real-time). Việc sử dụng Lambda để lọc dữ liệu *sau khi* nó đã vào cloud (trước khi ghi vào S3) có thể vi phạm quy định "sensitive data must never leave the on-premises data center" nếu không được cấu hình cực kỳ cẩn thận. Ngoài ra, việc thiết lập Firehose kết nối trực tiếp với SQL Server on-premises phức tạp hơn nhiều so với Glue.
+* **Phương án 3 (SageMaker Data Wrangler & Direct Connect):** * **AWS Direct Connect** là kết nối vật lý riêng biệt, khác với yêu cầu về kết nối **IPsec** (thường đi qua Internet công cộng nhưng được mã hóa).
+* Data Wrangler chủ yếu dùng để khám phá và chuẩn bị dữ liệu trong giao diện trực quan, không phải là công cụ tối ưu nhất cho các tác vụ ETL định kỳ, quy mô lớn từ database on-premises so với AWS Glue.
 
 
+* **Phương án 4 (AWS DMS):** AWS Database Migration Service (DMS) thường được dùng để di chuyển toàn bộ database hoặc sao chép dữ liệu liên tục (CDC). Mặc dù nó có thể lọc dữ liệu, nhưng mục đích chính của nó là di chuyển dữ liệu (migration), trong khi AWS Glue mạnh hơn về khả năng biến đổi và tích hợp dữ liệu phức tạp cho các pipeline AI/ML.
+
+#### 3. Notes: Các dịch vụ và lưu ý quan trọng (Update 2025)
+
+* **Amazon Comprehend Medical:** Đây là dịch vụ NLP chuyên sâu cho ngành y tế, có khả năng tự động nhận diện và gỡ bỏ (redaction) các thông tin định danh cá nhân (PHI) để đảm bảo tuân thủ HIPAA.
+* **AWS Glue Interactive Sessions:** Tính năng mới giúp các Data Scientist có thể viết và kiểm tra script Glue ngay từ notebook, giúp quy trình từ on-premises lên S3 trở nên linh hoạt hơn.
+* **Data Localization (Nội địa hóa dữ liệu):** Trong ngành healthcare, việc dữ liệu nhạy cảm không được rời khỏi on-premises là yêu cầu pháp lý phổ biến (như GDPR hoặc các luật y tế địa phương). Việc lọc dữ liệu tại nguồn (tại SQL Server) bằng Glue là một kiến trúc chuẩn để đảm bảo tuân thủ.
+* **Hybrid Cloud AI:** Đây là mô hình kết hợp giữa hạ tầng tại chỗ (để lưu trữ dữ liệu nhạy cảm) và điện toán đám mây (để tận dụng sức mạnh tính toán của SageMaker), giúp tối ưu hóa cả bảo mật và hiệu năng.
 
 ---
 ### **Question 35:**
@@ -1276,11 +1539,36 @@ Which of the following should be implemented?
 
 [ ] Enable SageMaker DataCapture to log inference inputs and outputs. Build a custom pipeline to analyze feature distributions and model responses over time. Use Amazon CloudWatch to alert when significant shifts in input patterns or predictions are detected.
 
-[ ] Use ModelExplainabilityMonitor class with a SHAP-based baseline to detect feature attribution drift in production. Regularly compare how the model assigns importance to input features against the baseline, and configure Amazon CloudWatch to alert stakeholders when attribution values drift beyond acceptable thresholds.
+**[x] Use ModelExplainabilityMonitor class with a SHAP-based baseline to detect feature attribution drift in production. Regularly compare how the model assigns importance to input features against the baseline, and configure Amazon CloudWatch to alert stakeholders when attribution values drift beyond acceptable thresholds.**
 
 > Giải thích: 
 
+#### 1. Giải thích đáp án đúng
 
+Vấn đề mà công ty bảo hiểm đang gặp phải là **Feature Attribution Drift** (Sự trôi dạt thuộc tính tính năng). Đây là tình trạng mà tầm quan trọng của các yếu tố đầu vào (ví dụ: tuổi xe vs. mức độ hư hại) bị thay đổi trong môi trường thực tế so với lúc huấn luyện.
+
+* **ModelExplainabilityMonitor:** Đây là một thành phần của **SageMaker Model Monitor** được thiết kế riêng để theo dõi tính minh bạch và giải thích của mô hình trong sản xuất. Nó giúp trả lời câu hỏi: "Tại sao mô hình lại đưa ra quyết định này ngay lúc này?".
+* **SHAP-based Baseline:** SageMaker Clarify sử dụng giá trị **SHAP (SHapley Additive exPlanations)** để gán điểm số quan trọng cho từng tính năng. Bằng cách thiết lập một "baseline" (mức cơ sở) từ tập dữ liệu huấn luyện, hệ thống có thể so sánh xem trong thực tế, mô hình có đang "ưu tiên" quá mức cho tuổi xe thay vì mức độ hư hại hay không.
+* **Feature Attribution Drift Detection:** Nếu sự đóng góp của tính năng *Vehicle Age* tăng lên vượt ngưỡng cho phép so với baseline, `ModelExplainabilityMonitor` sẽ phát hiện ra sự sai lệch này.
+* **Amazon CloudWatch Alerts:** Tích hợp với CloudWatch cho phép tự động gửi cảnh báo (Email/SMS) cho đội ngũ Data Science ngay khi phát hiện trôi dạt, giúp xử lý kịp thời trước khi gây ra sai sót hàng loạt về bồi thường.
+
+#### 2. Tại sao các phương án còn lại sai?
+
+* **Phương án 1 (Clarify on training dataset):** SageMaker Clarify thực hiện phân tích trên tập huấn luyện là để phát hiện bias *trước khi* triển khai. Tuy nhiên, đề bài yêu cầu một giải pháp giám sát **trong sản xuất (in production)** để phát hiện sự thay đổi theo thời gian.
+* **Phương án 2 (ModelQualityMonitor):** Lớp này tập trung vào các chỉ số hiệu suất kỹ thuật như `Accuracy`, `Precision`, và `Recall`. Mặc dù nó cho biết mô hình có đang dự đoán sai hay không, nhưng nó **không giải thích được tại sao** (không chỉ ra được sự thay đổi trọng số của các tính năng đầu vào).
+* **Phương án 3 (DataCapture & Custom Pipeline):** Mặc dù `DataCapture` là bước cần thiết để lấy dữ liệu, nhưng việc "tự xây dựng pipeline tùy chỉnh" để phân tích sự thay đổi trọng số tính năng là cực kỳ phức tạp và tốn kém nguồn lực (operational overhead), trong khi AWS đã cung cấp sẵn `ModelExplainabilityMonitor` để làm việc này một cách tự động.
+
+#### 3. Notes: Giải thích dịch vụ & Lưu ý (Update 2025)
+
+* **SageMaker Model Monitor:** Bao gồm 4 loại giám sát chính:
+1. **Data Quality:** Phát hiện sự thay đổi trong phân phối dữ liệu đầu vào (Data Drift).
+2. **Model Quality:** Theo dõi các chỉ số hiệu suất (Accuracy, v.v.) bằng cách so sánh dự đoán với nhãn thực tế thu thập được sau đó.
+3. **Model Bias Drift:** Giám sát xem các chỉ số công bằng (fairness) có thay đổi theo thời gian không.
+4. **Model Explainability Drift:** (Đáp án câu này) Giám sát sự thay đổi trong tầm quan trọng của các tính năng (Feature Attribution).
+
+
+* **SHAP (SHapley Additive exPlanations):** Là phương pháp dựa trên lý thuyết trò chơi để giải thích kết quả của bất kỳ mô hình ML nào bằng cách phân bổ "phần thưởng" (giá trị dự đoán) cho các "người chơi" (tính năng đầu vào).
+* **Inference Pipeline:** Trong hệ thống này, dữ liệu hình ảnh từ **Rekognition** chảy qua một pipeline để trích xuất điểm số hư hại, sau đó mới kết hợp với dữ liệu bảng để đưa vào **SageMaker AI**. Việc giám sát cần thực hiện ở bước cuối cùng (Predictive Model).
 
 ---
 ### **Question 36:**
