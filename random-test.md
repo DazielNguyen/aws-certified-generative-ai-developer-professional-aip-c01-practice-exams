@@ -1587,11 +1587,32 @@ Which deployment configuration best meets these requirements?
 
 [ ] Use a shadow testing deployment to send duplicate inference requests to the new model. Log results for later comparison, without affecting live predictions.
 
-[ ] Configure a blue/green deployment with canary traffic shifting and a traffic size of 10%. Gradually route requests to the new model while maintaining the existing version as a fallback.
+**[x] Configure a blue/green deployment with canary traffic shifting and a traffic size of 10%. Gradually route requests to the new model while maintaining the existing version as a fallback.**
 
 > Giải thích: 
 
+#### 1. Giải thích đáp án đúng
 
+Đây là chiến lược triển khai an toàn nhất (Safe Deployment) được hỗ trợ mặc định bởi **Amazon SageMaker Deployment Guardrails**, đáp ứng hoàn hảo các yêu cầu về giảm thiểu rủi ro và tự động hóa:
+
+* **Blue/Green Deployment:** SageMaker tạo ra một đội ngũ máy chủ mới (Green) song song với đội ngũ cũ (Blue). Điều này đảm bảo rằng nếu có vấn đề xảy ra, phiên bản cũ vẫn luôn sẵn sàng để phục vụ.
+* **Canary Traffic Shifting (10%):** Thay vì chuyển toàn bộ 100% traffic ngay lập tức (dễ gây ra spike latency và failure như lần trước), hệ thống chỉ chuyển một phần nhỏ (10%) traffic thực tế sang model mới.
+* **Giám sát và Validating:** Trong giai đoạn "Canary", SageMaker sẽ theo dõi các chỉ số (metrics) của model mới. Nếu model mới hoạt động ổn định trong một khoảng thời gian nhất định (baking period), hệ thống sẽ tiếp tục chuyển nốt phần traffic còn lại.
+* **Automatic Rollback (Tự động hoàn tác):** Điểm quan trọng nhất là khả năng tích hợp với **Amazon CloudWatch Alarms**. Nếu model mới gặp lỗi hoặc độ trễ vượt ngưỡng ở mức 10% traffic đó, SageMaker sẽ tự động ngắt kết nối với model mới và trả toàn bộ traffic về model cũ ngay lập tức mà không cần can thiệp thủ công, đảm bảo **Downtime bằng 0**.
+
+#### 2. Tại sao các phương án còn lại sai?
+
+* **Phương án 1 (Multi-model endpoint - MME):** MME dùng để tối ưu chi phí khi có hàng nghìn model ít dùng chung một instance. Nó không phải là một chiến lược triển khai (deployment strategy) để nâng cấp phiên bản. Việc chọn model bằng tham số API đẩy rủi ro về phía ứng dụng khách (client-side), không có cơ chế tự động rollback của hạ tầng.
+* **Phương án 2 (Batch transform):** Đây là phương pháp xử lý dữ liệu ngoại tuyến (offline). Nó không giúp ích gì cho việc chuyển đổi một **Real-time Inference Endpoint** đang chạy. Việc "promote trực tiếp" (All-at-once) chính là nguyên nhân gây ra sự cố mà đội ngũ đang muốn tránh.
+* **Phương án 3 (Shadow testing):** Shadow testing rất tốt để so sánh kết quả mà không ảnh hưởng đến người dùng (user không thấy kết quả model mới). Tuy nhiên, nó không phải là một quy trình "rollout" (triển khai chính thức). Sau khi shadow xong, bạn vẫn cần một chiến lược như Blue/Green để thực hiện việc chuyển đổi quyền kiểm soát traffic thực tế.
+
+#### 3. Notes: Các dịch vụ và lưu ý quan trọng (Update 2025)
+
+* **SageMaker Deployment Guardrails:** Đây là tính năng quản lý việc triển khai model. Nó bao gồm các tùy chọn: *All-at-once*, *Canary*, và *Linear shifting*.
+* **Model Registry:** Đóng vai trò là "Single Source of Truth". Chỉ những model version được đánh giá là `Approved` trong Registry mới nên được đưa vào quy trình Blue/Green.
+* **CloudWatch Alarms:** Để tính năng rollback tự động hoạt động, bạn phải cấu hình Alarms dựa trên các chỉ số như `ModelLatency` hoặc các lỗi `5xx`.
+* **Reserved Instances:** Trong Blue/Green deployment, lưu ý rằng trong một khoảng thời gian ngắn, bạn sẽ chạy gấp đôi số lượng instance (cả Blue và Green). Tuy nhiên, SageMaker có các cơ chế tối ưu hóa để giảm thiểu chi phí phát sinh này.
+* **Baking Period:** Là khoảng thời gian hệ thống đợi để quan sát model mới ở mức traffic nhỏ trước khi chuyển sang bước tiếp theo.
 
 ---
 ### **Question 37:**
@@ -1606,7 +1627,7 @@ Which solution provides the most efficient and cost-effective approach to improv
 
 [ ] Use Amazon SageMaker Data Wrangler to preprocess customer feedback data, remove slang and abbreviations, and standardize the language before sending it to the Bedrock model for summarization.
 
-[ ] Customize the current foundation model by applying fine-tuning using labeled datasets of customer feedback that reflect informal wording, abbreviations, and expressions.
+**[x] Customize the current foundation model by applying fine-tuning using labeled datasets of customer feedback that reflect informal wording, abbreviations, and expressions.**
 
 [ ] Implement Custom Entity Recognition (CER) to extract slang terms and abbreviations from customer feedback and use these extracted entities as metadata inputs to Bedrock during text generation.
 
@@ -1614,7 +1635,26 @@ Which solution provides the most efficient and cost-effective approach to improv
 
 > Giải thích: 
 
+#### 1. Giải thích đáp án đúng
 
+Vấn đề cốt lõi ở đây là mô hình nền tảng (Foundation Model - FM) thiếu hiểu biết về **ngôn ngữ đặc thù (domain-specific language)** như tiếng lóng, từ viết tắt và cách diễn đạt địa phương. Để cải thiện sự hiểu biết này một cách hiệu quả nhất:
+
+* **Fine-tuning (Tinh chỉnh):** Đây là quá trình huấn luyện thêm một mô hình đã có sẵn trên một tập dữ liệu nhỏ hơn, chuyên biệt hơn. Bằng cách sử dụng các bộ dữ liệu phản ánh đúng cách khách hàng viết (có từ lóng, viết tắt), mô hình sẽ học được các sắc thái ngôn ngữ này và ánh xạ chúng vào đúng ngữ cảnh/ý định.
+* **Tính hiệu quả về chi phí:** So với việc huấn luyện lại từ đầu (Pre-training), fine-tuning tốn ít tài nguyên tính toán hơn nhiều và tận dụng được tri thức khổng lồ mà mô hình nền tảng đã có sẵn.
+* **Cải thiện chất lượng tóm tắt:** Khi mô hình hiểu được "tông giọng" và "ý định" thật sự đằng sau các từ ngữ bình dân, kết quả tóm tắt và trích xuất insights sẽ chính xác hơn, hỗ trợ tốt cho việc ra quyết định kinh doanh.
+
+#### 2. Tại sao các phương án còn lại sai?
+
+* **Phương án 1 (Data Wrangler - Preprocessing):** Việc xóa bỏ từ lóng và viết tắt hoặc cố gắng chuẩn hóa ngôn ngữ (Standardize) thường làm **mất đi sắc thái cảm xúc** và ý nghĩa thực tế của người dùng. Nó giải quyết được phần ngọn nhưng làm nghèo nàn dữ liệu đầu vào của AI.
+* **Phương án 3 (Custom Entity Recognition - CER):** CER của Amazon Comprehend rất tốt để trích xuất các thực thể (như tên sản phẩm, mã sách), nhưng nó không giúp mô hình ngôn ngữ (LLM) hiểu được cấu trúc và ý nghĩa sâu xa của câu văn chứa các từ lóng đó. Việc đưa chúng vào làm metadata là một quy trình rời rạc và không tối ưu bằng việc dạy trực tiếp cho mô hình.
+* **Phương án 4 (Large-scale training job):** Việc huấn luyện một mô hình ngôn ngữ riêng biệt hoàn toàn (Domain-specific model) từ con số 0 là cực kỳ **tốn kém và lãng phí**. Nó đòi hỏi hàng triệu USD chi phí hạ tầng và hàng tháng trời để thực hiện, không phù hợp với tiêu chí "efficient and cost-effective".
+
+#### 3. Notes: Giải thích dịch vụ & Lưu ý (Update 2025)
+
+* **Custom Models on Amazon Bedrock:** Hiện nay, Bedrock cho phép bạn fine-tune các mô hình như **Amazon Titan**, **Meta Llama**, hay **Mistral** chỉ bằng vài cú click. Bạn chỉ cần tải file JSONL (chứa cặp Prompt - Completion) lên S3 và bắt đầu job huấn luyện.
+* **Amazon Comprehend Integration:** Trong thực tế, bạn có thể dùng Comprehend để phân loại và gắn nhãn (label) dữ liệu trước, sau đó dùng chính dữ liệu đã gán nhãn đó để làm tập huấn luyện cho quá trình fine-tuning trên Bedrock.
+* **Instruction Fine-tuning:** Đây là kỹ thuật phổ biến để dạy mô hình cách phản hồi theo một phong cách cụ thể (ví dụ: "Hãy tóm tắt theo phong cách chuyên gia phân tích thị trường dựa trên các phản hồi bình dân này").
+* **Amazon Bedrock Evaluation:** Sau khi fine-tune, bạn nên sử dụng tính năng **Model Evaluation** để so sánh xem mô hình mới đã hiểu từ lóng tốt hơn mô hình cũ bao nhiêu phần trăm trước khi đưa vào sản xuất.
 
 ---
 ### **Question 38:**
@@ -1639,13 +1679,33 @@ Which approach delivers the needed functionality with the least operational effo
 
 [ ] Set up a Flask-based model router in Amazon ECS, with routing data stored in Amazon Aurora. Route inference requests via API Gateway to the Flask application, which selects and invokes the corresponding model using the Bedrock SDK. Set up Amazon CloudWatch alarms to monitor errors and initiate updates to the model routing table.
 
-[ ] Create a Lambda function with AppConfig Agent Lambda extension to dynamically fetch model routing rules from AWS AppConfig. Use AWS Step Functions to manage task-specific workflows, incorporating a failover strategy with circuit breaker functionality. Ensure model invocations use Bedrock regional endpoints, retrying in a secondary region in case of failure.
+**[x] Create a Lambda function with AppConfig Agent Lambda extension to dynamically fetch model routing rules from AWS AppConfig. Use AWS Step Functions to manage task-specific workflows, incorporating a failover strategy with circuit breaker functionality. Ensure model invocations use Bedrock regional endpoints, retrying in a secondary region in case of failure.**
 
 [ ] Deploy a Kubernetes router on Amazon EKS, using ConfigMaps for routing rules. Forward requests from API Gateway to an Ingress controller that sends them to the router, which invokes the appropriate FM through the Bedrock SDK. Manage failover by updating ConfigMaps and restarting Pods when a Region or model fails.
 
 > Giải thích: 
 
+#### 1. Giải thích đáp án đúng
 
+Đây là giải pháp sử dụng các dịch vụ **Serverless** và **Managed Services** của AWS để đạt được sự linh hoạt tối đa với nỗ lực vận hành thấp nhất (Least Operational Effort):
+
+* **AWS AppConfig (Thay đổi runtime không cần redeploy):** Đây là thành phần quan trọng nhất giúp đáp ứng yêu cầu thay đổi cấu hình điều hướng (routing) ngay khi hệ thống đang chạy. AppConfig cho phép bạn cập nhật các quy tắc (ví dụ: chuyển từ model A sang model B) mà không cần deploy lại code Lambda hay khởi động lại dịch vụ.
+* **AppConfig Agent Lambda extension:** Giúp Lambda lấy cấu hình từ AppConfig một cách nhanh chóng và hiệu quả bằng cách lưu vào bộ nhớ đệm (cache), giảm độ trễ (latency).
+* **AWS Step Functions (Orchestration & Failover):** Step Functions cực kỳ mạnh mẽ trong việc quản lý quy trình làm việc (workflow). Nó hỗ trợ sẵn các cơ chế xử lý lỗi (Error Handling), thử lại (Retry) và đặc biệt là mô hình **Circuit Breaker** (Ngắt mạch) để ngăn chặn hệ thống tiếp tục gửi yêu cầu đến một Region hoặc Model đang bị lỗi.
+* **Cross-region & Reliability:** Việc sử dụng các endpoint vùng của Bedrock kết hợp với logic trong Step Functions cho phép tự động chuyển vùng (failover) sang vùng dự phòng một cách mượt mà khi vùng chính gặp sự cố.
+
+#### 2. Tại sao các phương án còn lại sai?
+
+* **Phương án 1 (S3 & Redeploy):** Phương án này yêu cầu "**redeploying the Lambda function**" để áp dụng thay đổi cấu hình từ S3. Điều này vi phạm trực tiếp yêu cầu của đề bài là thay đổi hành vi routing mà không được redeploy hệ thống.
+* **Phương án 2 (ECS & Aurora):** Việc quản lý một cụm Amazon ECS (Container) và cơ sở dữ liệu Amazon Aurora chỉ để làm nhiệm vụ điều hướng (router) tạo ra một **nỗ lực vận hành (operational overhead) rất lớn**. Nó không phải là giải pháp "least operational effort" so với serverless.
+* **Phương án 4 (EKS & ConfigMaps):** Amazon EKS (Kubernetes) là một hệ thống cực kỳ phức tạp để quản lý. Ngoài ra, việc "restart Pods" khi có sự cố vùng hoặc thay đổi cấu hình là một quy trình chậm và gây gián đoạn, không tối ưu bằng việc cập nhật cấu hình động của AppConfig.
+
+#### 3. Notes: Giải thích dịch vụ & Lưu ý (Update 2025)
+
+* **AWS AppConfig:** Thường được ví như "Feature Flags" cho hạ tầng AWS. Nó cho phép triển khai cấu hình một cách an toàn (có validation và rollback tự động nếu cấu hình mới gây lỗi).
+* **Circuit Breaker Pattern:** Trong hệ thống phân tán, nếu một dịch vụ (như Bedrock ở vùng US-East-1) bị chậm hoặc lỗi liên tục, Circuit Breaker sẽ "ngắt" kết nối đến đó trong một khoảng thời gian để hệ thống sử dụng vùng dự phòng ngay lập tức, tránh tích tụ các yêu cầu bị treo.
+* **Amazon Bedrock Regional Endpoints:** Để đảm bảo tính sẵn sàng cao, các ứng dụng lớn thường triển khai mô hình ở ít nhất 2 vùng (ví dụ: us-east-1 và us-west-2).
+* **Step Functions Service Integrations:** Step Functions có thể gọi trực tiếp Amazon Bedrock mà không cần qua Lambda trong nhiều trường hợp, giúp giảm thêm độ trễ và chi phí.
 
 ---
 ### **Question 39:**
@@ -1658,7 +1718,7 @@ During model training, the team observes slow startup times and low GPU utilizat
 
 Which solution should be implemented to optimize SageMaker AI training performance while maintaining the existing S3-based workflow?
 
-[ ] Create an Amazon FSx for Lustre file system and connect it to the existing S3 bucket. Update the SageMaker AI training job to access the dataset directly from the FSx mount.
+**[x] Create an Amazon FSx for Lustre file system and connect it to the existing S3 bucket. Update the SageMaker AI training job to access the dataset directly from the FSx mount.**
 
 [ ] Enable S3 Transfer Acceleration to reduce latency when downloading data during each training job.
 
@@ -1668,7 +1728,32 @@ Which solution should be implemented to optimize SageMaker AI training performan
 
 > Giải thích: 
 
+#### 1. Giải thích đáp án đúng
 
+Vấn đề mà startup đang gặp phải là hiện tượng **"I/O Bottleneck"**. Do tập dữ liệu gồm hàng ngàn hình ảnh độ phân giải cao, việc tải dữ liệu theo cách truyền thống (File Mode) từ S3 về máy chủ huấn luyện khiến GPU phải chờ đợi (low GPU utilization) và kéo dài thời gian khởi động (startup time).
+
+* **Amazon FSx for Lustre:** Đây là hệ thống tệp hiệu suất cao (high-performance file system) được thiết kế cho các khối lượng công việc tính toán quy mô lớn như Machine Learning.
+* **Liên kết trực tiếp với S3 (S3 Integration):** FSx for Lustre cho phép bạn liên kết trực tiếp với một S3 bucket. Khi job huấn luyện bắt đầu, FSx sẽ tự động tải dữ liệu từ S3 vào hệ thống tệp Lustre trong lần truy cập đầu tiên và lưu trữ chúng ở tốc độ truy xuất cực nhanh (sub-millisecond latencies).
+* **Tối ưu hóa throughput:** Lustre hỗ trợ hàng trăm GB/s throughput và hàng triệu IOPS, đảm bảo GPU luôn được "nuôi" đủ dữ liệu, từ đó tăng tối đa hiệu suất huấn luyện (throughput).
+* **Giữ nguyên S3 workflow:** S3 vẫn là nơi lưu trữ gốc (primary repository), thỏa mãn yêu cầu không thay đổi quy trình lưu trữ hiện tại của công ty.
+
+#### 2. Tại sao các phương án còn lại sai?
+
+* **S3 Transfer Acceleration:** Tính năng này tối ưu hóa tốc độ tải dữ liệu lên (upload) hoặc tải về (download) qua Internet bằng cách sử dụng các AWS Edge Locations. Tuy nhiên, nó không giải quyết được vấn đề tốc độ đọc ghi dữ liệu cục bộ khi bắt đầu huấn luyện trong mạng nội bộ AWS.
+* **Copy to Amazon EBS:** Việc sao chép thủ công từ S3 sang EBS trước mỗi lần chạy làm tăng đáng kể thời gian chuẩn bị và gây ra tình trạng **duplicating data** (nhân bản dữ liệu), vi phạm yêu cầu của đề bài.
+* **Amazon EFS:** Mặc dù EFS có thể mount trực tiếp vào container, nhưng nó được tối ưu hóa cho chia sẻ tệp chung hơn là cho các tác vụ đòi hỏi băng thông cực lớn và IOPS cao như huấn luyện Deep Learning trên hàng ngàn ảnh độ phân giải cao. So với Lustre, EFS có độ trễ cao hơn và throughput thấp hơn trong kịch bản này.
+
+#### 3. Notes: Giải thích dịch vụ & Lưu ý (Update 2025)
+
+* **File Mode vs. FastFile Mode vs. Pipe Mode:**
+* **File Mode:** Tải toàn bộ dữ liệu về đĩa cục bộ trước khi train (Chậm nhất khi khởi động).
+* **Pipe Mode:** Truyền dữ liệu trực tiếp từ S3 vào thuật toán dưới dạng stream (Nhanh, nhưng yêu cầu thay đổi training script).
+* **FastFile Mode:** Một tính năng mới của SageMaker cho phép truy cập S3 như một hệ thống tệp cục bộ mà không cần FSx (Phù hợp cho tệp lớn, ít tệp nhỏ).
+
+
+* **FSx for Lustre (Sự lựa chọn vàng):** Đối với dữ liệu gồm **nhiều tệp nhỏ** (như hàng ngàn ảnh trong Computer Vision), FSx for Lustre là giải pháp mạnh mẽ nhất để đạt được độ trễ thấp nhất mà không cần sửa code training.
+* **SageMaker AI (Tên mới):** AWS hiện đã tích hợp sâu các tính năng "AI" vào thương hiệu SageMaker để nhấn mạnh khả năng hỗ trợ cả ML truyền thống và Generative AI.
+* **S3 Data Source:** Trong cấu hình `InputDataConfig` của SageMaker, bạn chỉ cần đổi `S3DataType` từ `S3Prefix` sang `FileSystem` và cung cấp thông tin của FSx mount.
 
 ---
 ### **Question 40:**
@@ -1687,11 +1772,31 @@ Which solution is the most cost-effective fix for this performance issue while m
 
 [ ] Enable S3 Transfer Acceleration to improve cross-region upload performance from the production site and configure automatic scaling on the SageMaker endpoint to handle higher parallel request volume generated by all industrial PCs.
 
-[ ] Host the inference Lambda code and the ML model on the IoT Greengrass core running on each industrial PC and perform the defect detection workflow locally, then return only the reduced inference output to the local web service.
+**[x] Host the inference Lambda code and the ML model on the IoT Greengrass core running on each industrial PC and perform the defect detection workflow locally, then return only the reduced inference output to the local web service.**
 
 > Giải thích: 
 
+#### 1. Giải thích đáp án đúng
 
+Vấn đề cốt lõi ở đây là **Nghẽn băng thông mạng (Network Saturation)**. Khi mở rộng quy mô lên hàng trăm máy, việc gửi ảnh thô (uncompressed images) liên tục lên Cloud đã làm cạn kiệt đường truyền Internet của nhà máy, gây ra độ trễ (latency) vượt mức cho phép.
+
+* **Edge Computing (Tính toán tại biên):** Bằng cách đưa mô hình ML và logic xử lý (Lambda) xuống chạy trực tiếp trên **AWS IoT Greengrass** tại các máy tính công nghiệp (Industrial PCs) ở mỗi dây chuyền, quá trình suy luận (inference) diễn ra cục bộ.
+* **Loại bỏ độ trễ truyền tải:** Hình ảnh không còn cần phải "đi du lịch" lên Cloud để được phân tích. Điều này triệt tiêu hoàn toàn độ trễ do mạng và tình trạng nghẽn băng thông.
+* **Hiệu quả chi phí (Cost-effective):** Bạn không cần trả tiền cho đường truyền Internet băng thông lớn (Direct Connect) hay chi phí lưu trữ/truyền tải dữ liệu ảnh khổng lồ lên S3 chỉ để phục vụ inference.
+* **Đảm bảo độ chính xác:** Mô hình chạy dưới máy cục bộ vẫn là mô hình đã được huấn luyện kỹ lưỡng trên Cloud bằng SageMaker và Rekognition, nên độ chính xác không thay đổi.
+
+#### 2. Tại sao các phương án còn lại sai?
+
+* **Phương án 1 (Direct Connect 10 Gbps):** Đây là giải pháp cực kỳ đắt đỏ. Việc kéo một đường dây vật lý riêng và tăng quy mô Instance SageMaker trên Cloud sẽ tốn kém rất nhiều chi phí vận hành mà vẫn không giải quyết được triệt để vấn đề độ trễ vật lý (speed of light) so với việc xử lý ngay tại máy.
+* **Phương án 2 (Batching):** Gom nhiều ảnh lại rồi mới upload sẽ làm **tăng độ trễ** cho từng sản phẩm đơn lẻ (vì phải đợi đủ batch). Điều này vi phạm yêu cầu "real-time processing" để kích hoạt bộ phận cơ khí gạt sản phẩm lỗi ngay lập tức.
+* **Phương án 3 (S3 Transfer Acceleration):** Dịch vụ này giúp tăng tốc độ upload lên S3 qua mạng toàn cầu, nhưng nó không giải quyết được vấn đề **saturation** (bão hòa) đường truyền tại nhà máy. Nếu ống dẫn nước đã đầy, việc cố gắng đẩy nhanh hơn ở đầu ra cũng không giúp ích gì.
+
+#### 3. Notes: Ứng dụng AI vào sản xuất (Industrial AI)
+
+* **AWS IoT Greengrass:** Cho phép các thiết bị IoT chạy các dự án Lambda, Docker containers, hoặc cả hai. Nó có khả năng quản lý vòng đời của mô hình ML (Machine Learning Model Deployment) từ Cloud xuống thiết bị.
+* **SageMaker Edge Manager:** Đây là dịch vụ đi kèm thường dùng trong kịch bản này để tối ưu hóa, giám sát và quản lý các mô hình chạy trên các thiết bị biên (như Industrial PC) để đảm bảo chúng chạy với hiệu năng cao nhất trên phần cứng cụ thể đó.
+* **Cloud for Training, Edge for Inference:** Đây là kiến trúc chuẩn (Best Practice) cho Robotics. Bạn dùng tài nguyên vô hạn của Cloud (SageMaker) để huấn luyện mô hình, nhưng dùng sức mạnh tại chỗ (Edge) để ra quyết định thời gian thực.
+* **Reduced Output:** Thay vì gửi 10MB ảnh lên Cloud, thiết bị giờ đây chỉ gửi kết quả rất nhẹ (ví dụ: `{"defect": true, "score": 0.98}`) về web service hoặc lưu log lại Cloud, giúp tiết kiệm băng thông tối đa.
 
 ---
 ### **Question 41:**
