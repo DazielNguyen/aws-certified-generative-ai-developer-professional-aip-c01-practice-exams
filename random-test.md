@@ -1882,7 +1882,7 @@ Which of the following options is the MOST secure protection for the training jo
 * **Network Isolation:** Cấm *tất cả* các kết nối mạng ra vào container. Đây là mức bảo mật cao nhất (Air-gapped).
 
 
-* **Trách nhiệm bảo mật (Shared Responsibility):** AWS chịu trách nhiệm bảo mật hạ tầng, nhưng AI Developer (như Daziel) chịu trách nhiệm cấu hình các tính năng như cách ly mạng để bảo vệ dữ liệu nhạy cảm của khách hàng.
+* **Trách nhiệm bảo mật (Shared Responsibility):** AWS chịu trách nhiệm bảo mật hạ tầng, nhưng AI Developer (như ) chịu trách nhiệm cấu hình các tính năng như cách ly mạng để bảo vệ dữ liệu nhạy cảm của khách hàng.
 * **Lưu ý thực tế:** Khi bật Network Isolation, bạn không thể tải thêm thư viện từ internet (như dùng `pip install`) trong lúc chạy job. Bạn phải cài đặt sẵn mọi thứ vào trong Custom Docker Image trước khi bắt đầu huấn luyện.
 
 ---
@@ -1996,7 +1996,7 @@ Tương tự như bài toán phát hiện gian lận (Fraud Detection), dự đo
 * **SageMaker Model Monitor:** Đây là giải pháp **hậu kỳ (post-deployment)**. Nó giúp phát hiện vấn đề khi mô hình đã chạy thực tế. Đề bài yêu cầu giải quyết vấn đề **trước khi bắt đầu** huấn luyện (before starting the training job).
 * **SageMaker Clarify:** Clarify rất tốt để **phân tích và báo cáo (analyze and document)** sự mất cân bằng, nhưng bản thân nó không trực tiếp "sửa" dữ liệu bằng cách tạo ra các mẫu mới để huấn luyện như SMOTE trong Data Wrangler.
 
-#### 3. Notes cho AI Developer (Daziel)
+#### 3. Notes cho AI Developer ()
 
 Trong thực tế tại AWS, khi làm việc với XGBoost và dữ liệu mất cân bằng, bạn có hai chiến lược chính:
 
@@ -2120,7 +2120,7 @@ Trong thực tế, khi bạn triển khai Asynchronous Inference, quy trình s�
 3. SageMaker đặt yêu cầu vào một hàng đợi nội bộ (**Internal Queue**).
 4. Khi xử lý xong, kết quả sẽ được lưu lại vào S3 và bạn sẽ nhận được thông báo qua **Amazon SNS** (nếu cấu hình).
 
-**Kinh nghiệm tại AWS:** Khi cấu hình VPC cho SageMaker, Daziel hãy nhớ tạo **S3 VPC Endpoint** (Gateway type). Vì Asynchronous endpoint cần đọc/ghi dữ liệu vào S3, nếu không có endpoint này, dữ liệu sẽ không thể di chuyển giữa VPC và S3 mà không có Internet Gateway.
+**Kinh nghiệm tại AWS:** Khi cấu hình VPC cho SageMaker,  hãy nhớ tạo **S3 VPC Endpoint** (Gateway type). Vì Asynchronous endpoint cần đọc/ghi dữ liệu vào S3, nếu không có endpoint này, dữ liệu sẽ không thể di chuyển giữa VPC và S3 mà không có Internet Gateway.
 
 ---
 ### **Question 49:**
@@ -2161,9 +2161,9 @@ Giải pháp này thỏa mãn tất cả các yêu cầu khắt khe về bảo m
 * **Phương án 3:** **SSE-S3** là hình thức mã hóa cơ bản nhất của S3 (AWS quản lý hoàn toàn khóa). Trong ngành tài chính, người ta thường yêu cầu **SSE-KMS** để khách hàng có thể kiểm soát và xoay vòng (rotate) khóa. Ngoài ra, **Amazon Macie** dùng để phát hiện dữ liệu nhạy cảm (PII), nó không giúp giám sát "hiệu suất mô hình" theo thời gian.
 
 
-#### 3. Notes cho AI Developer (Daziel)
+#### 3. Notes cho AI Developer ()
 
-Daziel thân mến, với vai trò là AI Developer tại AWS, bạn nên lưu ý các "từ khóa" bảo mật sau đây khi thiết kế hệ thống:
+ thân mến, với vai trò là AI Developer tại AWS, bạn nên lưu ý các "từ khóa" bảo mật sau đây khi thiết kế hệ thống:
 
 * **SSE-KMS vs. SSE-S3:** Luôn chọn KMS khi đề bài nhắc đến "Financial Services" hoặc "Compliance".
 * **CloudWatch vs. CloudTrail:** * **CloudWatch:** Hiệu suất, tài nguyên, chỉ số ML (Metrics & Logs).
@@ -2206,7 +2206,7 @@ Tại sao **DeepAR** lại là "chìa khóa" cho bài toán này?
 * **Random Cut Forest (RCF):** Thuật toán này được dùng để **phát hiện bất thường (Anomaly Detection)**, không phải để dự báo xu hướng tương lai. Nó sẽ giúp bạn biết khi nào doanh số bán hàng tăng đột biến một cách lạ thường chứ không giúp bạn biết ngày mai sẽ bán được bao nhiêu.
 * **K-means clustering:** Thuật toán này chỉ giúp **phân nhóm (Clustering)** các SKU lại với nhau. Mặc dù bạn có thể biết sản phẩm mới thuộc nhóm nào, nhưng K-means không tự đưa ra các con số dự báo theo thời gian (ví dụ: doanh số tuần 1, tuần 2, tuần 3). Bạn vẫn sẽ cần một mô hình dự báo sau bước phân nhóm này.
 
-### 3. Notes cho AI Developer 
+#### 3. Notes cho AI Developer 
 
 * **Amazon Forecast vs. SageMaker DeepAR:** Nếu bạn muốn một giải pháp **No-code/Low-code** hoàn toàn, Amazon Forecast là lựa chọn tốt (nó cũng sử dụng DeepAR+ bên dưới). Nếu bạn muốn tùy chỉnh sâu về kiến trúc model, hãy dùng DeepAR trong SageMaker.
 * **Phân phối xác suất (Probabilistic Forecasts):** DeepAR không chỉ trả về một con số duy nhất, nó trả về một dải phân phối. Điều này cực kỳ quan trọng trong quản lý kho hàng (Inventory Management), giúp doanh nghiệp biết được kịch bản xấu nhất và tốt nhất để chuẩn bị hàng hóa.
@@ -2222,10 +2222,37 @@ The company has collected thousands of hours of video footage from the productio
 
 Which of the following solutions would best meet the company’s needs?
 
-Use SageMaker’s built-in Object Detection algorithm to train the model. Deploy the trained model to an AWS IoT Greengrass core with AWS Lambda handling the decision logic at the factory.
-Deploy a Convolutional Neural Network (CNN) in SageMaker AI using Amazon Kinesis Video Streams to analyze the video footage in real time. Use Amazon EventBridge to trigger downstream actions for routing packages based on the detected dimensions.
-Train the model using SageMaker AI and deploy it to Amazon Elastic Kubernetes Service (Amazon EKS) clusters running in each factory. Use Amazon SQS to queue routing decisions and send them to the cloud for processing.
-Use Rekognition Custom Labels to train the model and deploy it using Amazon EC2 instances at each factory. Use Amazon EventBridge to monitor inference results and trigger routing actions.
+**[x] Use SageMaker’s built-in Object Detection algorithm to train the model. Deploy the trained model to an AWS IoT Greengrass core with AWS Lambda handling the decision logic at the factory.**
+
+[ ] Deploy a Convolutional Neural Network (CNN) in SageMaker AI using Amazon Kinesis Video Streams to analyze the video footage in real time. Use Amazon EventBridge to trigger downstream actions for routing packages based on the detected dimensions.
+
+[ ] Train the model using SageMaker AI and deploy it to Amazon Elastic Kubernetes Service (Amazon EKS) clusters running in each factory. Use Amazon SQS to queue routing decisions and send them to the cloud for processing.
+
+[ ] Use Rekognition Custom Labels to train the model and deploy it using Amazon EC2 instances at each factory. Use Amazon EventBridge to monitor inference results and trigger routing actions.
+
+> Giải thích:
+
+#### 1. Giải thích đáp án đúng
+
+Kịch bản này đặt ra một thách thức lớn về **kết nối (Connectivity)**: các nhà máy ở vùng sâu vùng xa không có internet ổn định. Do đó, giải pháp phải cho phép hệ thống hoạt động hoàn toàn ngoại tuyến (offline) sau khi đã triển khai.
+
+* **AWS IoT Greengrass:** Đây là dịch vụ then chốt để giải quyết vấn đề internet không ổn định. Greengrass cho phép bạn mở rộng các chức năng của đám mây xuống các thiết bị tại biên (Edge devices). Nó có thể chạy mã Lambda, thực hiện suy luận ML cục bộ và quản lý dữ liệu mà không cần kết nối internet liên tục.
+* **Suy luận tại biên (Edge Inference):** Bằng cách triển khai mô hình đã huấn luyện trực tiếp lên thiết bị IoT Greengrass Core tại nhà máy, quá trình phát hiện kích thước kiện hàng diễn ra ngay tại chỗ. Điều này đảm bảo thời gian phản hồi cực nhanh (real-time) và tính liên tục trong vận hành.
+* **AWS Lambda:** Đóng vai trò là bộ não điều khiển tại chỗ, nhận kết quả từ mô hình ML và kích hoạt các hành động vật lý (như gạt kiện hàng vào đúng hướng) thông qua các giao thức công nghiệp (như MQTT hoặc Modbus).
+
+#### 2. Tại sao các phương án còn lại chưa phù hợp?
+
+* **Phương án 2 (Kinesis Video Streams & EventBridge):** Giải pháp này dựa hoàn toàn vào việc truyền tải video lên đám mây để phân tích. Trong điều kiện "reliable internet access is unavailable", việc stream video HD liên tục là điều bất khả thi và sẽ làm hệ thống dừng hoạt động ngay khi mất mạng.
+* **Phương án 3 (Amazon EKS & Amazon SQS):** Việc chạy Kubernetes (EKS) tại mỗi nhà máy là một gánh nặng vận hành quá lớn (High operational overhead). Hơn nữa, việc gửi quyết định qua SQS lên cloud để xử lý lại một lần nữa vi phạm yêu cầu về tính tự chủ khi không có mạng.
+* **Phương án 4 (Amazon EC2 at each factory):** Amazon EC2 là dịch vụ máy chủ trên đám mây, không phải là thiết bị phần cứng đặt tại nhà máy. Việc "deploy EC2 tại nhà máy" là sai về khái niệm dịch vụ. Ngoài ra, giải pháp này vẫn phụ thuộc vào EventBridge (một dịch vụ cloud-native) để điều phối hành động.
+
+#### 3. Notes cho AI Developer
+
+1. **Cloud for Heavy Lifting:** Sử dụng SageMaker AI trên cloud để huấn luyện mô hình vì đây là nơi có tài nguyên tính toán (GPU/RAM) vô hạn và dữ liệu lịch sử khổng lồ.
+2. **Edge for Execution:** Sử dụng IoT Greengrass để thực thi. Mô hình sau khi huấn luyện sẽ được tối ưu hóa (ví dụ: dùng **SageMaker Neo** để biên dịch cho phần cứng cụ thể) và đẩy xuống thiết bị biên.
+3. **Local Decision Making:** Logic điều khiển phải nằm tại thiết bị (Greengrass/Lambda) để đảm bảo dù cáp quang biển có bị đứt, nhà máy vẫn sản xuất bình thường.
+
+
 
 ---
 ### **Question 52:**
@@ -2237,11 +2264,36 @@ To comply with internal security policies, the team provisions a VPC interface e
 
 Which combination of actions should the team take to secure the traffic to the SageMaker Service API? (Select TWO.)
 
-Attach a custom VPC endpoint policy that explicitly grants access to selected IAM identities.
-Enable private DNS for the VPC endpoint to ensure that traffic remains within the VPC.
-Deploy an additional VPC endpoint for SageMaker AI Runtime to isolate inference traffic.
-Configure the security group linked to the endpoint network interface to allow traffic only from approved instances.
-Enable VPC Flow Logs to monitor traffic patterns. Use AWS Lambda to automatically block unauthorized access to the SageMaker API endpoint.
+**[x] Attach a custom VPC endpoint policy that explicitly grants access to selected IAM identities.**
+
+[ ] Enable private DNS for the VPC endpoint to ensure that traffic remains within the VPC.
+
+[ ] Deploy an additional VPC endpoint for SageMaker AI Runtime to isolate inference traffic.
+
+**[x] Configure the security group linked to the endpoint network interface to allow traffic only from approved instances.**
+
+[ ] Enable VPC Flow Logs to monitor traffic patterns. Use AWS Lambda to automatically block unauthorized access to the SageMaker API endpoint.
+
+> Giải thích: 
+
+#### 1. Giải thích các đáp án đúng
+
+Để bảo mật hoàn toàn một VPC Endpoint, chúng ta cần triển khai bảo mật đa lớp (Defense in Depth) ở cả tầng **Định danh (Identity)** và tầng **Mạng (Network)**:
+
+* **Custom VPC Endpoint Policy (Tầng Identity):** Mặc định, một VPC Endpoint sẽ có chính sách "Full Access". Để giới hạn chỉ các **IAM users/roles** cụ thể được phép gọi API, bạn cần một Resource-based policy gắn trực tiếp vào Endpoint. Chính sách này sẽ kiểm soát **"AI"** được phép sử dụng đường ống này.
+* **Security Group (Tầng Network):** Security Group đóng vai trò là tường lửa (Stateful firewall) cho ENI (Elastic Network Interface) của Endpoint. Bằng cách cấu hình Inbound Rule chỉ cho phép traffic từ Security Group ID của các **Amazon EC2 instances** được phê duyệt, bạn đảm bảo rằng chỉ có **"Thiết bị nào"** trong mạng mới có thể gửi yêu cầu đến SageMaker API.
+
+#### 2. Tại sao các phương án còn lại chưa phù hợp?
+
+* **Enable private DNS:** Tính năng này giúp các ứng dụng trong VPC gọi SageMaker API bằng DNS mặc định (ví dụ: `sagemaker.us-east-1.amazonaws.com`) thay vì dùng URL riêng của endpoint. Nó giúp đơn giản hóa việc định tuyến nhưng **không có chức năng bảo mật hay giới hạn truy cập** cho các đối tượng cụ thể.
+* **Deploy SageMaker AI Runtime endpoint:** Đề bài đang tập trung vào việc bảo mật **Service API** (dùng để quản lý, tạo job huấn luyện). Runtime API dùng cho việc dự đoán (Inference). Việc thêm endpoint Runtime không giúp giải quyết yêu cầu kiểm soát truy cập cho Service API.
+* **VPC Flow Logs & Lambda:** Đây là giải pháp mang tính **phản ứng (Reactive)** và cực kỳ phức tạp để triển khai. Trong bảo mật AWS, chúng ta luôn ưu tiên các cơ chế **ngăn chặn (Preventative)** như IAM Policy và Security Groups trước khi nghĩ đến việc dùng Lambda để chặn traffic dựa trên logs.
+
+#### 3. Notes cho AI Developer
+
+1. **Chốt chặn 1 (Network):** Dùng Security Group để chặn các máy khách không mong muốn trong mạng.
+2. **Chốt chặn 2 (Identity):** Dùng Endpoint Policy để chặn các IAM Identity không có thẩm quyền.
+3. **Lưu ý về Subnet:** Trong đề bài, endpoint đặt ở **Public Subnet**. Tuy nhiên, trong thực tế sản xuất (Production), các VPC Endpoint thường được đặt ở **Private Subnet** để tăng cường bảo mật, vì chúng vốn được thiết kế để kết nối nội bộ thông qua AWS PrivateLink.
 
 ---
 ### **Question 53:**
@@ -2253,10 +2305,35 @@ To ensure that Q Developer receives real-time and dynamic contextual data during
 
 Which solution will meet this requirement?
 
-Set up an API gateway to connect the databases and the external APIs.
-Configure the MCP server to connect to the databases and external APIs.
-Use Amazon Quick Suite to integrate with the databases and the external APIs.
-Utilize Amazon Q Developer CLI with MCP to connect to the databases and the external APIs.
+[ ] Set up an API gateway to connect the databases and the external APIs.
+
+[ ] Configure the MCP server to connect to the databases and external APIs.
+
+[ ] Use Amazon Quick Suite to integrate with the databases and the external APIs.
+
+**[x] Utilize Amazon Q Developer CLI with MCP to connect to the databases and the external APIs.**
+
+> Giải thích: 
+
+#### 1. Giải thích đáp án đúng
+
+**Model Context Protocol (MCP)** là một tiêu chuẩn mở (open standard) mới (vừa được phổ biến rộng rãi vào cuối năm 2024 - 2025) giúp các ứng dụng AI như Amazon Q Developer có thể kết nối mượt mà với các nguồn dữ liệu bên ngoài.
+
+* **Amazon Q Developer CLI:** Gần đây đã tích hợp hỗ trợ cho MCP. Đây là thành phần đóng vai trò là **MCP Client**.
+* **Kết nối động (Dynamic Connection):** MCP cho phép AI assistant "hiểu" cấu trúc của các cơ sở dữ liệu và API từ các **MCP Servers** mà không cần lập trình lại toàn bộ hệ thống. Khi bạn sử dụng Q Developer CLI, bạn có thể cấu hình các máy chủ MCP để cung cấp ngữ cảnh thời gian thực (ví dụ: truy vấn trực tiếp bảng Schema trong Database hoặc gọi API thời tiết/tài chính).
+* **Độ trễ thấp và Ngữ cảnh liên quan:** Vì MCP được thiết kế để truyền tải dữ liệu có cấu trúc cho LLM, Q Developer có thể trích xuất chính xác thông tin cần thiết để đưa vào prompt (ngữ cảnh), giúp câu trả lời trở nên chính xác hơn so với việc chỉ dựa vào dữ liệu huấn luyện tĩnh.
+
+#### 2. Tại sao các phương án còn lại chưa chính xác?
+
+* **Phương án 1 (API Gateway):** Amazon API Gateway là một dịch vụ quản lý API mạnh mẽ, nhưng bản thân nó không triển khai tiêu chuẩn MCP. Việc chỉ thiết lập Gateway không giúp Amazon Q "biết" cách tương tác và lấy ngữ cảnh tự động theo giao thức MCP.
+* **Phương án 2 (Configure the MCP server):** Đây là một bước **cần thiết nhưng chưa đủ**. Bạn cần một bên thứ ba (Client) để tiêu thụ (consume) dữ liệu từ máy chủ đó. Đề bài hỏi về giải pháp giúp đội ngũ phát triển kết nối và sử dụng dữ liệu đó trong cuộc hội thoại với trợ lý, do đó việc sử dụng **Q Developer CLI** (Client) là câu trả lời đầy đủ hơn về mặt kiến trúc.
+* **Phương án 3 (Amazon Quick Suite):** Đây không phải là một dịch vụ chính thức của AWS (có thể là một tên gọi giả định trong câu hỏi trắc nghiệm).
+
+#### 3. Cẩm nang MCP cho AI Developer (Update 2025)
+
+* **MCP Server là gì?** Là các dịch vụ nhỏ (microservices) cung cấp dữ liệu qua giao thức MCP. Hiện nay có rất nhiều máy chủ MCP mã nguồn mở cho PostgreSQL, Google Drive, GitHub, v.v.
+* **MCP Client:** Là các công cụ AI (như Amazon Q Developer, Claude Desktop, hoặc IDEs) có khả năng kết nối tới server để "mượn" dữ liệu.
+* **Lợi ích của MCP:** Thay vì phải viết code tích hợp (integration) cho từng API, bạn chỉ cần dùng một chuẩn chung. AI sẽ tự biết cách "đọc" các công cụ (tools) và tài nguyên (resources) mà MCP Server cung cấp.
 
 ---
 ### **Question 54:**
@@ -2267,11 +2344,57 @@ A data science team is leveraging Amazon SageMaker AI to build and deploy machin
 How can the team limit access to the SageMaker notebook instances, ensuring only authorized VPC users can connect?
 
 
-Configure an IAM policy that allows sagemaker:CreatePresignedNotebookInstanceUrl and sagemaker:DescribeNotebookInstance actions exclusively from VPC interface endpoints. Ensure this policy is applied to the appropriate IAM users, groups, and roles.
-Apply VPC Endpoint Policies to control which IAM users or services can access SageMaker AI through the VPC interface endpoint, providing more granular access control for interactions with SageMaker AI.
-Update the security group for the notebook instances to restrict incoming traffic to only the CIDR blocks associated with the VPC. Apply this security group across all interfaces linked to the SageMaker notebook instances.
-Set up VPC Traffic Mirroring to capture traffic to and from the notebook instances and identify unauthorized access attempts, enabling enhanced monitoring.
+**[x] Configure an IAM policy that allows  and  actions exclusively from VPC interface endpoints. Ensure this policy is applied to the appropriate IAM users, groups, and roles.**
 
+[ ] Apply VPC Endpoint Policies to control which IAM users or services can access SageMaker AI through the VPC interface endpoint, providing more granular access control for interactions with SageMaker AI.
+
+[ ] Update the security group for the notebook instances to restrict incoming traffic to only the CIDR blocks associated with the VPC. Apply this security group across all interfaces linked to the SageMaker notebook instances.
+
+[ ] Set up VPC Traffic Mirroring to capture traffic to and from the notebook instances and identify unauthorized access attempts, enabling enhanced monitoring.
+
+> Giải thích: 
+
+#### 1. Giải thích đáp án đúng
+
+Vấn đề bảo mật mà đội ngũ gặp phải xuất phát từ cách thức truy cập vào SageMaker Notebook. Để mở giao diện Jupyter/JupyterLab, AWS sử dụng một "Presigned URL" (đường dẫn được ký trước). Ngay cả khi Notebook nằm trong VPC, nếu một người dùng có quyền IAM phù hợp, họ có thể gọi API từ bất cứ đâu trên Internet để tạo URL này và truy cập vào Notebook.
+
+Để chặn đứng lỗ hổng này, chúng ta cần thực hiện cơ chế **kiểm soát truy cập dựa trên nguồn gốc yêu cầu (Source-based access control)**:
+
+* **:** Đây là hành động (action) then chốt. Bất kỳ ai muốn vào Notebook đều phải thông qua hành động này.
+* **Điều kiện IAM ():** Bằng cách thêm điều kiện sử dụng khóa `aws:sourceVpce` hoặc `aws:SourceVpc` vào chính sách IAM, bạn bắt buộc yêu cầu tạo URL này phải xuất phát từ **bên trong VPC** (thông qua Interface Endpoint).
+* **Hiệu quả:** Nếu một người dùng cố gắng truy cập từ Internet công cộng, yêu cầu gọi API của họ sẽ bị từ chối bởi IAM, ngay cả khi họ có username/password đúng. Chỉ những người đang kết nối vào mạng nội bộ (VPN/Direct Connect) và đi qua VPC Endpoint mới có thể tạo được link truy cập.
+
+#### 2. Tại sao các phương án còn lại chưa đủ hoặc sai?
+
+* **Phương án 2 (VPC Endpoint Policies):** Endpoint Policy kiểm soát việc **thực thể nào trong VPC** có thể làm gì thông qua Endpoint đó. Nó không có khả năng ngăn chặn một người dùng **từ bên ngoài** gọi API trực tiếp tới Endpoint công cộng của SageMaker nếu họ không đi qua VPC của bạn.
+* **Phương án 3 (Security Groups):** Security Group của Notebook chủ yếu kiểm soát lưu lượng mạng giữa Notebook và các tài nguyên khác (như RDS hoặc S3). Nó không kiểm soát quyền truy cập vào giao diện web của Notebook thông qua trình duyệt, vì lưu lượng đó được quản lý bởi tầng dịch vụ (control plane) của SageMaker.
+* **Phương án 4 (VPC Traffic Mirroring):** Đây là công cụ để phân tích gói tin (packet inspection) nhằm mục đích chẩn đoán mạng hoặc phát hiện xâm nhập. Nó không phải là một công cụ để **ngăn chặn (prevent)** truy cập trái phép ngay từ đầu.
+
+#### 3. Cẩm nang bảo mật cho AI Developer ()
+
+Dưới đây là cấu trúc của một đoạn IAM Policy lý tưởng để giải quyết bài toán này:
+
+```json
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": "sagemaker:CreatePresignedNotebookInstanceUrl",
+            "Resource": "arn:aws:sagemaker:*:*:notebook-instance/*",
+            "Condition": {
+                "StringEquals": {
+                    "aws:sourceVpce": "vpce-1234567890abcdef" 
+                }
+            }
+        }
+    ]
+}
+
+```
+
+* **Lưu ý:** Bạn phải thay `vpce-1234567890abcdef` bằng ID thực tế của VPC Interface Endpoint mà bạn đã tạo cho SageMaker Service.
+* **Lợi ích bổ sung:** Việc này cũng ngăn chặn rò rỉ dữ liệu thông qua clipboard hoặc tải file từ trình duyệt vì phiên làm việc hoàn toàn bị khóa trong mạng nội bộ.
 
 ---
 ### **Question 55:**
@@ -2283,13 +2406,36 @@ During multiple tuning jobs, the developer notices that some training jobs run u
 
 Which configuration step should be taken to address this requirement?
 
-Modify the objective metric in the tuning job definition to use a stricter validation threshold, ensuring underperforming models are ignored automatically.
+[ ] Modify the objective metric in the tuning job definition to use a stricter validation threshold, ensuring underperforming models are ignored automatically.
 
-Enable early stopping by setting the TrainingJobEarlyStoppingType parameter to the AUTO value in the tuning job configuration.
-Configure the tuning strategy to use Bayesian optimization, ensuring that all training jobs complete fully before evaluating results.
+**[x] Enable early stopping by setting the TrainingJobEarlyStoppingType parameter to the AUTO value in the tuning job configuration.**
 
-Increase the MaxRuntimeInSeconds parameter in the tuning job configuration to allow more time for underperforming training jobs to complete.
+[ ] Configure the tuning strategy to use Bayesian optimization, ensuring that all training jobs complete fully before evaluating results.
 
+[ ] Increase the MaxRuntimeInSeconds parameter in the tuning job configuration to allow more time for underperforming training jobs to complete.
+
+> Giải thích: 
+
+#### 1. Giải thích đáp án đúng
+
+Để giải quyết bài toán "dừng sớm các job kém hiệu quả", AWS cung cấp tính năng **Early Stopping** trong SageMaker Automatic Model Tuning (AMT):
+
+* **Tham số `TrainingJobEarlyStoppingType`:** Khi được đặt thành `AUTO`, SageMaker sẽ sử dụng các thuật toán nội bộ để giám sát độ dốc cải thiện của **Objective Metric** (chỉ số mục tiêu, ví dụ: Validation Accuracy).
+* **Cơ chế hoạt động:** Nếu một job huấn luyện bắt đầu có dấu hiệu chững lại (vượt qua điểm hội tụ hoặc không có tiềm năng đạt kết quả tốt hơn các job trước đó), SageMaker sẽ tự động gửi lệnh dừng (Stop) job đó.
+* **Lợi ích:** Tiết kiệm đáng kể tài nguyên tính toán (vCPU/GPU) và giảm tổng thời gian hoàn thành toàn bộ quá trình tuning (Tuning duration).
+
+#### 2. Tại sao các phương án còn lại sai?
+
+* **Phương án 1 (Modify objective metric):** Việc thay đổi chỉ số mục tiêu hay đặt ngưỡng nghiêm ngặt chỉ giúp bạn lọc kết quả cuối cùng, nó không can thiệp vào quá trình đang chạy của một job đơn lẻ để dừng nó lại.
+* **Phương án 3 (Bayesian optimization):** Đây là chiến lược tìm kiếm siêu tham số thông minh. Tuy nhiên, phương án này lại ghi "ensure all training jobs complete fully" (đảm bảo mọi job chạy xong hoàn toàn), điều này trái ngược hoàn toàn với yêu cầu "dừng sớm" của đề bài.
+* **Phương án 4 (Increase MaxRuntimeInSeconds):** Tăng thời gian chạy tối đa chỉ khiến các job kém hiệu quả có thêm thời gian để "đốt" tiền của bạn. Nó không giải quyết được vấn đề tối ưu hóa tài nguyên.
+
+#### 3. Cẩm nang cho AI Developer 
+
+* **Hỗ trợ thuật toán:** Tính năng này hoạt động tốt nhất với các thuật toán phát ra các chỉ số định kỳ (ví dụ: XGBoost, DeepAR, hoặc các thuật toán tùy chỉnh có log ra CloudWatch Metrics).
+* **Sự kết hợp hoàn hảo:** Khi dùng **SageMaker Autopilot**, nó đã được tích hợp sẵn các cơ chế tối ưu này. Tuy nhiên, khi bạn tự dùng **HyperparameterTuner** trong Python SDK, bạn phải tường minh khai báo tham số này.
+
+> **Ghi chú bảo mật & Chi phí:** Luôn kiểm tra `MaxParallelTrainingJobs`. Nếu bạn đặt con số này quá cao cùng với Early Stopping, bạn vẫn có thể đối mặt với hóa đơn lớn nếu không giám sát kỹ.
 
 ---
 ### **Question 56:**
@@ -2301,13 +2447,39 @@ The company seeks to automate the process of identifying high-demand rooms in re
 
 Which approach delivers the desired setup with the least development time?
 
-Use Amazon Data Firehose to stream the booking data into Amazon S3, process the data with AWS Glue, and detect high-demand outliers using the Random Cut Forest (RCF) model in Amazon SageMaker AI. Visualize the results in Amazon QuickSight.
-Push booking data to S3 with Amazon Kinesis Data Streams, use a Random Cut Forest (RCF) model in Amazon SageMaker AI to detect demand anomalies, and visualize the results in Amazon QuickSight.
-Stream booking data to S3 using Amazon Kinesis Data Streams, process the data with Amazon Athena, and apply AWS Glue for data enrichment. Use Amazon QuickSight to visualize demand trends and anomalies.
-Utilize Amazon Data Firehose for direct streaming of booking data to S3 and employ Amazon QuickSight ML Insights for anomaly detection, followed by visualizing the insights in QuickSight.
+[ ] Use Amazon Data Firehose to stream the booking data into Amazon S3, process the data with AWS Glue, and detect high-demand outliers using the Random Cut Forest (RCF) model in Amazon SageMaker AI. Visualize the results in Amazon QuickSight.
+
+[ ] Push booking data to S3 with Amazon Kinesis Data Streams, use a Random Cut Forest (RCF) model in Amazon SageMaker AI to detect demand anomalies, and visualize the results in Amazon QuickSight.
+
+[ ] Stream booking data to S3 using Amazon Kinesis Data Streams, process the data with Amazon Athena, and apply AWS Glue for data enrichment. Use Amazon QuickSight to visualize demand trends and anomalies.
+
+**[x] Utilize Amazon Data Firehose for direct streaming of booking data to S3 and employ Amazon QuickSight ML Insights for anomaly detection, followed by visualizing the insights in QuickSight.**
+
+> Giải thích: 
+
+#### 1. Giải thích đáp án đúng
+
+Để đạt được kết quả với thời gian phát triển ngắn nhất, chúng ta cần ưu tiên các dịch vụ **Built-in** (có sẵn) và **Serverless** (không cần quản lý hạ tầng hay viết mã ML phức tạp):
+
+* **Amazon Data Firehose:** Đây là cách dễ nhất để truyền tải (stream) dữ liệu vào S3. Bạn chỉ cần cấu hình đích đến là S3 mà không cần viết code xử lý luồng phức tạp như Kinesis Data Streams.
+* **Amazon QuickSight ML Insights:** Đây là "vũ khí bí mật" giúp tiết kiệm thời gian. Thay vì phải tự xây dựng, huấn luyện và triển khai mô hình Random Cut Forest (RCF) trên SageMaker (tốn nhiều công sức dev), QuickSight cung cấp sẵn tính năng **ML-powered Anomaly Detection** (Phát hiện bất thường dựa trên ML).
+* Bạn chỉ cần vài cú click chuột để kích hoạt tính năng này trực tiếp trên Dashboard.
+* Nó tự động chạy các thuật toán ML để tìm ra các phòng có nhu cầu cao đột biến (outliers) ngay khi dữ liệu mới được nạp vào.
 
 
----
+* **Automated Visualization:** QuickSight kết nối trực tiếp với dữ liệu trong S3 (thông qua Athena hoặc SPICE) để hiển thị các xu hướng booking mới nhất một cách liên tục.
+
+#### 2. Tại sao các phương án còn lại tốn nhiều thời gian hơn?
+
+* **Phương án 1 & 2 (SageMaker RCF):** Việc sử dụng **SageMaker AI** yêu cầu bạn phải: chuẩn bị tập dữ liệu huấn luyện, viết code để host model endpoint, và thiết lập một pipeline để đẩy dữ liệu qua endpoint đó để nhận kết quả. Điều này tốn rất nhiều thời gian lập trình so với việc dùng tính năng có sẵn của QuickSight.
+* **Phương án 3 (Athena & Glue):** Phương án này tập trung vào xử lý dữ liệu truyền thống (ETL). Mặc dù nó giúp làm sạch dữ liệu, nhưng nó thiếu thành phần **Machine Learning tự động** để phát hiện các biến động nhu cầu (demand fluctuations) một cách thông minh như yêu cầu của đề bài.
+
+#### 3. Cẩm nang cho AI Developer
+
+1. **Mức độ 1 (Dễ nhất):** Dùng các tính năng ML tích hợp sẵn trong các dịch vụ BI/Data (như **QuickSight ML Insights**).
+2. **Mức độ 2 (Trung bình):** Dùng các dịch vụ AI chuyên biệt qua API (như **Amazon Comprehend** để phân tích feedback khách hàng như trong đề bài).
+3. **Mức độ 3 (Phức tạp nhất):** Tự xây dựng model trên **Amazon SageMaker AI** khi các dịch vụ trên không đáp ứng được yêu cầu đặc thù.
+
 ### **Question 57:**
 
 Category: AIP – Testing, Validation, and Troubleshooting
@@ -2317,10 +2489,37 @@ The company has trained multiple recommendation models to improve model accuracy
 
 Which solution will meet these requirements in the most operationally efficient way?
 
-Use AWS CodeDeploy with blue/green deployment strategies and an Application Load Balancer (ALB) to alternate traffic between model versions during A/B testing. Gradually route 100% of traffic to the model with the highest engagement metrics.
-Deploy the models on Amazon EC2 instances behind an Application Load Balancer (ALB) to perform A/B testing, then manually adjust the ALB weights when a model shows higher engagement.
-Create a separate Amazon SageMaker AI endpoint for each model and configure Amazon API Gateway to distribute traffic for A/B testing based on weighted routing rules.
-Use Amazon SageMaker AI multi-variant endpoints to deploy all model versions behind a single endpoint. Configure traffic weights for A/B testing and update routing to send all inference requests to the best-performing model once identified.
+[ ] Use AWS CodeDeploy with blue/green deployment strategies and an Application Load Balancer (ALB) to alternate traffic between model versions during A/B testing. Gradually route 100% of traffic to the model with the highest engagement metrics.
+
+[ ] Deploy the models on Amazon EC2 instances behind an Application Load Balancer (ALB) to perform A/B testing, then manually adjust the ALB weights when a model shows higher engagement.
+
+[ ] Create a separate Amazon SageMaker AI endpoint for each model and configure Amazon API Gateway to distribute traffic for A/B testing based on weighted routing rules.
+
+**[x] Use Amazon SageMaker AI multi-variant endpoints to deploy all model versions behind a single endpoint. Configure traffic weights for A/B testing and update routing to send all inference requests to the best-performing model once identified.**
+
+> Giải thích: 
+
+#### 1. Giải thích đáp án đúng
+
+Để đạt được hiệu quả vận hành cao nhất (**operationally efficient**) trong việc chạy A/B Testing cho các mô hình máy học, SageMaker cung cấp tính năng **Production Variants**:
+
+* **Single Endpoint, Multiple Variants:** SageMaker cho phép bạn triển khai nhiều mô hình (variants) đằng sau **duy nhất một Endpoint**. Điều này giúp đơn giản hóa việc quản lý cấu hình ở phía ứng dụng (Client chỉ cần gọi đến 1 URL duy nhất).
+* **Weighted Routing (Điều phối theo trọng số):** Bạn có thể dễ dàng cấu hình tỷ lệ traffic (ví dụ: Model A nhận 50%, Model B nhận 50%) thông qua tham số `InitialVariantWeight`.
+* **Seamless Transition (Chuyển đổi mượt mà):** Khi đã xác định được mô hình chiến thắng (ví dụ: Model B mang lại lượt click cao hơn), bạn chỉ cần cập nhật `DesiredWeight` của Model B lên 100% và Model A về 0% thông qua một lệnh API đơn giản (`UpdateEndpointWeightsAndCapacities`). Quá trình này diễn ra ngay lập tức mà không gây gián đoạn dịch vụ (zero downtime).
+* **Tích hợp giám sát:** Kết hợp với **Amazon CloudWatch**, bạn có thể theo dõi các số liệu như số lần gọi mô hình, độ trễ và lỗi cho từng variant riêng biệt.
+
+
+#### 2. Tại sao các phương án còn lại chưa tối ưu?
+
+* **Phương án 1 (CodeDeploy & ALB):** Đây là cách tiếp cận truyền thống cho ứng dụng web (Software Engineering). Việc áp dụng nó vào Model Inference thường phức tạp hơn vì bạn phải quản lý các nhóm Auto Scaling khác nhau cho từng model và cấu hình ALB thủ công. Nó không được tối ưu hóa cho vòng đời của một mô hình ML như SageMaker.
+* **Phương án 2 (EC2 & ALB):** Phương án này yêu cầu đội ngũ của Daziel phải tự quản lý hạ tầng (patching, scaling, cài đặt môi trường). Điều này vi phạm yêu cầu về "tính hiệu quả vận hành" vì SageMaker là dịch vụ Managed giúp giảm bớt các gánh nặng này.
+* **Phương án 3 (Separate Endpoints & API Gateway):** Việc tạo ra nhiều Endpoint riêng biệt sẽ làm tăng chi phí và độ phức tạp trong việc quản trị. Bạn sẽ phải viết thêm logic điều phối traffic bên trong API Gateway (hoặc Lambda), trong khi SageMaker đã có sẵn tính năng này ở cấp độ Endpoint.
+
+#### 3. Cẩm nang cho AI Developer
+
+1. **Metric Tracking:** Để biết model nào "best-performing", bạn cần kết hợp dữ liệu từ SageMaker (Inference logs) với dữ liệu từ ứng dụng (User clicks/Engagement) trong **Amazon S3** hoặc **DynamoDB** để phân tích.
+2. **Shadow Testing:** Một biến thể khác của A/B Testing là **Shadow Deployment**. Tại đây, traffic thật sẽ được gửi đến cả model cũ và model mới, nhưng chỉ kết quả của model cũ được trả về cho người dùng. Model mới chạy "ngầm" để bạn kiểm tra hiệu năng và độ chính xác trước khi cho nó tiếp nhận traffic thật.
+3. **SageMaker Inference Recommender:** Trước khi triển khai, hãy dùng tính năng này để biết nên chọn loại Instance nào (m5.large, g4dn, v.v.) tối ưu nhất về chi phí cho các variant của bạn.
 
 ---
 ### **Question 58:**
@@ -2332,11 +2531,35 @@ The AI engineering team wants the chatbot to retrieve precise answers from these
 
 Which solution provides the most effective and AWS-managed way to integrate proprietary document retrieval with an LLM for this RAG-based chatbot?
 
-Deploy Kendra as an independent search engine to index the documents in the S3 bucket. Configure the LLM to query Kendra’s search results directly for every user request.
-Configure a knowledge base in Bedrock. Add the S3 bucket as the connected data source, and utilize the Bedrock API to perform RAG queries that dynamically combine document retrieval with LLM generation.
-Fine-tune the LLM in Bedrock on the text extracted from the S3 bucket so that the model permanently learns the organization’s policies and eliminates the need for document retrieval.
-Use Kendra to extract document embeddings then store it manually in an Amazon DynamoDB table. Query the embeddings from a custom inference endpoint for every RAG request.
+[ ] Deploy Kendra as an independent search engine to index the documents in the S3 bucket. Configure the LLM to query Kendra’s search results directly for every user request.
 
+**[x] Configure a knowledge base in Bedrock. Add the S3 bucket as the connected data source, and utilize the Bedrock API to perform RAG queries that dynamically combine document retrieval with LLM generation.**
+
+[ ] Fine-tune the LLM in Bedrock on the text extracted from the S3 bucket so that the model permanently learns the organization’s policies and eliminates the need for document retrieval.
+
+[ ] Use Kendra to extract document embeddings then store it manually in an Amazon DynamoDB table. Query the embeddings from a custom inference endpoint for every RAG request.
+
+> Giải thích: 
+
+#### 1. Giải thích đáp án đúng
+
+Để xây dựng một chatbot dựa trên kiến trúc **RAG (Retrieval-Augmented Generation)** với nỗ lực quản lý hạ tầng thấp nhất trên AWS, **Knowledge Bases for Amazon Bedrock** là giải pháp tối ưu nhất hiện nay:
+
+* **Giải pháp Managed toàn diện:** Knowledge Bases (KB) tự động hóa toàn bộ quy trình RAG: từ việc trích xuất văn bản từ PDF trong S3, chia nhỏ văn bản (chunking), tạo vector embeddings cho đến việc lưu trữ chúng vào một vector database (như Amazon OpenSearch Serverless) mà bạn không cần tự tay lập trình từng bước.
+* **API `RetrieveAndGenerate`:** Bedrock cung cấp một API duy nhất cho phép bạn gửi câu hỏi của người dùng. Hệ thống sẽ tự động thực hiện việc truy xuất (retrieval) thông tin từ kho tài liệu và kết hợp với LLM để tạo ra câu trả lời (generation). Điều này giúp giảm thiểu tối đa "glue code" (mã kết nối) mà các kỹ sư phải viết.
+* **Tính chính xác và khả năng trích dẫn:** Vì là hệ thống RAG, chatbot sẽ trả lời dựa trên nội dung thực tế từ tài liệu tài chính của công ty thay vì "ảo tưởng" (hallucination), đồng thời có thể cung cấp nguồn trích dẫn (citations) để kiểm chứng.
+
+#### 2. Tại sao các phương án còn lại chưa tối ưu?
+
+* **Phương án 1 (Sử dụng Kendra độc lập):** Mặc dù Amazon Kendra là một bộ máy tìm kiếm doanh nghiệp rất mạnh, nhưng việc tích hợp nó với một LLM để tạo thành luồng RAG yêu cầu bạn phải tự viết code (ví dụ dùng Lambda) để lấy kết quả tìm kiếm từ Kendra rồi đưa vào prompt của LLM. Nó không phải là một giải pháp "tất cả trong một" như Bedrock Knowledge Bases.
+* **Phương án 3 (Fine-tuning LLM):** Việc tinh chỉnh (Fine-tuning) mô hình giúp mô hình học phong cách hoặc thuật ngữ chuyên ngành, nhưng **không phù hợp** để cập nhật kiến thức thực tế từ hàng ngàn tài liệu chính sách. Dữ liệu trong mô hình sẽ nhanh chóng bị lỗi thời và mô hình không thể trích dẫn nguồn cụ thể khi trả lời.
+* **Phương án 4 (Lưu embeddings thủ công vào DynamoDB):** Đây là phương án tốn rất nhiều công sức (High overhead). DynamoDB không phải là cơ sở dữ liệu vector tối ưu cho việc tìm kiếm tương đồng (similarity search). Việc tự quản lý quy trình tạo embedding và endpoint suy luận tùy chỉnh đi ngược lại tiêu chí "minimal infrastructure overhead".
+
+#### 3. Cẩm nang cho AI Developer
+
+1. **Định dạng tài liệu:** Bedrock Knowledge Bases hỗ trợ tốt PDF, nhưng hãy đảm bảo văn bản trong PDF có thể trích xuất được (không phải dạng ảnh quét chưa qua OCR). Nếu là ảnh quét, bạn có thể cần **Amazon Textract** hỗ trợ trước.
+2. **Vector Store:** Khi tạo Knowledge Base, AWS cho phép bạn chọn "Quick create" để tự động tạo một máy chủ **Amazon OpenSearch Serverless**, giúp bạn hoàn toàn không phải quản lý server.
+3. **Chi phí:** RAG thường tiết kiệm hơn nhiều so với Fine-tuning vì bạn không tốn chi phí huấn luyện lại mô hình mỗi khi chính sách tài chính thay đổi. Bạn chỉ cần cập nhật file trong S3 và nhấn nút "Sync" trên Bedrock.
 
 ---
 ### **Question 59:**
@@ -2348,11 +2571,29 @@ The company needs a solution that automates data extraction and preparation from
 
 Which is the best option to achieve this requirement?
 
-Use AWS Glue DataBrew to extract the data from PostgreSQL, clean and normalize the dataset, and write the prepared data back into Amazon S3. Import the cleaned dataset into Amazon SageMaker Canvas to build a no-code churn-prediction model and generate predictions for business analysts.
-Use AWS Glue DataBrew to prepare and clean the data from the PostgreSQL database. Use Amazon SageMaker Studio to build, train, and deploy a custom churn-prediction model using a notebook-based workflow for data scientists.
-Use AWS Glue DataBrew to extract the data and build the churn-prediction model directly within DataBrew. Generate predictions that are written into Amazon Redshift.
-Use AWS Database Migration Service (AWS DMS) to replicate data from the PostgreSQL database into Amazon S3 continuously. Use AWS Glue DataBrew to clean and normalize the replicated dataset before importing it into Amazon SageMaker Canvas to build and deploy the churn-prediction model.
+**[x] Use AWS Glue DataBrew to extract the data from PostgreSQL, clean and normalize the dataset, and write the prepared data back into Amazon S3. Import the cleaned dataset into Amazon SageMaker Canvas to build a no-code churn-prediction model and generate predictions for business analysts.**
 
+[ ] Use AWS Glue DataBrew to prepare and clean the data from the PostgreSQL database. Use Amazon SageMaker Studio to build, train, and deploy a custom churn-prediction model using a notebook-based workflow for data scientists.
+
+[ ] Use AWS Glue DataBrew to extract the data and build the churn-prediction model directly within DataBrew. Generate predictions that are written into Amazon Redshift.
+
+[ ] Use AWS Database Migration Service (AWS DMS) to replicate data from the PostgreSQL database into Amazon S3 continuously. Use AWS Glue DataBrew to clean and normalize the replicated dataset before importing it into Amazon SageMaker Canvas to build and deploy the churn-prediction model.
+
+> Giải thích: 
+
+#### 1. Giải thích đáp án đúng
+
+Yêu cầu cốt lõi của bài toán là xây dựng một quy trình từ xử lý dữ liệu đến dự đoán một cách tự động, nhưng phải đảm bảo yếu tố **"no-code"** để các nhà phân tích (analysts) có thể tự thực hiện mà không cần sự hỗ trợ của các nhà khoa học dữ liệu (data scientists).
+
+* **AWS Glue DataBrew:** Đây là công cụ chuẩn bị dữ liệu hình ảnh (visual data preparation tool) cho phép làm sạch và chuẩn hóa dữ liệu từ các nguồn như PostgreSQL mà không cần viết code. Nó hoàn hảo cho việc xử lý các giá trị bị thiếu (missing values) và chuẩn hóa dữ liệu (normalization) thông qua hơn 250 phép biến đổi có sẵn.
+* **Amazon SageMaker Canvas:** Đây là giải pháp **no-code** then chốt. Canvas cho phép người dùng nghiệp vụ tải dữ liệu từ S3, tự động chọn thuật toán tốt nhất (như AutoML bên dưới) để huấn luyện mô hình dự đoán churn (khách hàng rời bỏ) và tạo ra các dự đoán chỉ bằng các thao tác kéo thả.
+* **Workflow tối ưu:** Sự kết hợp giữa DataBrew (để làm sạch) và Canvas (để dự báo) tạo thành một pipeline hoàn chỉnh cho Business Analysts, giúp họ tự chủ hoàn toàn trong việc đưa ra các chiến lược giữ chân khách hàng (retention strategies).
+
+#### 2. Tại sao các phương án còn lại chưa phù hợp?
+
+* **Phương án 2 (SageMaker Studio):** SageMaker Studio là một môi trường IDE chuyên sâu dành cho **Data Scientists** và yêu cầu kỹ năng lập trình (notebook-based workflow). Điều này vi phạm yêu cầu của đề bài là "without support from data scientists" và "no-code".
+* **Phương án 3 (Build model in DataBrew):** AWS Glue DataBrew là công cụ để **chuẩn bị dữ liệu**, nó không có tính năng xây dựng và huấn luyện các mô hình Machine Learning chuyên sâu như churn prediction.
+* **Phương án 4 (AWS DMS):** AWS DMS (Database Migration Service) chủ yếu được dùng để di chuyển hoặc sao chép cơ sở dữ liệu. Mặc dù nó có thể đẩy dữ liệu vào S3, nhưng việc thiết lập và quản lý DMS thường phức tạp hơn so với việc dùng Glue DataBrew kết nối trực tiếp để trích xuất và biến đổi dữ liệu cho mục đích phân tích. Hơn nữa, Glue DataBrew được thiết kế chuyên biệt cho việc "cleaning and normalization" mà đề bài yêu cầu.
 
 ---
 ### **Question 60:**
@@ -2364,12 +2605,39 @@ The AI developer wants to make the model available to the data specialist team t
 
 Which combination of steps must be taken for the AI developer to enable SageMaker Canvas access to the model? (Select TWO.)
 
-The AI developer must register the model in the SageMaker Model Registry to enable the data specialist team's access via SageMaker Canvas.
-The AI developer must convert the model into a TensorFlow or PyTorch format for SageMaker Canvas compatibility.
-The data specialist team must create a shared workspace within SageMaker Canvas that allows both the AI developer and data specialists to access the model.
-The AI developer is required to set up a SageMaker endpoint for the model.
-The data specialist team must be granted the necessary permissions to access the S3 bucket where the model artifacts are stored.
+**[x] The AI developer must register the model in the SageMaker Model Registry to enable the data specialist team's access via SageMaker Canvas.**
 
+[ ] The AI developer must convert the model into a TensorFlow or PyTorch format for SageMaker Canvas compatibility.
+
+[ ] The data specialist team must create a shared workspace within SageMaker Canvas that allows both the AI developer and data specialists to access the model.
+
+**[x] The AI developer is required to set up a SageMaker endpoint for the model.**
+
+[ ] The data specialist team must be granted the necessary permissions to access the S3 bucket where the model artifacts are stored.
+
+> Giải thích: 
+
+#### 1. Giải thích các đáp án đúng
+
+Để một mô hình được huấn luyện bên ngoài (custom model) có thể xuất hiện và sử dụng được trong giao diện No-code của **SageMaker Canvas**, nó cần được "chính thức hóa" trong quản trị của SageMaker thông qua hai bước then chốt:
+
+* **SageMaker Model Registry:** Đây là trung tâm quản lý vòng đời mô hình. Khi bạn đăng ký mô hình (đã huấn luyện và lưu trong S3) vào Registry, bạn đang tạo ra một "phiên bản mô hình" mà SageMaker có thể hiểu và quản lý. Canvas sử dụng Model Registry làm kho chứa (repository) để người dùng No-code có thể chọn và thực hiện các tác vụ như tạo dự đoán hoặc kiểm thử.
+* **SageMaker Endpoint:** Để SageMaker Canvas có thể thực hiện các tác vụ sinh văn bản (text-generation) và cho phép các Data Specialist tương tác trực tiếp, mô hình cần phải có "sức mạnh tính toán" đứng sau. Việc tạo một Endpoint (Real-time) cung cấp một địa chỉ API để Canvas gửi yêu cầu và nhận phản hồi từ LLM của bạn một cách liên tục.
+
+#### 2. Tại sao các phương án còn lại chưa chính xác?
+
+* **Convert sang TensorFlow/PyTorch:** Mặc dù SageMaker hỗ trợ tốt các framework này, nhưng Canvas có khả năng làm việc với nhiều loại model artifacts khác nhau miễn là chúng được đóng gói đúng cách trong container. Việc chuyển đổi định dạng không phải là điều kiện tiên quyết để "enable access" trong Canvas.
+* **Shared workspace trong Canvas:** Canvas hỗ trợ cộng tác, nhưng việc "chia sẻ không gian làm việc" chỉ là về mặt quản lý giao diện người dùng, không giúp mô hình tự động xuất hiện nếu nó chưa được đăng ký trong hệ thống.
+* **Cấp quyền S3 cho Data Specialist:** Mặc dù quyền truy cập dữ liệu là cần thiết, nhưng trong kiến trúc SageMaker, các dịch vụ (như Canvas hoặc Endpoint) sẽ đóng vai trò truy cập S3 thông qua **IAM Execution Role** được gán cho dịch vụ. Data Specialist truy cập mô hình thông qua giao diện Canvas chứ không truy cập trực tiếp vào các file artifacts thô trong S3.
+
+#### 3. Notes cho AI Developer (Daziel)
+
+Là một AI Developer tại AWS, bạn sẽ đóng vai trò là người "mở đường" cho các phòng ban khác. Quy trình chuẩn để bạn đưa một model "xịn" của mình cho team Business dùng sẽ là:
+
+1. **Package:** Đóng gói model và mã suy luận (inference code) vào Docker container.
+2. **Register:** Đưa vào **SageMaker Model Registry** để quản lý phiên bản.
+3. **Deploy:** Tạo **SageMaker Endpoint** để sẵn sàng phục vụ.
+4. **Canvas Integration:** Lúc này, team Data Specialist chỉ cần mở Canvas, vào phần "Models" -> "Custom models" và họ sẽ thấy mô hình của bạn sẵn sàng để "Chat" hoặc dự đoán.
 
 ---
 ### **Question 61:**
