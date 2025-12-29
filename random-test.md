@@ -2649,13 +2649,30 @@ The AI development team aims to improve the model’s performance by applying tr
 
 Which approach will correctly initialize the BERT model to achieve this requirement?
 
-Initialize the model with pretrained weights, convert the output layer into a multi-task classifier that predicts multiple text classes beyond spam detection, and train this classifier using the labeled dataset.
-Apply pretrained model parameters across all layers, then discard the existing final layer. Introduce a custom classifier and train it using the labeled data for spam detection.
-Load the pretrained model weights for every layer and place an external classifier on top of the primary model output vector. Train the newly added classifier with the labeled dataset.
-Use the pretrained model weights for all transformer layers and attach a second classifier layer in parallel with the existing output layer. Train only this additional classifier using the labeled dataset.
+[ ] Initialize the model with pretrained weights, convert the output layer into a multi-task classifier that predicts multiple text classes beyond spam detection, and train this classifier using the labeled dataset.
 
+**[x] Apply pretrained model parameters across all layers, then discard the existing final layer. Introduce a custom classifier and train it using the labeled data for spam detection.**
 
+[ ] Load the pretrained model weights for every layer and place an external classifier on top of the primary model output vector. Train the newly added classifier with the labeled dataset.
 
+[ ] Use the pretrained model weights for all transformer layers and attach a second classifier layer in parallel with the existing output layer. Train only this additional classifier using the labeled dataset.
+
+> Giải thích:
+
+#### 1. Giải thích đáp án đúng
+
+Quy trình này mô tả chính xác kỹ thuật **Transfer Learning** (Học chuyển giao) cho các mô hình Transformer như BERT:
+
+* **Giữ lại "Tri thức" (Pre-trained weights):** BERT đã được huấn luyện trên hàng tỷ câu văn (Wikipedia, BooksCorpus) để hiểu ngữ pháp, ngữ cảnh và ý nghĩa ngôn ngữ. Chúng ta tải toàn bộ trọng số (parameters) này vào các lớp Transformer của mô hình.
+* **Thay thế "Cái đầu" (Classifier head):** Lớp cuối cùng nguyên bản của BERT được thiết kế cho các tác vụ lúc huấn luyện ban đầu (như dự đoán từ bị che - Masked LM). Đối với bài toán lọc email, tác vụ này không còn phù hợp. Do đó, chúng ta **loại bỏ (discard)** lớp cuối này.
+* **Thêm lớp phân loại tùy chỉnh:** Chúng ta thêm một lớp **Dense/Linear layer** mới với số đầu ra tương ứng với bài toán (ở đây là 2: "spam" và "not spam").
+* **Fine-tuning (Tinh chỉnh):** Sau khi khởi tạo, chúng ta huấn luyện lại mô hình trên tập dữ liệu email. Lúc này, các lớp BERT phía dưới sẽ được điều chỉnh nhẹ, còn lớp classifier mới sẽ được học cách ánh xạ các đặc trưng ngôn ngữ vào nhãn "spam" một cách chính xác.
+
+#### 2. Tại sao các phương án còn lại chưa chính xác?
+
+* **Phương án 1 (Multi-task classifier):** Việc biến đầu ra thành một bộ phân loại đa nhiệm (multi-task) là không cần thiết và làm phức tạp hóa mô hình. Mục tiêu của chúng ta chỉ là nhận diện spam, thêm các lớp dự đoán khác sẽ làm loãng quá trình học của mô hình trên tập dữ liệu nhỏ.
+* **Phương án 3 (External classifier on top of output vector):** Phương án này nghe có vẻ đúng nhưng thường dùng để mô tả kỹ thuật **Feature Extraction** (đóng băng hoàn toàn BERT và chỉ dùng nó như một bộ trích xuất đặc trưng tĩnh). Trong khi đó, đề bài yêu cầu "fine-tune" (tinh chỉnh), nghĩa là các trọng số của BERT cũng cần được tham gia vào quá trình cập nhật.
+* **Phương án 4 (Parallel classifier):** Việc gắn thêm một lớp song song với lớp cũ là sai cấu trúc. Luồng dữ liệu trong mạng neural cần đi theo một trình tự logic đến kết quả cuối cùng. Lớp cũ không còn giá trị nên việc giữ nó chạy song song chỉ gây lãng phí tính toán.
 
 ---
 ### **Question 62:**
