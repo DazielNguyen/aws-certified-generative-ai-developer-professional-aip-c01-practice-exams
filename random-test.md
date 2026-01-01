@@ -2677,7 +2677,6 @@ Quy trình này mô tả chính xác kỹ thuật **Transfer Learning** (Học c
 ---
 ### **Question 62:**
 
-
 Category: AIP – Operational Efficiency and Optimization for Generative AI Applications
 A global e-commerce platform utilizes Amazon SageMaker AI to implement a real-time recommendation system that provides personalized product suggestions. The model is developed using SageMaker Studio. Once trained, the model is hosted on a SageMaker endpoint, enabling it to deliver inferences in real time. Additionally, the company employs Amazon Comprehend to analyze customer feedback and sentiment derived from reviews and product ratings. This analysis helps the company better understand customer preferences and enhance its recommendations.
 
@@ -2685,16 +2684,40 @@ As the business prepares for major sales events, the operations team observes th
 
 Which solution will best optimize the scaling of the SageMaker inference endpoint?
 
-Use AWS Lambda to periodically restart the SageMaker endpoint during peak traffic to refresh instance performance.
-Configure a scheduled scaling policy to increase the capacity of the SageMaker inference endpoint before the sales events begin.
-Implement a step scaling policy for the SageMaker inference endpoint that scales based on resource utilization metrics such as CPU and memory usage.
-Increase the instance size of the SageMaker endpoint to a larger instance type to accommodate higher traffic during sales events.
+[ ] Use AWS Lambda to periodically restart the SageMaker endpoint during peak traffic to refresh instance performance.
 
+**[x] Configure a scheduled scaling policy to increase the capacity of the SageMaker inference endpoint before the sales events begin.**
 
+[ ] Implement a step scaling policy for the SageMaker inference endpoint that scales based on resource utilization metrics such as CPU and memory usage.
+
+[ ] Increase the instance size of the SageMaker endpoint to a larger instance type to accommodate higher traffic during sales events.
+
+> Giải thích 
+
+#### 1. Giải thích đáp án đúng
+
+Trong các sự kiện bán hàng lớn (như Black Friday, Cyber Monday hay các ngày lễ), lưu lượng truy cập thường tăng đột ngột theo một thời gian biểu đã biết trước.
+
+* **Scheduled Scaling (Lập lịch mở rộng):** Đây là giải pháp tối ưu nhất khi bạn **biết chính xác thời điểm** traffic sẽ tăng cao. Việc cấu hình chính sách này giúp SageMaker tự động tăng số lượng instance cho endpoint **trước khi** sự kiện bắt đầu.
+* **Khắc phục độ trễ khởi động:** Các chính sách dựa trên metrics (như Target Tracking hay Step Scaling) thường có một khoảng thời gian trễ (lag) vì hệ thống cần thời gian để phát hiện traffic tăng, sau đó mới kích hoạt và khởi tạo các instance mới. Với các sự kiện bán hàng lớn, sự chậm trễ này có thể làm khách hàng rời đi ngay lập tức. Scheduled Scaling giúp hệ thống luôn ở trạng thái "sẵn sàng chiến đấu" ngay tại thời điểm mở bán.
+* **Duy trì SLA:** Bằng cách chủ động tăng công suất, bạn đảm bảo độ trễ (latency) luôn ở mức thấp nhất, đáp ứng yêu cầu về trải nghiệm người dùng mà đề bài đặt ra.
+
+#### 2. Tại sao các phương án còn lại chưa tối ưu?
+
+* **Phương án 1 (Sử dụng Lambda để restart):** Việc khởi động lại endpoint trong lúc cao điểm là một "thảm họa" vận hành. Nó sẽ gây ra gián đoạn dịch vụ (downtime) hoàn toàn trong vài phút và không giải quyết được vấn đề thiếu hụt tài nguyên tính toán.
+* **Phương án 3 (Step scaling based on CPU/Memory):** Step scaling phản ứng dựa trên các ngưỡng (thresholds). Tuy nhiên, đối với SageMaker, metric quan trọng nhất để scaling thường là `InvocationsPerInstance` (Số lượng yêu cầu trên mỗi instance) thay vì CPU. Ngoài ra, như đã nói, chính sách này mang tính **phản ứng (reactive)** nên vẫn sẽ có một khoảng thời gian người dùng bị chậm khi traffic tăng vọt.
+* **Phương án 4 (Tăng kích thước Instance):** Việc đổi sang instance lớn hơn (Vertical Scaling) có thể giúp xử lý nhiều request hơn trên một máy, nhưng nó thiếu tính linh hoạt. Nếu lượng request vượt quá khả năng của cả instance lớn nhất đó, hệ thống vẫn sẽ bị nghẽn. Scaling theo chiều ngang (Horizontal Scaling - tăng số lượng máy) thông qua chính sách tự động luôn là lựa chọn bền vững hơn trên AWS.
+
+#### 3. Cẩm nang cho AI Developer
+
+Khi làm việc với **SageMaker Inference Auto Scaling**, bạn nên nắm vững 3 loại chính sách sau:
+
+1. **Target Tracking:** Phổ biến nhất. Bạn đặt một mục tiêu (ví dụ: luôn giữ mức 100 requests/phút/instance). SageMaker sẽ tự động thêm/bớt instance để bám sát mục tiêu này.
+2. **Step Scaling:** Bạn định nghĩa các bước (ví dụ: nếu CPU > 70% thì thêm 2 máy, nếu > 90% thì thêm 5 máy).
+3. **Scheduled Scaling:** Dùng cho các sự kiện biết trước thời gian (như trong câu hỏi này).
 
 ---
 ### **Question 63:**
-
 
 Category: AIP – Operational Efficiency and Optimization for Generative AI Applications
 A data science team is developing an automated pipeline that integrates Amazon SageMaker AI and Amazon Comprehend to analyze large volumes of customer feedback data. The team first uses a PySpark script to perform text preprocessing, tokenization, and feature engineering on millions of feedback records stored in Amazon S3. The preprocessed data is then passed to Comprehend for sentiment and entity extraction, and subsequently used to train multiple sentiment classification models in SageMaker AI.
@@ -2703,13 +2726,39 @@ The AI developer must determine how varying the PySpark feature transformation p
 
 Which solution will meet this requirement most effectively?
 
-Use SageMaker Experiments tracker to log PySpark parameters and model metrics while executing the script as a SageMaker processing job.
-Use SageMaker Autopilot to automatically choose the best PySpark preprocessing configuration and feature-engineering parameters for model optimization.
-Use SageMaker Debugger hook to capture feature engineering metrics and execution logs during PySpark script execution within a SageMaker training job.
-Use SageMaker Model Monitor to detect differences in PySpark data transformation parameters before each training iteration.
+**[x] Use SageMaker Experiments tracker to log PySpark parameters and model metrics while executing the script as a SageMaker processing job.**
 
+[ ] Use SageMaker Autopilot to automatically choose the best PySpark preprocessing configuration and feature-engineering parameters for model optimization.
 
+[ ] Use SageMaker Debugger hook to capture feature engineering metrics and execution logs during PySpark script execution within a SageMaker training job.
 
+[ ] Use SageMaker Model Monitor to detect differences in PySpark data transformation parameters before each training iteration.
+
+> Giải thích: 
+
+#### 1. Giải thích đáp án đúng
+
+Để so sánh hiệu quả của các cấu hình khác nhau (ví dụ: thay đổi thông số PySpark hay kích thước mẫu) đối với độ chính xác của mô hình, bạn cần một hệ thống quản lý lịch sử và so sánh các lần chạy (**Trial Management**).
+
+* **SageMaker Experiments:** Đây là tính năng được thiết kế riêng để theo dõi, tổ chức, so sánh và đánh giá các lần lặp lại (iterations) của ML. Nó cho phép bạn ghi lại (log) các tham số đầu vào (parameters), chỉ số đầu ra (metrics) và các tạo vật (artifacts) như dữ liệu đã xử lý.
+* **SageMaker Processing Job:** Đây là môi trường lý tưởng để chạy các script PySpark trên quy mô lớn. Bằng cách tích hợp Experiments vào trong Processing Job, AI Developer có thể theo dõi xem cấu hình tiền xử lý cụ thể nào dẫn đến kết quả mô hình tốt nhất.
+* **Khả năng so sánh:** Bạn có thể dễ dàng sử dụng Studio để trực quan hóa và so sánh hàng chục lần chạy khác nhau, giúp xác định điểm cân bằng giữa độ phức tạp của tính năng và hiệu năng suy luận (inference performance).
+
+#### 2. Tại sao các phương án còn lại chưa tối ưu?
+
+* **Phương án 2 (SageMaker Autopilot):** Autopilot là một công cụ AutoML giúp tự động hóa việc chọn model và tiền xử lý cơ bản. Tuy nhiên, nó không được thiết kế để "developer chủ động thay đổi tham số PySpark tùy chỉnh" để nghiên cứu ảnh hưởng của chúng như yêu cầu của đề bài. Autopilot là một chiếc "hộp đen" hơn là một công cụ quản lý thí nghiệm.
+* **Phương án 3 (SageMaker Debugger):** Debugger tập trung vào việc giám sát các chỉ số phần cứng (CPU/GPU) và các lỗi trong quá trình **huấn luyện (training)** (như vanishing gradient). Nó không phải là công cụ chính để theo dõi các tham số logic từ script tiền xử lý (Processing).
+* **Phương án 4 (SageMaker Model Monitor):** Công cụ này dùng để phát hiện **Data Drift** (lệch dữ liệu) và **Bias** sau khi mô hình đã được triển khai (post-deployment). Nó không dùng để theo dõi sự biến thiên của tham số trong giai đoạn phát triển và huấn luyện.
+
+#### 3. Cẩm nang cho AI Developer
+
+Việc sử dụng Experiment Tracking sẽ giúp bạn không bị "lạc" giữa hàng chục phiên bản code. Hãy nhớ cấu trúc 3 cấp độ của nó:
+
+1. **Experiment:** Nhóm các công việc có cùng mục tiêu (ví dụ: "Dự đoán Churn cho Vicobi").
+2. **Trial:** Một lần chạy cụ thể trong Experiment đó.
+3. **Trial Component:** Các bước nhỏ trong một Trial (ví dụ: bước tiền xử lý PySpark, bước huấn luyện model).
+
+**Kinh nghiệm thực tế:** Bạn có thể sử dụng thư viện `sagemaker-experiments` trong Python để log trực tiếp các giá trị như `learning_rate` hay `pyspark_token_count` bằng cách dùng hàm `tracker.log_parameter()`.
 
 ---
 ### **Question 64:**
@@ -2723,15 +2772,39 @@ The engineer wants to improve I/O performance during training without modifying 
 
 Which action should the engineer take to optimize training performance most efficiently?
 
-Increase the instance size of the EC2 On-Demand Instance to a larger GPU type for higher throughput.
-Set the SageMaker training job to Pipe mode instead of File mode to enhance training throughput.
-Change the SageMaker training job’s data input configuration to FastFile mode to stream data directly from S3 without other changes.
-Use Rekognition Custom Labels to optimize image access and retrain the model.
+[ ] Increase the instance size of the EC2 On-Demand Instance to a larger GPU type for higher throughput.
 
+[ ] Set the SageMaker training job to Pipe mode instead of File mode to enhance training throughput.
 
+**[x] Change the SageMaker training job’s data input configuration to FastFile mode to stream data directly from S3 without other changes.**
 
+[ ] Use Rekognition Custom Labels to optimize image access and retrain the model.
 
+> Giải thích: 
 
+#### 1. Giải thích đáp án đúng
+
+Vấn đề mà kỹ sư đang gặp phải là **độ trễ khi đọc dữ liệu (I/O bottleneck)**. Khi sử dụng **File mode**, SageMaker phải tải toàn bộ hàng triệu hình ảnh từ S3 về đĩa cục bộ (EBS) của máy chủ huấn luyện trước khi quá trình học có thể bắt đầu. Với hàng triệu ảnh độ phân giải cao, việc này mất rất nhiều thời gian "chết".
+
+* **FastFile mode (Sự lựa chọn tối ưu):** Được giới thiệu để kết hợp ưu điểm của cả File mode và Pipe mode.
+* **Không cần sửa code:** Điểm quan trọng nhất là bạn **không cần sửa đổi script huấn luyện**. Mã nguồn vẫn thấy dữ liệu nằm trong thư mục `/opt/ml/input/data/...` như thể nó đã được tải về đĩa.
+* **Truy cập tức thì (No startup latency):** Thay vì tải về, FastFile ánh xạ các đối tượng S3 trực tiếp vào hệ thống tệp POSIX. Dữ liệu được stream (truyền tải) ngay khi mô hình cần đọc, giúp quá trình huấn luyện bắt đầu gần như ngay lập tức.
+* **Hiệu năng cao:** Nó cung cấp băng thông tương đương Pipe mode nhưng dễ triển khai hơn nhiều.
+
+#### 2. Tại sao các phương án còn lại chưa chính xác?
+
+* **Tăng kích thước Instance:** Việc đổi sang GPU lớn hơn chỉ giúp tăng tốc độ tính toán (compute). Nếu "nút thắt cổ chai" nằm ở việc đọc dữ liệu từ S3 (I/O), thì GPU dù mạnh đến đâu cũng sẽ phải ngồi chờ dữ liệu, dẫn đến chỉ số GPU Utilization thấp và lãng phí chi phí.
+* **Pipe mode:** Mặc dù Pipe mode giúp truyền tải dữ liệu hiệu quả, nhưng nó yêu cầu bạn phải **thay đổi script huấn luyện** để đọc dữ liệu từ một "Linux FIFO pipe" thay vì đọc file trực tiếp. Điều này vi phạm ràng buộc "without modifying... data preprocessing scripts" của đề bài.
+* **Rekognition Custom Labels:** Đây là một dịch vụ cấp cao (high-level) hơn. Việc chuyển sang dùng Custom Labels đòi hỏi bạn phải thay đổi hoàn toàn hạ tầng và quy trình huấn luyện, không phải là một cách tối ưu hóa "hiệu quả nhất" (most efficient) cho một job SageMaker hiện có.
+
+#### 3. Cẩm nang cho AI Developer 
+
+Khi làm việc với các bộ dữ liệu hình ảnh (Vision tasks) trên AWS, hãy ghi nhớ quy tắc chọn **Input Mode** sau đây:
+
+1. **File Mode:** Chỉ dùng khi tập dữ liệu nhỏ (vài GB) và có thể chứa vừa trong đĩa cứng của instance.
+2. **Pipe Mode:** Dùng khi dữ liệu rất lớn và bạn sẵn sàng viết lại code để tối ưu hóa triệt để.
+3. **FastFile Mode (Khuyên dùng):** Dùng cho dữ liệu lớn (hàng trăm GB đến TB) và bạn muốn giữ nguyên mã nguồn hiện có.
+4. **FSx for Lustre:** Dùng khi bạn cần tốc độ truy xuất cực cao và sẽ chạy job huấn luyện nhiều lần trên cùng một tập dữ liệu.
 
 ---
 ### **Question 65:**
@@ -2742,18 +2815,44 @@ A global e-commerce company has deployed a customer service chatbot powered by A
 
 Which approach should satisfy the requirement?
 
-Configure Bedrock with a cross-region inference profile tied to the US geography and use Amazon Comprehend to analyze and categorize customer queries before routing the inference request, ensuring that only relevant queries are processed for improved throughput.
-Implement a cross-region inference profile tied to the US geography and route requests to destination Regions within the US. Utilize SageMaker AI to handle model inference at peak times by enabling Provisioned Throughput, ensuring consistent performance during traffic bursts.
-Use Bedrock with a global cross-region inference profile, allowing the system to route requests to the best-performing AWS Regions worldwide, increasing throughput and enhancing model performance. Use Amazon Kendra for query-based search to enhance user experience and ensure relevant responses.
-Use Bedrock with a cross-region inference profile tied to the US geography, ensuring that requests from US Regions are routed to the optimal destination Regions within the US, while ensuring that input prompts and output results remain encrypted during transmission across Regions. Additionally, use AWS Step Functions to manage traffic bursts and ensure that service quotas are not exceeded.
+[ ] Configure Bedrock with a cross-region inference profile tied to the US geography and use Amazon Comprehend to analyze and categorize customer queries before routing the inference request, ensuring that only relevant queries are processed for improved throughput.
+
+[ ] Implement a cross-region inference profile tied to the US geography and route requests to destination Regions within the US. Utilize SageMaker AI to handle model inference at peak times by enabling Provisioned Throughput, ensuring consistent performance during traffic bursts.
+
+[ ] Use Bedrock with a global cross-region inference profile, allowing the system to route requests to the best-performing AWS Regions worldwide, increasing throughput and enhancing model performance. Use Amazon Kendra for query-based search to enhance user experience and ensure relevant responses.
+
+**[x] Use Bedrock with a cross-region inference profile tied to the US geography, ensuring that requests from US Regions are routed to the optimal destination Regions within the US, while ensuring that input prompts and output results remain encrypted during transmission across Regions. Additionally, use AWS Step Functions to manage traffic bursts and ensure that service quotas are not exceeded.**
+
+> Giải thích: 
+
+#### 1. Giải thích đáp án đúng
+
+Câu hỏi này yêu cầu một giải pháp vừa đảm bảo tính tuân thủ (compliance) về vị trí địa lý của dữ liệu, vừa đảm bảo tính bảo mật và khả năng mở rộng (scalability) khi lưu lượng truy cập thay đổi đột ngột.
+
+* **Amazon Bedrock Cross-Region Inference (CRI):** Đây là tính năng cho phép bạn phân phối lưu lượng dự đoán (inference traffic) qua nhiều vùng (Regions) khác nhau của AWS.
+* **Data Residency (US Geography):** Khi sử dụng một profile gắn với khu vực "US" (ví dụ: `us.anthropic.claude-3-sonnet-20240229-v1:0`), Amazon Bedrock chỉ định tuyến yêu cầu đến các Region nằm trong lãnh thổ Hoa Kỳ. Điều này đảm bảo dữ liệu đầu vào và kết quả đầu ra không bao giờ rời khỏi ranh giới địa lý đã định, đáp ứng các yêu cầu khắt khe về tuân thủ.
+* **Tối ưu hóa throughput:** CRI giúp vượt qua giới hạn về hạn ngạch (quotas) của một Region đơn lẻ bằng cách tận dụng tài nguyên nhàn rỗi ở các Region khác trong cùng một geography.
 
 
+* **Encryption (Mã hóa):** AWS tự động mã hóa dữ liệu khi di chuyển giữa các Region (Data in transit) bằng TLS, đảm bảo tính bảo mật theo yêu cầu của công ty.
+* **AWS Step Functions:** Đây là công cụ điều phối (orchestration) tuyệt vời. Khi gặp các đợt traffic cực lớn (bursts), Step Functions có thể quản lý logic thử lại (retry logic), kiểm soát tốc độ (throttling) và đảm bảo các yêu cầu không làm vượt quá hạn ngạch dịch vụ (service quotas), giúp hệ thống duy trì tính phản hồi và ổn định.
 
+#### 2. Tại sao các phương án còn lại chưa tối ưu?
 
+* **Phương án 1 (Sử dụng Amazon Comprehend):** Comprehend dùng để phân loại văn bản, nó không giúp giải quyết vấn đề về hạn ngạch (quotas) hay khả năng đáp ứng khi traffic tăng vọt. Nó chỉ thêm một lớp xử lý làm tăng độ trễ chứ không tối ưu hóa hạ tầng cho việc suy luận (inference).
+* **Phương án 2 (SageMaker Provisioned Throughput):** Mặc dù Provisioned Throughput đảm bảo hiệu suất ổn định, nhưng đề bài nêu rõ chatbot được chạy bằng **Amazon Bedrock**. Các tính năng Provisioned Throughput của SageMaker không trực tiếp áp dụng cho việc quản lý model trên Bedrock trong kịch bản này. Ngoài ra, nó không linh hoạt bằng việc dùng CRI để xử lý burst traffic một cách tự động.
+* **Phương án 3 (Global cross-region profile):** Phương án này vi phạm trực tiếp yêu cầu **"Data remaining within the designated geography (the US)"**. Một profile "global" sẽ gửi dữ liệu đến bất kỳ Region nào trên thế giới có khả năng xử lý tốt nhất (ví dụ: Tokyo hoặc Frankfurt), dẫn đến vi phạm quy định về lưu trú dữ liệu.
+
+#### 3. Cẩm nang cho AI Developer
+
+Bạn nên lưu ý các khái niệm sau về Bedrock CRI:
+
+* **Inference Profile ID:** Bạn không cần thay đổi code nhiều, chỉ cần đổi Model ID truyền thống (ví dụ: `anthropic.claude-3-sonnet...`) thành Inference Profile ID (bắt đầu bằng mã geography như `us.anthropic...`).
+* **Quotas (Hạn ngạch):** CRI mang lại cho bạn giới hạn **Minute Rate Limit (MRL)** và **Token Rate Limit (TRL)** cao hơn nhiều so với việc chỉ dùng một Region duy nhất.
+* **Monitoring:** Bạn vẫn có thể theo dõi chi tiết hiệu suất qua Amazon CloudWatch, nhưng metrics sẽ được gom tụ lại theo profile thay vì theo từng Region riêng lẻ.
 
 ---
 ### **Question 66:**
-
 
 Category: AIP – Implementation and Integration
 A financial technology company manages a large-scale payment platform that processes millions of transactions daily. The company uses Amazon Comprehend to analyze unstructured text data from customer reviews and support tickets to identify sentiment trends and potential user disputes. Amazon SageMaker AI is also used to generate periodic behavior-based risk scores for customer accounts.
